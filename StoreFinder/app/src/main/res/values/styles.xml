@@ -1,0 +1,38 @@
+<resources>
+
+    <!-- Purple theme -->
+    <style name="AppTheme.Purple" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary_purple</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark_purple</item>
+        <item name="colorAccent">@color/colorAccent_purple</item>
+    </style>
+
+    <!-- Blue theme -->
+    <style name="AppTheme.Blue" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary_blue</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark_blue</item>
+        <item name="colorAccent">@color/colorAccent_blue</item>
+    </style>
+
+    <!-- Green theme -->
+    <style name="AppTheme.Green" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary_green</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark_green</item>
+        <item name="colorAccent">@color/colorAccent_green</item>
+    </style>
+
+    <!-- Neutral theme -->
+    <style name="AppTheme.Neutral" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary_neutral</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark_neutral</item>
+        <item name="colorAccent">@color/colorAccent_neutral</item>
+    </style>
+
+    <!-- Gray theme -->
+    <style name="AppTheme.Gray" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary_gray</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark_gray</item>
+        <item name="colorAccent">@color/colorAccent_gray</item>
+    </style>
+
+</resources>

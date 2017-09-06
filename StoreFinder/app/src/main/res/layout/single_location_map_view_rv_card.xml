@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/map_view_location_card"
+    android:layout_width="match_parent"
+    android:layout_height="150dp"
+    android:layout_marginLeft="16dp"
+    android:layout_marginRight="16dp"
+    android:layout_marginTop="8dp"
+    android:background="?attr/colorPrimary"
+    app:cardCornerRadius="3dp"
+    tools:ignore="MissingPrefix">
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/constraint_upper_color"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?attr/colorPrimaryDark">
+
+        <View
+            android:id="@+id/upper_view"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="0dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="0dp"
+            android:layout_marginTop="0dp"
+            app:layout_constraintBottom_toTopOf="@+id/guideline12"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"/>
+
+        <View
+            android:id="@+id/white_view"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="0dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="0dp"
+            android:layout_marginTop="0dp"
+            android:background="@android:color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/guideline12"
+            app:layout_constraintVertical_bias="0.0"/>
+
+        <FrameLayout
+            android:id="@+id/icon_frame_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="0dp"
+            android:layout_marginStart="0dp"
+            app:layout_constraintLeft_toLeftOf="@+id/guideline10"
+            app:layout_constraintStart_toStartOf="@+id/guideline5"
+            app:layout_constraintTop_toTopOf="@+id/guideline11">
+
+            <ImageView
+                android:id="@+id/background_circle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/purple_circle"/>
+
+            <ImageView
+                android:id="@+id/emoji"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="0dp"
+                android:src="@drawable/ice_cream_icon"/>
+
+        </FrameLayout>
+
+        <TextView
+            android:id="@+id/location_name_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="28sp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="11dp"
+            android:fontFamily="@font/bariol_bold"
+            android:textSize="@dimen/body_text_size"
+            app:layout_constraintLeft_toRightOf="@+id/icon_frame_layout"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Location title"/>
+
+        <TextView
+            android:id="@+id/location_description_tv"
+            android:layout_width="0dp"
+            android:layout_height="17dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginTop="8dp"
+            android:ellipsize="end"
+            android:fontFamily="@font/bariol_bold"
+            android:maxLines="1"
+            android:textSize="@dimen/secondary_text_size"
+            app:layout_constraintBottom_toBottomOf="@+id/icon_frame_layout"
+            app:layout_constraintEnd_toStartOf="@+id/distance_num_tv"
+            app:layout_constraintLeft_toLeftOf="@+id/location_name_tv"
+            app:layout_constraintTop_toBottomOf="@+id/location_name_tv"
+            tools:text="Location description"/>
+
+        <TextView
+            android:id="@+id/distance_num_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/bariol_bold"
+            android:textSize="@dimen/body_text_size"
+            app:layout_constraintEnd_toStartOf="@+id/guideline13"
+            app:layout_constraintTop_toTopOf="@+id/location_name_tv"
+            tools:text="1.3"/>
+
+        <TextView
+            android:id="@+id/miles_mi_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/bariol_bold"
+            android:text="@string/mi"
+            android:textSize="@dimen/secondary_text_size"
+            app:layout_constraintBottom_toBottomOf="@+id/location_description_tv"
+            app:layout_constraintEnd_toEndOf="@+id/distance_num_tv"
+            app:layout_constraintTop_toTopOf="@+id/location_description_tv"/>
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="7dp"/>
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="16dp"/>
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_begin="74dp"/>
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline13"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_end="17dp"/>
+
+        <TextView
+            android:id="@+id/hours_header_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/bariol_bold"
+            android:text="@string/hours"
+            android:textSize="@dimen/secondary_text_size"
+            app:layout_constraintLeft_toLeftOf="@+id/guideline5"
+            app:layout_constraintTop_toTopOf="@+id/guideline12"/>
+
+        <TextView
+            android:id="@+id/location_hours_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="0dp"
+            android:fontFamily="@font/bariol_bold"
+            android:textColor="@color/black"
+            android:textSize="@dimen/secondary_text_size"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="@+id/hours_header_tv"
+            app:layout_constraintTop_toBottomOf="@+id/hours_header_tv"
+            tools:layout_editor_absoluteY="137dp"
+            tools:text="11 AM - 9 PM"/>
+
+        <TextView
+            android:id="@+id/phone_header_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="0dp"
+            android:layout_marginRight="8dp"
+            android:fontFamily="@font/bariol_bold"
+            android:text="@string/phone"
+            android:textSize="@dimen/secondary_text_size"
+            app:layout_constraintEnd_toEndOf="@+id/location_phone_num_tv"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/hours_header_tv"
+            />
+
+        <TextView
+            android:id="@+id/location_phone_num_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="0dp"
+            android:layout_marginStart="0dp"
+            android:fontFamily="@font/bariol_bold"
+            android:textColor="@color/black"
+            android:textSize="@dimen/secondary_text_size"
+            app:layout_constraintBottom_toBottomOf="@+id/location_hours_tv"
+            app:layout_constraintEnd_toStartOf="@+id/guideline13"
+            app:layout_constraintTop_toBottomOf="@+id/phone_header_tv"
+            app:layout_constraintVertical_bias="0.0"
+            tools:text="843-231-8582"/>
+
+        <android.support.constraint.Guideline
+            android:id="@+id/guideline5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_begin="20dp"/>
+
+    </android.support.constraint.ConstraintLayout>
+</android.support.v7.widget.CardView>

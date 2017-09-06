@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        tools:ignore="MissingPrefix">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="40dp"
+            android:fontFamily="@font/bariol_bold"
+            android:textSize="20sp"
+            android:text="@string/select_a_theme"/>
+
+        <ImageButton
+            android:id="@+id/purple_theme_button"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_marginBottom="15dp"
+            android:layout_marginTop="40dp"
+            android:background="@color/colorPrimary_purple"
+            android:src="@drawable/purple_button_image"
+            android:textAllCaps="false"/>
+
+        <ImageButton
+            android:id="@+id/blue_theme_button"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_marginBottom="15dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/colorPrimary_blue"
+            android:src="@drawable/blue_button_image"
+            android:textAllCaps="false"/>
+
+
+        <ImageButton
+            android:id="@+id/green_theme_button"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_marginBottom="15dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/colorPrimary_green"
+            android:src="@drawable/green_button_image"
+            android:textAllCaps="false"/>
+
+        <ImageButton
+            android:id="@+id/neutral_theme_button"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_marginBottom="15dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/colorPrimary_neutral"
+            android:src="@drawable/neutral_button_image"
+            android:textAllCaps="false"/>
+
+        <ImageButton
+            android:id="@+id/gray_theme_button"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:layout_marginBottom="15dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/colorPrimary_gray"
+            android:src="@drawable/gray_button_image"
+            android:textAllCaps="false"/>
+    </LinearLayout>
+</ScrollView>

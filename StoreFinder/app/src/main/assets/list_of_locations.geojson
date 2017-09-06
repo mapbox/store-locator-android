@@ -1,0 +1,85 @@
+﻿{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Location 1",
+        "hours": "6am - 5pm",
+        "phone": "(555) 555-4355",
+        "description": "Location #1 description"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.966889,
+          40.761926
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Location 2",
+        "hours": "9am - 4pm",
+        "phone": "(555) 555-9430",
+        "description": "Location #2 description"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.970048,
+          40.789752
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Location 3",
+        "hours": "10am - 8pm",
+        "phone": "(555) 555-4839",
+        "description": "Location #3 description"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.028076,
+          40.75122
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Location 4",
+        "hours": "8am - 5:30pm",
+        "phone": "(555) 555-1989",
+        "description": "Location #4 description"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -74.000808,
+          40.719723
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "name": "Location 5",
+        "hours": "9:30am - 6pm",
+        "phone": "(555) 555-4345",
+        "description": "Location #5 description"
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -73.984496,
+          40.696141
+        ]
+      }
+    }
+  ]
+}

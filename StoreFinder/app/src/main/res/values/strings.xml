@@ -1,0 +1,18 @@
+<resources>
+    <string name="final_app_name">Store Locator</string>
+    <string name="access_token" translatable="false">pk.eyJ1IjoibWF5YXFnYW8iLCJhIjoiWEFiRmFQbyJ9.QsYnJBmvgmconI3cacfI7w</string>
+    <string name="purple_map_style" translatable="false">mapbox://styles/mayaqgao/cj52r1dwk2iu22sr2k8lze9b4</string>
+    <string name="blue_map_style" translatable="false">mapbox://styles/mayaqgao/cj68c2kga18i92qmx5b5zivxp</string>
+    <string name="terminal_map_style" translatable="false">mapbox://styles/langsmith/cj65gq81f6fur2rmyifp67ow1</string>
+    <string name="map_view">Map view</string>
+    <string name="failure_to_load_file">Failure to load the local file of locations. Please try reloading the app.</string>
+    <string name="mock_location_title">Fake device location</string>
+    <string name="select_a_theme">Tap on a theme</string>
+    <string name="no_internet_message">Route drawing not possible because there\'s no internet connection!</string>
+    <string name="failure_to_retrieve">Failure to retrieve the navigation route!</string>
+
+    <!-- Single card -->
+    <string name="hours">Hours</string>
+    <string name="phone">Phone</string>
+    <string name="mi">mi</string>
+</resources>
