@@ -14,5 +14,5 @@
     <!-- Single card -->
     <string name="hours">Hours</string>
     <string name="phone">Phone</string>
-    <string name="mi">mi</string>
+    <string name="distance">mi</string>
 </resources>
