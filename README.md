@@ -18,7 +18,7 @@ Use our pre-built markers, or add in your own by creating your own icon, using y
 
 ### Card icons
 
-Customize the style of the interactive scrolling cards (i.e. pop-ups) included in your Store Locator. Simply import any image using the Android Drawable importer plugin and modify the code. 
+Customize the style of the interactive scrolling cards (i.e. pop-ups) included in your Store Locator. Simply import any image using the [Android Drawable importer plugin](http://www.javahelps.com/2015/02/android-drawable-importer.html) and modify the code. 
 
 ## Bringing your own data
 
