@@ -3,7 +3,7 @@
 The Android Store Locator Kit is a downloadable project for you to add a beautiful plug-and-play Store Locator into your Android applications. Use the Kit to allow your users to find and browse store locations, view additional info for each store, and preview the distance and route to the store. Not building for a store owner or a business? You can use this project to locate anything from bike share hubs to ATMs to your neighborhood parks.
 
 
-### Get started by downloading the project and walking through the [step-by-step tutorial](https://www.mapbox.com/help/tutorials/android-store-locator/).
+### Get started by [downloading](https://github.com/mapbox/store-locator-android/archive/master.zip) the project and walking through the [step-by-step tutorial](https://www.mapbox.com/help/tutorials/android-store-locator/).
 
 ![storelocatorkit](https://user-images.githubusercontent.com/5862541/30187389-41e3bdb2-93de-11e7-9d78-009b0ac7e016.png)
 
