@@ -6,7 +6,7 @@ The Android Store Locator Kit is a downloadable project for you to add beautiful
 + Source files for the app
 + Five UI themes
 + A sample dataset in the form of a GeoJSON file
-+ Code for retrieving directions with the Mapbox Directions API
++ Code for retrieving directions to store locations with the [Mapbox Directions API](https://www.mapbox.com/help/define-directions-api/)
 
 
 ### Get started by [downloading](https://github.com/mapbox/store-locator-android/archive/master.zip) the project and walking through the [step-by-step tutorial](https://www.mapbox.com/help/tutorials/android-store-locator/).
