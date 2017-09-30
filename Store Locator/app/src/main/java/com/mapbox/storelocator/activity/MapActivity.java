@@ -32,6 +32,7 @@ import com.mapbox.mapboxsdk.geometry.LatLngBounds;
 import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
+import com.mapbox.services.android.navigation.ui.v5.NavigationLauncher;
 import com.mapbox.services.api.directions.v5.DirectionsCriteria;
 import com.mapbox.services.api.directions.v5.MapboxDirections;
 import com.mapbox.services.api.directions.v5.models.DirectionsResponse;
@@ -320,13 +321,13 @@ public class MapActivity extends AppCompatActivity implements LocationRecyclerVi
       public boolean onMarkerClick(@NonNull Marker marker) {
 
         // Get the position of the selected marker
-        LatLng positionOfSelectedMarker = marker.getPosition();
+        LatLng latLngOfSelectedMarker = marker.getPosition();
 
         // Check that the selected marker isn't the mock device location marker
         if (!marker.getPosition().equals(MOCK_DEVICE_LOCATION_LAT_LNG)) {
 
           for (int x = 0; x < mapboxMap.getMarkers().size(); x++) {
-            if (mapboxMap.getMarkers().get(x).getPosition() == positionOfSelectedMarker) {
+            if (mapboxMap.getMarkers().get(x).getPosition() == latLngOfSelectedMarker) {
               // Scroll the recyclerview to the selected marker's card. It's "x-1" below because
               // the mock device location marker is part of the marker list but doesn't have its own card
               // in the actual recyclerview.
@@ -334,11 +335,32 @@ public class MapActivity extends AppCompatActivity implements LocationRecyclerVi
             }
           }
           adjustMarkerSelectStateIcons(marker);
+
+          // Start "navigation mode" with Mapbox's drop-in/pre-made user interface
+          launchNavDropInUi(Position.fromLngLat(
+            MOCK_DEVICE_LOCATION_LAT_LNG.getLongitude(),
+            MOCK_DEVICE_LOCATION_LAT_LNG.getLatitude()),
+            Position.fromLngLat(
+              latLngOfSelectedMarker.getLongitude(),
+              latLngOfSelectedMarker.getLatitude()));
         }
+
         // Return true so that the selected marker's info window doesn't pop up
         return true;
       }
     });
+  }
+
+  private void launchNavDropInUi(Position origin, Position destination) {
+    // Pass in your Amazon Polly pool id for speech synthesis using Amazon Polly
+    // Set to null to use the default Android speech synthesizer
+    String awsPoolId = null;
+
+    boolean simulateRoute = true;
+
+    // Call this method with Context from within an Activity
+    NavigationLauncher.startNavigation(this, origin, destination,
+      awsPoolId, simulateRoute);
   }
 
   private void adjustMarkerSelectStateIcons(Marker marker) {

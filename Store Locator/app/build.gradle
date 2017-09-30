@@ -22,12 +22,16 @@ android {
     }
 }
 
+repositories {
+    mavenCentral()
+}
+
 dependencies {
 
     // Official Google
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile "com.android.support:appcompat-v7:${supportLibVersion}"
-    compile "com.android.support:cardview-v7:${supportLibVersion}"
+    compile 'com.android.support:cardview-v7:26.0.2'
     compile "com.android.support:design:${supportLibVersion}"
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
 
@@ -39,6 +43,9 @@ dependencies {
 
     // Mapbox Maps SDK dependency
     compile('com.mapbox.mapboxsdk:mapbox-android-sdk:5.1.4@aar') {
+        transitive = true
+    }
+    compile ('com.mapbox.mapboxsdk:mapbox-android-navigation-ui:0.6.0') {
         transitive = true
     }
 
