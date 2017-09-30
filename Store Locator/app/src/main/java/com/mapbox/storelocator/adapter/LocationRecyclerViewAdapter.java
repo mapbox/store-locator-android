@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -26,7 +27,8 @@ public class LocationRecyclerViewAdapter extends
   private List<IndividualLocation> listOfLocations;
   private Context context;
   private int selectedTheme;
-  private static ClickListener clickListener;
+  private static CardClickListener clickListener;
+  private static StartNavClickListener startNavClickListener;
   private Drawable emojiForCircle = null;
   private Drawable backgroundCircle = null;
   private int upperCardSectionColor = 0;
@@ -41,11 +43,13 @@ public class LocationRecyclerViewAdapter extends
   private int milesAbbreviationColor = 0;
 
   public LocationRecyclerViewAdapter(List<IndividualLocation> styles,
-                                     Context context, ClickListener cardClickListener, int selectedTheme) {
+                                     Context context, CardClickListener cardClickListener,
+                                     StartNavClickListener startNavClickListener, int selectedTheme) {
     this.context = context;
     this.listOfLocations = styles;
     this.selectedTheme = selectedTheme;
     this.clickListener = cardClickListener;
+    this.startNavClickListener = startNavClickListener;
   }
 
   @Override
@@ -55,8 +59,12 @@ public class LocationRecyclerViewAdapter extends
     return new ViewHolder(itemView);
   }
 
-  public interface ClickListener {
+  public interface CardClickListener {
     void onItemClick(int position);
+  }
+
+  public interface StartNavClickListener {
+    void onClick();
   }
 
   @Override
@@ -180,6 +188,7 @@ public class LocationRecyclerViewAdapter extends
     CardView cardView;
     ImageView backgroundCircleImageView;
     ImageView emojiImageView;
+    ImageButton startNavButton;
 
     ViewHolder(View itemView) {
       super(itemView);
@@ -195,10 +204,17 @@ public class LocationRecyclerViewAdapter extends
       hoursHeaderTextView = itemView.findViewById(R.id.hours_header_tv);
       milesAbbreviationTextView = itemView.findViewById(R.id.miles_mi_tv);
       cardView = itemView.findViewById(R.id.map_view_location_card);
+      startNavButton = itemView.findViewById(R.id.start_navigation_image_button);
       cardView.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View view) {
           clickListener.onItemClick(getLayoutPosition());
+        }
+      });
+      startNavButton.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+          startNavClickListener.onClick();
         }
       });
     }

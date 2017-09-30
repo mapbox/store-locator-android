@@ -63,7 +63,8 @@ import static com.mapbox.storelocator.util.StringConstants.SELECTED_THEME;
 /**
  * Activity with a Mapbox map and recyclerview to view various locations
  */
-public class MapActivity extends AppCompatActivity implements LocationRecyclerViewAdapter.ClickListener {
+public class MapActivity extends AppCompatActivity implements LocationRecyclerViewAdapter.CardClickListener,
+  LocationRecyclerViewAdapter.StartNavClickListener {
 
   private static final LatLngBounds LOCKED_MAP_CAMERA_BOUNDS = new LatLngBounds.Builder()
     .include(new LatLng(40.87096725853152, -74.08277394720501))
@@ -211,6 +212,11 @@ public class MapActivity extends AppCompatActivity implements LocationRecyclerVi
     }
   }
 
+  @Override
+  public void onClick() {
+    Log.d("MapActivity", "onClick: Clicked on nav button");
+  }
+
   private void getInformationFromDirectionsApi(double destinationLatCoordinate, double destinationLongCoordinate,
                                                final boolean fromMarkerClick, @Nullable final Integer listIndex) {
     // Set up origin and destination coordinates for the call to the Mapbox Directions API
@@ -309,7 +315,7 @@ public class MapActivity extends AppCompatActivity implements LocationRecyclerVi
     locationsRecyclerView.setHasFixedSize(true);
     locationsRecyclerView.setLayoutManager(new LinearLayoutManagerWithSmoothScroller(this));
     styleRvAdapter = new LocationRecyclerViewAdapter(listOfIndividualLocations,
-      getApplicationContext(), this, chosenTheme);
+      getApplicationContext(), this, this, chosenTheme);
     locationsRecyclerView.setAdapter(styleRvAdapter);
     SnapHelper snapHelper = new LinearSnapHelper();
     snapHelper.attachToRecyclerView(locationsRecyclerView);
