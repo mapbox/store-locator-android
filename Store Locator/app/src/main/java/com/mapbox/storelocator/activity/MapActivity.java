@@ -434,24 +434,10 @@ public class MapActivity extends AppCompatActivity implements LocationRecyclerVi
   }
 
   private boolean deviceHasInternetConnection() {
-    boolean haveConnectedWifi = false;
-    boolean haveConnectedMobile = false;
-
-    ConnectivityManager cm = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-    NetworkInfo[] netInfo = cm.getAllNetworkInfo();
-    for (NetworkInfo ni : netInfo) {
-      if (ni.getTypeName().equalsIgnoreCase("WIFI")) {
-        if (ni.isConnected()) {
-          haveConnectedWifi = true;
-        }
-      }
-      if (ni.getTypeName().equalsIgnoreCase("MOBILE")) {
-        if (ni.isConnected()) {
-          haveConnectedMobile = true;
-        }
-      }
-    }
-    return haveConnectedWifi || haveConnectedMobile;
+    ConnectivityManager connectivityManager = (ConnectivityManager)
+      getApplicationContext().getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+    NetworkInfo activeNetwork = connectivityManager.getActiveNetworkInfo();
+    return activeNetwork != null && activeNetwork.isConnected();
   }
 
   /**
