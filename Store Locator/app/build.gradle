@@ -43,7 +43,7 @@ dependencies {
     }
 
     // Mapbox Services SDK dependency to retrieve direction routes
-    compile 'com.mapbox.mapboxsdk:mapbox-java-services:2.2.5'
+    compile 'com.mapbox.mapboxsdk:mapbox-java-services:2.2.6'
 
     // Mapbox Buildings Plugin for showing and customizing 3D building extrusions
     compile 'com.mapbox.mapboxsdk:mapbox-android-plugin-building:0.1.0'
