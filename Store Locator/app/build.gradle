@@ -48,3 +48,5 @@ dependencies {
     // Mapbox Buildings Plugin for showing and customizing 3D building extrusions
     compile 'com.mapbox.mapboxsdk:mapbox-android-plugin-building:0.1.0'
 }
+
+apply from: 'gradle-checkstyle.gradle'
