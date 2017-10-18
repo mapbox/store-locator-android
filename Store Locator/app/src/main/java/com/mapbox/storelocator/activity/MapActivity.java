@@ -362,7 +362,7 @@ public class MapActivity extends AppCompatActivity implements LocationRecyclerVi
     // Set to null to use the default Android speech synthesizer
     String awsPoolId = null;
 
-    boolean simulateRoute = true;
+    boolean simulateRoute = false;
 
     // Call this method with Context from within an Activity
     NavigationLauncher.startNavigation(this, origin, destination,
