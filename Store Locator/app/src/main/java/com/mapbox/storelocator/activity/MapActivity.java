@@ -342,13 +342,26 @@ public class MapActivity extends AppCompatActivity implements LocationRecyclerVi
           }
           adjustMarkerSelectStateIcons(marker);
 
+          // Get the directionsApiClient route to the selected marker except if the mock device location marker is selected
+          if (!marker.getIcon().equals(customThemeManager.getMockLocationIcon())) {
+            // Check for an internet connection before making the call to Mapbox Directions API
+            if (deviceHasInternetConnection()) {
+              // Start the call to the Mapbox Directions API
+              getInformationFromDirectionsApi(marker.getPosition().getLatitude(),
+                marker.getPosition().getLongitude(), true, null);
+            } else {
+              Toast.makeText(MapActivity.this, R.string.no_internet_message, Toast.LENGTH_SHORT).show();
+            }
+          }
+
           // Start "navigation mode" with Mapbox's drop-in/pre-made user interface
           launchNavDropInUi(Position.fromLngLat(
             MOCK_DEVICE_LOCATION_LAT_LNG.getLongitude(),
             MOCK_DEVICE_LOCATION_LAT_LNG.getLatitude()),
             Position.fromLngLat(
               latLngOfSelectedMarker.getLongitude(),
-              latLngOfSelectedMarker.getLatitude()));
+              latLngOfSelectedMarker.getLatitude()),
+            false);
         }
 
         // Return true so that the selected marker's info window doesn't pop up
@@ -357,12 +370,10 @@ public class MapActivity extends AppCompatActivity implements LocationRecyclerVi
     });
   }
 
-  private void launchNavDropInUi(Position origin, Position destination) {
+  private void launchNavDropInUi(Position origin, Position destination, boolean simulateRoute) {
     // Pass in your Amazon Polly pool id for speech synthesis using Amazon Polly
     // Set to null to use the default Android speech synthesizer
     String awsPoolId = null;
-
-    boolean simulateRoute = false;
 
     // Call this method with Context from within an Activity
     NavigationLauncher.startNavigation(this, origin, destination,
@@ -380,18 +391,6 @@ public class MapActivity extends AppCompatActivity implements LocationRecyclerVi
     // Change the selected marker's icon to a selected state marker except if the mock device location marker is selected
     if (!marker.getIcon().equals(customThemeManager.getMockLocationIcon())) {
       marker.setIcon(customThemeManager.getSelectedMarkerIcon());
-    }
-
-    // Get the directionsApiClient route to the selected marker except if the mock device location marker is selected
-    if (!marker.getIcon().equals(customThemeManager.getMockLocationIcon())) {
-      // Check for an internet connection before making the call to Mapbox Directions API
-      if (deviceHasInternetConnection()) {
-        // Start the call to the Mapbox Directions API
-        getInformationFromDirectionsApi(marker.getPosition().getLatitude(),
-          marker.getPosition().getLongitude(), true, null);
-      } else {
-        Toast.makeText(this, R.string.no_internet_message, Toast.LENGTH_LONG).show();
-      }
     }
   }
 
