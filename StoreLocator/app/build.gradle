@@ -50,7 +50,8 @@ dependencies {
     compile('com.mapbox.mapboxsdk:mapbox-android-sdk:5.1.4@aar') {
         transitive = true
     }
-    compile ('com.mapbox.mapboxsdk:mapbox-android-navigation-ui:0.6.3') {
+
+    compile('com.mapbox.mapboxsdk:mapbox-android-navigation-ui:0.7.0-SNAPSHOT@aar') {
         transitive = true
     }
 

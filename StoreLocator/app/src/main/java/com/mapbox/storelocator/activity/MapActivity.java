@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.mapbox.androidsdk.plugins.building.BuildingPlugin;
+import com.mapbox.geojson.Point;
 import com.mapbox.mapboxsdk.Mapbox;
 import com.mapbox.mapboxsdk.annotations.Icon;
 import com.mapbox.mapboxsdk.annotations.IconFactory;
@@ -355,10 +356,10 @@ public class MapActivity extends AppCompatActivity implements LocationRecyclerVi
           }
 
           // Start "navigation mode" with Mapbox's drop-in/pre-made user interface
-          launchNavDropInUi(Position.fromLngLat(
-            MOCK_DEVICE_LOCATION_LAT_LNG.getLongitude(),
+          launchNavDropInUi(
+            Point.fromLngLat(MOCK_DEVICE_LOCATION_LAT_LNG.getLongitude(),
             MOCK_DEVICE_LOCATION_LAT_LNG.getLatitude()),
-            Position.fromLngLat(
+            Point.fromLngLat(
               latLngOfSelectedMarker.getLongitude(),
               latLngOfSelectedMarker.getLatitude()),
             false);
@@ -370,7 +371,7 @@ public class MapActivity extends AppCompatActivity implements LocationRecyclerVi
     });
   }
 
-  private void launchNavDropInUi(Position origin, Position destination, boolean simulateRoute) {
+  private void launchNavDropInUi(Point origin, Point destination, boolean simulateRoute) {
     // Pass in your Amazon Polly pool id for speech synthesis using Amazon Polly
     // Set to null to use the default Android speech synthesizer
     String awsPoolId = null;
