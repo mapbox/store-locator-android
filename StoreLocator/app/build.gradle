@@ -47,17 +47,20 @@ dependencies {
     testCompile 'junit:junit:4.12'
 
     // Mapbox Maps SDK dependency
-    compile('com.mapbox.mapboxsdk:mapbox-android-sdk:5.1.4@aar') {
+    compile('com.mapbox.mapboxsdk:mapbox-android-sdk:5.2.0@aar') {
         transitive = true
     }
 
+    // Mapbox drop-in navigation UI library
     compile('com.mapbox.mapboxsdk:mapbox-android-navigation-ui:0.7.0-SNAPSHOT@aar') {
         transitive = true
     }
 
-    // Mapbox Services SDK dependency to retrieve direction routes
-    compile 'com.mapbox.mapboxsdk:mapbox-java-services:2.2.6'
+    compile 'com.mapzen.android:lost:3.0.4'
 
-    // Mapbox Buildings Plugin for showing and customizing 3D building extrusions
+    // Mapbox Services SDK dependency to retrieve direction routes
+    compile 'com.mapbox.mapboxsdk:mapbox-java-services:2.2.9'
+
+    // Mapbox buildings plugin for showing and customizing 3D building extrusions
     compile 'com.mapbox.mapboxsdk:mapbox-android-plugin-building:0.1.0'
 }
