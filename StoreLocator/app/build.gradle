@@ -56,8 +56,6 @@ dependencies {
         transitive = true
     }
 
-    compile 'com.mapzen.android:lost:3.0.4'
-
     // Mapbox Services SDK dependency to retrieve direction routes
     compile 'com.mapbox.mapboxsdk:mapbox-java-services:2.2.9'
 
