@@ -152,7 +152,7 @@
             app:layout_constraintEnd_toStartOf="@+id/show_biking_route_image_button"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="@+id/location_description_tv"
-            app:layout_constraintTop_toBottomOf="@+id/location_description_tv" />
+            app:layout_constraintTop_toBottomOf="@+id/upper_view" />
 
         <ImageButton
             android:id="@+id/show_biking_route_image_button"
@@ -166,7 +166,7 @@
             app:layout_constraintEnd_toStartOf="@+id/show_driving_route_image_button"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/show_walking_route_image_button"
-            app:layout_constraintTop_toTopOf="@+id/guideline12" />
+            app:layout_constraintTop_toTopOf="@+id/show_walking_route_image_button" />
 
 
         <android.support.constraint.Guideline
@@ -264,7 +264,7 @@
             app:layout_constraintEnd_toStartOf="@+id/location_description_tv"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/show_biking_route_image_button"
-            app:layout_constraintTop_toTopOf="@+id/guideline12" />
+            app:layout_constraintTop_toTopOf="@+id/show_biking_route_image_button" />
 
     </android.support.constraint.ConstraintLayout>
 </android.support.v7.widget.CardView>

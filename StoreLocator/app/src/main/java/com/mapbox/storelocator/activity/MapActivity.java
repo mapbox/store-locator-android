@@ -65,7 +65,8 @@ import static com.mapbox.storelocator.util.StringConstants.SELECTED_THEME;
  * Activity with a Mapbox map and recyclerview to view various locations
  */
 public class MapActivity extends AppCompatActivity implements LocationRecyclerViewAdapter.CardClickListener,
-  LocationRecyclerViewAdapter.StartNavClickListener {
+  LocationRecyclerViewAdapter.StartNavClickListener, LocationRecyclerViewAdapter.WalkingRouteButtonClickListener,
+  LocationRecyclerViewAdapter.BikingRouteButtonClickListener, LocationRecyclerViewAdapter.DrivingRouteButtonClickListener {
 
   private static final LatLngBounds LOCKED_MAP_CAMERA_BOUNDS = new LatLngBounds.Builder()
     .include(new LatLng(40.87096725853152, -74.08277394720501))
@@ -85,6 +86,7 @@ public class MapActivity extends AppCompatActivity implements LocationRecyclerVi
   private CustomThemeManager customThemeManager;
   private LocationRecyclerViewAdapter styleRvAdapter;
   private int chosenTheme;
+  private String currentDesiredRouteProfile;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -114,6 +116,9 @@ public class MapActivity extends AppCompatActivity implements LocationRecyclerVi
 
     // Initialize the theme that was selected in the previous activity. The blue theme is set as the backup default.
     chosenTheme = getIntent().getIntExtra(SELECTED_THEME, R.style.AppTheme_Blue);
+
+    // TODO: Add comment about what the line below is about
+    currentDesiredRouteProfile = DirectionsCriteria.PROFILE_DRIVING;
 
     // Set up the Mapbox map
     mapView = findViewById(R.id.mapView);
@@ -214,8 +219,28 @@ public class MapActivity extends AppCompatActivity implements LocationRecyclerVi
   }
 
   @Override
-  public void onClick() {
-    Log.d("MapActivity", "onClick: Clicked on nav button");
+  public void onStartNavigationGoButtonClick() {
+    Log.d("MapActivity", "onStartNavigationGoButtonClick: Clicked on nav button");
+  }
+
+  @Override
+  public void OnWalkingRouteButtonClick() {
+    mapboxMap.clear();
+    currentDesiredRouteProfile = DirectionsCriteria.PROFILE_WALKING;
+  }
+
+  @Override
+  public void onBikingRouteButtonClick() {
+    mapboxMap.clear();
+    currentDesiredRouteProfile = DirectionsCriteria.PROFILE_CYCLING;
+  }
+
+  @Override
+  public void onDrivingRouteButtonClick() {
+    mapboxMap.clear();
+    currentDesiredRouteProfile = DirectionsCriteria.PROFILE_DRIVING;
+    // Want the route to take real-time traffic into account? If so, set
+    // currentDesiredRouteProfile = DirectionsCriteria.PROFILE_DRIVING_TRAFFIC;
   }
 
   private void getInformationFromDirectionsApi(double destinationLatCoordinate, double destinationLongCoordinate,
@@ -230,7 +255,7 @@ public class MapActivity extends AppCompatActivity implements LocationRecyclerVi
       .setOrigin(mockCurrentLocation)
       .setDestination(destinationMarker)
       .setOverview(DirectionsCriteria.OVERVIEW_FULL)
-      .setProfile(DirectionsCriteria.PROFILE_DRIVING)
+      .setProfile(currentDesiredRouteProfile)
       .setAccessToken(getString(R.string.access_token))
       .build();
 
@@ -316,7 +341,8 @@ public class MapActivity extends AppCompatActivity implements LocationRecyclerVi
     locationsRecyclerView.setHasFixedSize(true);
     locationsRecyclerView.setLayoutManager(new LinearLayoutManagerWithSmoothScroller(this));
     styleRvAdapter = new LocationRecyclerViewAdapter(listOfIndividualLocations,
-      getApplicationContext(), this, this, chosenTheme);
+      getApplicationContext(), this, this
+      , this, this, this, chosenTheme);
     locationsRecyclerView.setAdapter(styleRvAdapter);
     SnapHelper snapHelper = new LinearSnapHelper();
     snapHelper.attachToRecyclerView(locationsRecyclerView);
@@ -358,7 +384,7 @@ public class MapActivity extends AppCompatActivity implements LocationRecyclerVi
           // Start "navigation mode" with Mapbox's drop-in/pre-made user interface
           launchNavDropInUi(
             Point.fromLngLat(MOCK_DEVICE_LOCATION_LAT_LNG.getLongitude(),
-            MOCK_DEVICE_LOCATION_LAT_LNG.getLatitude()),
+              MOCK_DEVICE_LOCATION_LAT_LNG.getLatitude()),
             Point.fromLngLat(
               latLngOfSelectedMarker.getLongitude(),
               latLngOfSelectedMarker.getLatitude()),

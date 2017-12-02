@@ -29,6 +29,9 @@ public class LocationRecyclerViewAdapter extends
   private int selectedTheme;
   private static CardClickListener clickListener;
   private static StartNavClickListener startNavClickListener;
+  private static WalkingRouteButtonClickListener walkingRouteButtonClickListener;
+  private static BikingRouteButtonClickListener bikingRouteButtonClickListener;
+  private static DrivingRouteButtonClickListener drivingRouteButtonClickListener;
   private Drawable emojiForCircle = null;
   private Drawable backgroundCircle = null;
   private int upperCardSectionColor = 0;
@@ -44,12 +47,20 @@ public class LocationRecyclerViewAdapter extends
 
   public LocationRecyclerViewAdapter(List<IndividualLocation> styles,
                                      Context context, CardClickListener cardClickListener,
-                                     StartNavClickListener startNavClickListener, int selectedTheme) {
+                                     StartNavClickListener startNavClickListener,
+                                     WalkingRouteButtonClickListener walkingRouteButtonClickListener,
+                                     BikingRouteButtonClickListener bikingRouteButtonClickListener,
+                                     DrivingRouteButtonClickListener drivingRouteButtonClickListener,
+                                     int selectedTheme) {
+
     this.context = context;
     this.listOfLocations = styles;
     this.selectedTheme = selectedTheme;
     this.clickListener = cardClickListener;
     this.startNavClickListener = startNavClickListener;
+    this.walkingRouteButtonClickListener = walkingRouteButtonClickListener;
+    this.bikingRouteButtonClickListener = bikingRouteButtonClickListener;
+    this.drivingRouteButtonClickListener = drivingRouteButtonClickListener;
   }
 
   @Override
@@ -64,8 +75,22 @@ public class LocationRecyclerViewAdapter extends
   }
 
   public interface StartNavClickListener {
-    void onClick();
+    void onStartNavigationGoButtonClick();
   }
+
+  public interface WalkingRouteButtonClickListener {
+    void OnWalkingRouteButtonClick();
+  }
+
+  public interface BikingRouteButtonClickListener  {
+    void onBikingRouteButtonClick();
+  }
+
+  public interface DrivingRouteButtonClickListener  {
+    void onDrivingRouteButtonClick();
+  }
+
+
 
   @Override
   public int getItemCount() {
@@ -189,6 +214,9 @@ public class LocationRecyclerViewAdapter extends
     ImageView backgroundCircleImageView;
     ImageView emojiImageView;
     ImageButton startNavButton;
+    ImageButton walkingRouteButton;
+    ImageButton bikingRouteButton;
+    ImageButton drivingRouteButton;
 
     ViewHolder(View itemView) {
       super(itemView);
@@ -205,6 +233,9 @@ public class LocationRecyclerViewAdapter extends
       milesAbbreviationTextView = itemView.findViewById(R.id.miles_mi_tv);
       cardView = itemView.findViewById(R.id.map_view_location_card);
       startNavButton = itemView.findViewById(R.id.start_navigation_image_button);
+      walkingRouteButton = itemView.findViewById(R.id.show_walking_route_image_button);
+      bikingRouteButton = itemView.findViewById(R.id.show_biking_route_image_button);
+      drivingRouteButton = itemView.findViewById(R.id.show_driving_route_image_button);
       cardView.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View view) {
@@ -214,7 +245,25 @@ public class LocationRecyclerViewAdapter extends
       startNavButton.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-          startNavClickListener.onClick();
+          startNavClickListener.onStartNavigationGoButtonClick();
+        }
+      });
+      walkingRouteButton.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+          walkingRouteButtonClickListener.OnWalkingRouteButtonClick();
+        }
+      });
+      bikingRouteButton.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+          bikingRouteButtonClickListener.onBikingRouteButtonClick();
+        }
+      });
+      drivingRouteButton.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+          drivingRouteButtonClickListener.onDrivingRouteButtonClick();
         }
       });
     }
