@@ -53,7 +53,7 @@ dependencies {
     }
 
     // Mapbox drop-in navigation UI library
-    compile('com.mapbox.mapboxsdk:mapbox-android-navigation-ui:0.7.0@aar') {
+    implementation ('com.mapbox.mapboxsdk:mapbox-android-navigation-ui:0.7.0@aar') {
         transitive = true
     }
     
