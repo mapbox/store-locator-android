@@ -43,5 +43,35 @@
         <item name="navigationViewMapStyle">@string/purple_map_style</item>
     </style>
 
+    <style name="LightBlueNav" parent="NavigationViewLight">
+        <item name="navigationViewPrimary">@color/colorPrimary_blue</item>
+        <item name="navigationViewSecondary">@color/colorPrimaryDark_blue</item>
+        <!-- Map style URL -->
+        <item name="navigationViewMapStyle">@string/blue_map_style</item>
+    </style>
+
+    <style name="LightGreenNav" parent="NavigationViewLight">
+        <item name="navigationViewPrimary">@color/colorPrimary_green</item>
+        <item name="navigationViewSecondary">@color/colorPrimaryDark_green</item>
+        <!-- Map style URL -->
+        <item name="navigationViewMapStyle">@string/terminal_map_style</item>
+    </style>
+
+
+    <style name="LightNeutralNav" parent="NavigationViewLight">
+        <item name="navigationViewPrimary">@color/colorPrimary_neutral</item>
+        <item name="navigationViewSecondary">@color/colorPrimaryDark_neutral</item>
+        <!-- Map style URL -->
+        <item name="navigationViewMapStyle">@string/mapbox_style_mapbox_streets</item>
+    </style>
+
+
+    <style name="LightGrayNav" parent="NavigationViewLight">
+        <item name="navigationViewPrimary">@color/colorPrimary_gray</item>
+        <item name="navigationViewSecondary">@color/colorPrimaryDark_gray</item>
+        <!-- Map style URL -->
+        <item name="navigationViewMapStyle">@string/mapbox_style_light</item>
+    </style>
+
 
 </resources>
