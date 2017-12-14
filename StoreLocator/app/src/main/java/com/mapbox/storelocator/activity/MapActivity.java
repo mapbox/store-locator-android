@@ -2,10 +2,12 @@ package com.mapbox.storelocator.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -58,12 +60,12 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static com.mapbox.services.Constants.PRECISION_6;
-import static com.mapbox.storelocator.util.StringConstants.MOCK_DEVICE_LOCATION_LAT_KEY;
-import static com.mapbox.storelocator.util.StringConstants.MOCK_DEVICE_LOCATION_LONG_KEY;
+import static com.mapbox.services.android.navigation.v5.navigation.NavigationConstants.NAVIGATION_VIEW_SIMULATE_ROUTE;
 import static com.mapbox.storelocator.util.StringConstants.DESTINATION_LOCATION_LAT_KEY;
 import static com.mapbox.storelocator.util.StringConstants.DESTINATION_LOCATION_LONG_KEY;
+import static com.mapbox.storelocator.util.StringConstants.MOCK_DEVICE_LOCATION_LAT_KEY;
+import static com.mapbox.storelocator.util.StringConstants.MOCK_DEVICE_LOCATION_LONG_KEY;
 import static com.mapbox.storelocator.util.StringConstants.SELECTED_THEME;
-import static com.mapbox.storelocator.util.StringConstants.SIMULATE_NAV_ROUTE_KEY;
 
 /**
  * Activity with a Mapbox map and recyclerview to view various locations
@@ -405,7 +407,14 @@ public class MapActivity extends AppCompatActivity implements LocationRecyclerVi
     goToNavActivityIntent.putExtra(MOCK_DEVICE_LOCATION_LONG_KEY, MOCK_DEVICE_LOCATION_LAT_LNG.getLongitude());
     goToNavActivityIntent.putExtra(DESTINATION_LOCATION_LAT_KEY, selectedDestination.getLatitude());
     goToNavActivityIntent.putExtra(DESTINATION_LOCATION_LONG_KEY, selectedDestination.getLongitude());
-    goToNavActivityIntent.putExtra(SIMULATE_NAV_ROUTE_KEY, true);
+    //    goToNavActivityIntent.putExtra(SIMULATE_NAV_ROUTE_KEY, true);
+
+    // TODO - remove and add back intent extra once fixed in the nav SDK
+    SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
+    SharedPreferences.Editor editor = preferences.edit();
+    editor.putBoolean(NAVIGATION_VIEW_SIMULATE_ROUTE, true);
+    editor.apply();
+
     startActivity(goToNavActivityIntent);
   }
 
