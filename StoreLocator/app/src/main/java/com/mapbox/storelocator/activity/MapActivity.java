@@ -1,6 +1,7 @@
 package com.mapbox.storelocator.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -18,7 +19,6 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.mapbox.androidsdk.plugins.building.BuildingPlugin;
-import com.mapbox.geojson.Point;
 import com.mapbox.mapboxsdk.Mapbox;
 import com.mapbox.mapboxsdk.annotations.Icon;
 import com.mapbox.mapboxsdk.annotations.IconFactory;
@@ -33,9 +33,6 @@ import com.mapbox.mapboxsdk.geometry.LatLngBounds;
 import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
-import com.mapbox.services.android.navigation.ui.v5.NavigationLauncher;
-import com.mapbox.services.android.navigation.ui.v5.NavigationViewOptions;
-import com.mapbox.services.android.navigation.v5.navigation.NavigationUnitType;
 import com.mapbox.services.api.directions.v5.DirectionsCriteria;
 import com.mapbox.services.api.directions.v5.MapboxDirections;
 import com.mapbox.services.api.directions.v5.models.DirectionsResponse;
@@ -61,7 +58,12 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static com.mapbox.services.Constants.PRECISION_6;
+import static com.mapbox.storelocator.util.StringConstants.MOCK_DEVICE_LOCATION_LAT_KEY;
+import static com.mapbox.storelocator.util.StringConstants.MOCK_DEVICE_LOCATION_LONG_KEY;
+import static com.mapbox.storelocator.util.StringConstants.DESTINATION_LOCATION_LAT_KEY;
+import static com.mapbox.storelocator.util.StringConstants.DESTINATION_LOCATION_LONG_KEY;
 import static com.mapbox.storelocator.util.StringConstants.SELECTED_THEME;
+import static com.mapbox.storelocator.util.StringConstants.SIMULATE_NAV_ROUTE_KEY;
 
 /**
  * Activity with a Mapbox map and recyclerview to view various locations
@@ -384,17 +386,9 @@ public class MapActivity extends AppCompatActivity implements LocationRecyclerVi
               Toast.makeText(MapActivity.this, R.string.no_internet_message, Toast.LENGTH_SHORT).show();
             }
           }
-
-          // Start "navigation mode" with Mapbox's drop-in/pre-made user interface
-          launchNavDropInUi(Point.fromLngLat(MOCK_DEVICE_LOCATION_LAT_LNG.getLongitude(), MOCK_DEVICE_LOCATION_LAT_LNG.getLatitude()),
-            Point.fromLngLat(latLngOfSelectedMarker.getLongitude(), latLngOfSelectedMarker.getLatitude()),
-            true);
-
-          Log.d(TAG, "onMarkerClick: Point.fromLngLat(MOCK_DEVICE_LOCATION_LAT_LNG.getLongitude() = " + MOCK_DEVICE_LOCATION_LAT_LNG.getLongitude());
-          Log.d(TAG, "onMarkerClick: Point.fromLngLat(MOCK_DEVICE_LOCATION_LAT_LNG.getLatitude() = " + MOCK_DEVICE_LOCATION_LAT_LNG.getLatitude());
-          Log.d(TAG, "onMarkerClick: latLngOfSelectedMarker.getLongitude() = " + latLngOfSelectedMarker.getLongitude());
-          Log.d(TAG, "onMarkerClick: latLngOfSelectedMarker.getLatitude() = " + latLngOfSelectedMarker.getLatitude());
         }
+
+        goToNavActivity(latLngOfSelectedMarker);
 
         // Return true so that the selected marker's info window doesn't pop up
         return true;
@@ -402,24 +396,17 @@ public class MapActivity extends AppCompatActivity implements LocationRecyclerVi
     });
   }
 
-  private void launchNavDropInUi(Point origin, Point destination, boolean simulateRoute) {
+  private void goToNavActivity(LatLng selectedDestination) {
+    Log.d(TAG, "goToNavActivity: selectedDestination.getLatitude()" + selectedDestination.getLatitude());
+    Log.d(TAG, "goToNavActivity: selectedDestination.getLongitude()" + selectedDestination.getLongitude());
 
-    Log.d(TAG, "launchNavDropInUi: this is starting");
-    // Pass in your Amazon Polly pool id for speech synthesis using Amazon Polly
-    // Set to null to use the default Android speech synthesizer
-    String awsPoolId = null;
-
-    NavigationViewOptions options = NavigationViewOptions.builder()
-      .origin(origin)
-      .destination(destination)
-      .awsPoolId(awsPoolId)
-      .unitType(NavigationUnitType.TYPE_IMPERIAL)
-      .shouldSimulateRoute(simulateRoute)
-      .build();
-
-    Log.d(TAG, "launchNavDropInUi: options built");
-    // Call this method with Context from within an Activity
-    NavigationLauncher.startNavigation(this, options);
+    Intent goToNavActivityIntent = new Intent(MapActivity.this, NavigationRoutingActivity.class);
+    goToNavActivityIntent.putExtra(MOCK_DEVICE_LOCATION_LAT_KEY, MOCK_DEVICE_LOCATION_LAT_LNG.getLatitude());
+    goToNavActivityIntent.putExtra(MOCK_DEVICE_LOCATION_LONG_KEY, MOCK_DEVICE_LOCATION_LAT_LNG.getLongitude());
+    goToNavActivityIntent.putExtra(DESTINATION_LOCATION_LAT_KEY, selectedDestination.getLatitude());
+    goToNavActivityIntent.putExtra(DESTINATION_LOCATION_LONG_KEY, selectedDestination.getLongitude());
+    goToNavActivityIntent.putExtra(SIMULATE_NAV_ROUTE_KEY, true);
+    startActivity(goToNavActivityIntent);
   }
 
   private void adjustMarkerSelectStateIcons(Marker marker) {

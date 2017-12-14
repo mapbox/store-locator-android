@@ -35,4 +35,13 @@
         <item name="colorAccent">@color/colorAccent_gray</item>
     </style>
 
+
+    <style name="LightPurpleNav" parent="NavigationViewLight">
+        <item name="navigationViewPrimary">@color/colorPrimary_purple</item>
+        <item name="navigationViewSecondary">@color/colorPrimaryDark_purple</item>
+        <!-- Map style URL -->
+        <item name="navigationViewMapStyle">@string/purple_map_style</item>
+    </style>
+
+
 </resources>
