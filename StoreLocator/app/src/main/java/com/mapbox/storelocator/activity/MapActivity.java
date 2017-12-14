@@ -34,6 +34,8 @@ import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
 import com.mapbox.services.android.navigation.ui.v5.NavigationLauncher;
+import com.mapbox.services.android.navigation.ui.v5.NavigationViewOptions;
+import com.mapbox.services.android.navigation.v5.navigation.NavigationUnitType;
 import com.mapbox.services.api.directions.v5.DirectionsCriteria;
 import com.mapbox.services.api.directions.v5.MapboxDirections;
 import com.mapbox.services.api.directions.v5.models.DirectionsResponse;
@@ -87,6 +89,8 @@ public class MapActivity extends AppCompatActivity implements LocationRecyclerVi
   private LocationRecyclerViewAdapter styleRvAdapter;
   private int chosenTheme;
   private String currentDesiredRouteProfile;
+  private String TAG = "MapActivity";
+
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -382,13 +386,14 @@ public class MapActivity extends AppCompatActivity implements LocationRecyclerVi
           }
 
           // Start "navigation mode" with Mapbox's drop-in/pre-made user interface
-          launchNavDropInUi(
-            Point.fromLngLat(MOCK_DEVICE_LOCATION_LAT_LNG.getLongitude(),
-              MOCK_DEVICE_LOCATION_LAT_LNG.getLatitude()),
-            Point.fromLngLat(
-              latLngOfSelectedMarker.getLongitude(),
-              latLngOfSelectedMarker.getLatitude()),
-            false);
+          launchNavDropInUi(Point.fromLngLat(MOCK_DEVICE_LOCATION_LAT_LNG.getLongitude(), MOCK_DEVICE_LOCATION_LAT_LNG.getLatitude()),
+            Point.fromLngLat(latLngOfSelectedMarker.getLongitude(), latLngOfSelectedMarker.getLatitude()),
+            true);
+
+          Log.d(TAG, "onMarkerClick: Point.fromLngLat(MOCK_DEVICE_LOCATION_LAT_LNG.getLongitude() = " + MOCK_DEVICE_LOCATION_LAT_LNG.getLongitude());
+          Log.d(TAG, "onMarkerClick: Point.fromLngLat(MOCK_DEVICE_LOCATION_LAT_LNG.getLatitude() = " + MOCK_DEVICE_LOCATION_LAT_LNG.getLatitude());
+          Log.d(TAG, "onMarkerClick: latLngOfSelectedMarker.getLongitude() = " + latLngOfSelectedMarker.getLongitude());
+          Log.d(TAG, "onMarkerClick: latLngOfSelectedMarker.getLatitude() = " + latLngOfSelectedMarker.getLatitude());
         }
 
         // Return true so that the selected marker's info window doesn't pop up
@@ -398,13 +403,23 @@ public class MapActivity extends AppCompatActivity implements LocationRecyclerVi
   }
 
   private void launchNavDropInUi(Point origin, Point destination, boolean simulateRoute) {
+
+    Log.d(TAG, "launchNavDropInUi: this is starting");
     // Pass in your Amazon Polly pool id for speech synthesis using Amazon Polly
     // Set to null to use the default Android speech synthesizer
     String awsPoolId = null;
 
+    NavigationViewOptions options = NavigationViewOptions.builder()
+      .origin(origin)
+      .destination(destination)
+      .awsPoolId(awsPoolId)
+      .unitType(NavigationUnitType.TYPE_IMPERIAL)
+      .shouldSimulateRoute(simulateRoute)
+      .build();
+
+    Log.d(TAG, "launchNavDropInUi: options built");
     // Call this method with Context from within an Activity
-    NavigationLauncher.startNavigation(this, origin, destination,
-      awsPoolId, simulateRoute);
+    NavigationLauncher.startNavigation(this, options);
   }
 
   private void adjustMarkerSelectStateIcons(Marker marker) {
