@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:navigationDarkTheme="@style/NavigationViewDark"
-        app:navigationLightTheme="@style/LightPurpleNav" />
+        app:navigationLightTheme="@style/NavigationViewLight" />
 
 
 </android.support.constraint.ConstraintLayout>
