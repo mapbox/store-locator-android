@@ -36,21 +36,21 @@
     </style>
 
 
-    <style name="LightPurpleNav" parent="NavigationViewLight">
+    <style name="CustomPurpleNavigationViewLight" parent="NavigationViewLight">
         <item name="navigationViewPrimary">@color/colorPrimary_purple</item>
         <item name="navigationViewSecondary">@color/colorPrimaryDark_purple</item>
         <!-- Map style URL -->
         <item name="navigationViewMapStyle">@string/purple_map_style</item>
     </style>
 
-    <style name="LightBlueNav" parent="NavigationViewLight">
+    <style name="CustomBlueNavigationViewLight" parent="NavigationViewLight">
         <item name="navigationViewPrimary">@color/colorPrimary_blue</item>
         <item name="navigationViewSecondary">@color/colorPrimaryDark_blue</item>
         <!-- Map style URL -->
         <item name="navigationViewMapStyle">@string/blue_map_style</item>
     </style>
 
-    <style name="LightGreenNav" parent="NavigationViewLight">
+    <style name="CustomGreenNavigationViewLight" parent="NavigationViewLight">
         <item name="navigationViewPrimary">@color/colorPrimary_green</item>
         <item name="navigationViewSecondary">@color/colorPrimaryDark_green</item>
         <!-- Map style URL -->
@@ -58,7 +58,7 @@
     </style>
 
 
-    <style name="LightNeutralNav" parent="NavigationViewLight">
+    <style name="CustomNeutralNavigationViewLight" parent="NavigationViewLight">
         <item name="navigationViewPrimary">@color/colorPrimary_neutral</item>
         <item name="navigationViewSecondary">@color/colorPrimaryDark_neutral</item>
         <!-- Map style URL -->
@@ -66,7 +66,7 @@
     </style>
 
 
-    <style name="LightGrayNav" parent="NavigationViewLight">
+    <style name="CustomGrayNavigationViewLight" parent="NavigationViewLight">
         <item name="navigationViewPrimary">@color/colorPrimary_gray</item>
         <item name="navigationViewSecondary">@color/colorPrimaryDark_gray</item>
         <!-- Map style URL -->

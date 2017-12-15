@@ -6,6 +6,7 @@ import android.support.constraint.ConstraintLayout;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -71,23 +72,23 @@ public class LocationRecyclerViewAdapter extends
   }
 
   public interface CardClickListener {
-    void onItemClick(int position);
+    void onCardClick(int position);
   }
 
   public interface StartNavClickListener {
-    void onStartNavigationGoButtonClick();
+    void onStartNavigationGoButtonClick(int position);
   }
 
   public interface WalkingRouteButtonClickListener {
-    void OnWalkingRouteButtonClick();
+    void OnWalkingRouteButtonClick(int position);
   }
 
   public interface BikingRouteButtonClickListener  {
-    void onBikingRouteButtonClick();
+    void onBikingRouteButtonClick(int position);
   }
 
   public interface DrivingRouteButtonClickListener  {
-    void onDrivingRouteButtonClick();
+    void onDrivingRouteButtonClick(int position);
   }
 
 
@@ -239,31 +240,31 @@ public class LocationRecyclerViewAdapter extends
       cardView.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-          clickListener.onItemClick(getLayoutPosition());
+          clickListener.onCardClick(getLayoutPosition());
         }
       });
       startNavButton.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-          startNavClickListener.onStartNavigationGoButtonClick();
+          startNavClickListener.onStartNavigationGoButtonClick(getLayoutPosition());
         }
       });
       walkingRouteButton.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-          walkingRouteButtonClickListener.OnWalkingRouteButtonClick();
+          walkingRouteButtonClickListener.OnWalkingRouteButtonClick(getLayoutPosition());
         }
       });
       bikingRouteButton.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-          bikingRouteButtonClickListener.onBikingRouteButtonClick();
+          bikingRouteButtonClickListener.onBikingRouteButtonClick(getLayoutPosition());
         }
       });
       drivingRouteButton.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-          drivingRouteButtonClickListener.onDrivingRouteButtonClick();
+          drivingRouteButtonClickListener.onDrivingRouteButtonClick(getLayoutPosition());
         }
       });
     }

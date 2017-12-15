@@ -5,7 +5,7 @@
     android:layout_height="match_parent">
 
     <com.mapbox.services.android.navigation.ui.v5.NavigationView
-        android:id="@+id/navigationView"
+        android:id="@+id/navigation_view_in_nav_activity"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:navigationDarkTheme="@style/NavigationViewDark"

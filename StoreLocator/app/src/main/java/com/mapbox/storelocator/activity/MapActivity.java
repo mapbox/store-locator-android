@@ -187,15 +187,14 @@ public class MapActivity extends AppCompatActivity implements LocationRecyclerVi
 
           // Call getInformationFromDirectionsApi() to eventually display the location's
           // distance from mocked device location
-          getInformationFromDirectionsApi(singleLocationLatLng.getLatitude(),
-            singleLocationLatLng.getLongitude(), false, x);
+          getInformationFromDirectionsApi(singleLocationLatLng, false, x);
         }
 
         // Add the fake device location marker to the map. In a real use case scenario, the Mapbox location layer plugin
         // can be used to easily display the device's location
         addMockDeviceLocationMarkerToMap();
 
-        setUpMarkerClickListener();
+        initMarkerClickListener();
 
         setUpRecyclerViewOfLocationCards(chosenTheme);
       }
@@ -203,60 +202,92 @@ public class MapActivity extends AppCompatActivity implements LocationRecyclerVi
   }
 
   @Override
-  public void onItemClick(int position) {
+  public void onCardClick(int positionOfCardInRecyclerView) {
 
-    // Get the selected individual location via its card's position in the recyclerview of cards
-    IndividualLocation selectedLocation = listOfIndividualLocations.get(position);
+   /* // Get the selected individual location via its card's position in the recyclerview of cards
+    IndividualLocation selectedLocation = listOfIndividualLocations.get(positionOfCardInRecyclerView);
 
     // Retrieve and change the selected card's marker to the selected marker icon
-    Marker markerTiedToSelectedCard = mapboxMap.getMarkers().get(position);
+    Marker markerTiedToSelectedCard = mapboxMap.getMarkers().get(positionOfCardInRecyclerView);
     adjustMarkerSelectStateIcons(markerTiedToSelectedCard);
 
     // Reposition the map camera target to the selected marker
-    LatLng selectedLocationLatLng = selectedLocation.getLocation();
-    repositionMapCamera(selectedLocationLatLng);
+    LatLng selectedLocationLatLng = selectedLocation.getLocation();*/
 
-    // Check for an internet connection before making the call to Mapbox Directions API
+
+    repositionMapCamera(getCoordinatesOfSelectedLocation(positionOfCardInRecyclerView));
+
+
+
+    /*// Check for an internet connection before making the call to Mapbox Directions API
     if (deviceHasInternetConnection()) {
       // Start call to the Mapbox Directions API
       getInformationFromDirectionsApi(selectedLocationLatLng.getLatitude(),
         selectedLocationLatLng.getLongitude(), true, null);
     } else {
       Toast.makeText(this, R.string.no_internet_message, Toast.LENGTH_LONG).show();
-    }
+    }*/
+  }
+
+  private LatLng getCoordinatesOfSelectedLocation(int selectedLocationPosition) {
+    // Get the selected individual location via its card's position in the recyclerview of cards
+    IndividualLocation selectedLocation = listOfIndividualLocations.get(selectedLocationPosition);
+
+    // Retrieve and change the selected card's marker to the selected marker icon
+    Marker markerTiedToSelectedCard = mapboxMap.getMarkers().get(selectedLocationPosition);
+    adjustMarkerSelectStateIcons(markerTiedToSelectedCard);
+
+    // Reposition the map camera target to the selected marker
+    return selectedLocation.getLocation();
   }
 
   @Override
-  public void onStartNavigationGoButtonClick() {
-    Log.d("MapActivity", "onStartNavigationGoButtonClick: Clicked on nav button");
+  public void onStartNavigationGoButtonClick(int position) {
+    // TODO: Pass through
+    goToNavActivity();
   }
 
   @Override
-  public void OnWalkingRouteButtonClick() {
-    mapboxMap.clear();
+  public void OnWalkingRouteButtonClick(int position) {
+
     currentDesiredRouteProfile = DirectionsCriteria.PROFILE_WALKING;
+
+
+    getInformationFromDirectionsApi(getCoordinatesOfSelectedLocation(position), true, position);
+
+    // TODO: Add loading spinner UI on top of menu?
   }
 
   @Override
-  public void onBikingRouteButtonClick() {
-    mapboxMap.clear();
+  public void onBikingRouteButtonClick(int position) {
+
     currentDesiredRouteProfile = DirectionsCriteria.PROFILE_CYCLING;
+
+    getInformationFromDirectionsApi(getCoordinatesOfSelectedLocation(position), true, position);
+    // TODO: Add loading spinner UI on top of menu?
+
   }
 
   @Override
-  public void onDrivingRouteButtonClick() {
-    mapboxMap.clear();
+  public void onDrivingRouteButtonClick(int position) {
+
     currentDesiredRouteProfile = DirectionsCriteria.PROFILE_DRIVING;
     // Want the route to take real-time traffic into account? If so, set
     // currentDesiredRouteProfile = DirectionsCriteria.PROFILE_DRIVING_TRAFFIC;
+
+    getInformationFromDirectionsApi(getCoordinatesOfSelectedLocation(position), true, position);
+
+    // TODO: Add loading spinner UI on top of menu?
   }
 
-  private void getInformationFromDirectionsApi(double destinationLatCoordinate, double destinationLongCoordinate,
-                                               final boolean fromMarkerClick, @Nullable final Integer listIndex) {
+
+  private void getInformationFromDirectionsApi(LatLng selectedLocationCoordinates, final boolean fromMarkerClick,
+                                               @Nullable final Integer listIndex) {
     // Set up origin and destination coordinates for the call to the Mapbox Directions API
     Position mockCurrentLocation = Position.fromLngLat(MOCK_DEVICE_LOCATION_LAT_LNG.getLongitude(),
       MOCK_DEVICE_LOCATION_LAT_LNG.getLatitude());
-    Position destinationMarker = Position.fromLngLat(destinationLongCoordinate, destinationLatCoordinate);
+    Position destinationMarker = Position.fromLngLat(selectedLocationCoordinates.getLongitude(),
+      selectedLocationCoordinates.getLatitude());
 
     // Initialize the directionsApiClient object for eventually drawing a navigation route on the map
     directionsApiClient = new MapboxDirections.Builder()
@@ -356,7 +387,7 @@ public class MapActivity extends AppCompatActivity implements LocationRecyclerVi
     snapHelper.attachToRecyclerView(locationsRecyclerView);
   }
 
-  private void setUpMarkerClickListener() {
+  private void initMarkerClickListener() {
     mapboxMap.setOnMarkerClickListener(new MapboxMap.OnMarkerClickListener() {
       @Override
       public boolean onMarkerClick(@NonNull Marker marker) {
@@ -382,15 +413,12 @@ public class MapActivity extends AppCompatActivity implements LocationRecyclerVi
             // Check for an internet connection before making the call to Mapbox Directions API
             if (deviceHasInternetConnection()) {
               // Start the call to the Mapbox Directions API
-              getInformationFromDirectionsApi(marker.getPosition().getLatitude(),
-                marker.getPosition().getLongitude(), true, null);
+              getInformationFromDirectionsApi(marker.getPosition(), false, null);
             } else {
               Toast.makeText(MapActivity.this, R.string.no_internet_message, Toast.LENGTH_SHORT).show();
             }
           }
         }
-
-        goToNavActivity(latLngOfSelectedMarker);
 
         // Return true so that the selected marker's info window doesn't pop up
         return true;
@@ -398,8 +426,8 @@ public class MapActivity extends AppCompatActivity implements LocationRecyclerVi
     });
   }
 
-  private void goToNavActivity(LatLng selectedDestination) {
-    Log.d(TAG, "goToNavActivity: selectedDestination.getLatitude()" + selectedDestination.getLatitude());
+  private void goToNavActivity(/*LatLng selectedDestination*/) {
+    /*Log.d(TAG, "goToNavActivity: selectedDestination.getLatitude()" + selectedDestination.getLatitude());
     Log.d(TAG, "goToNavActivity: selectedDestination.getLongitude()" + selectedDestination.getLongitude());
 
     Intent goToNavActivityIntent = new Intent(MapActivity.this, NavigationRoutingActivity.class);
@@ -415,7 +443,7 @@ public class MapActivity extends AppCompatActivity implements LocationRecyclerVi
     editor.putBoolean(NAVIGATION_VIEW_SIMULATE_ROUTE, true);
     editor.apply();
 
-    startActivity(goToNavActivityIntent);
+    startActivity(goToNavActivityIntent);*/
   }
 
   private void adjustMarkerSelectStateIcons(Marker marker) {

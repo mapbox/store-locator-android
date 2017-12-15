@@ -60,8 +60,8 @@ public class NavigationRoutingActivity extends AppCompatActivity implements Navi
     this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
     // Inflate the layout with the the NavigationView.
-    setContentView(R.layout.activity_navigation_ui);
-    navigationView = findViewById(R.id.navigationView);
+    setContentView(R.layout.activity_navigation_ui_layout);
+    navigationView = findViewById(R.id.navigation_view_in_nav_activity);
     navigationView.onCreate(savedInstanceState);
 
     // Check for location permission
