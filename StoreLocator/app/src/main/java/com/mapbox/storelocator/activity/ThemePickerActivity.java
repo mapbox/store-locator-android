@@ -9,7 +9,7 @@ import android.widget.ImageButton;
 
 import com.mapbox.storelocator.R;
 
-import static com.mapbox.storelocator.util.StringConstants.SELECTED_THEME;
+import static com.mapbox.storelocator.util.StringConstants.SELECTED_THEME_INTENT_KEY;
 
 /**
  * Activity for picking the specific map theme to view
@@ -26,7 +26,7 @@ public class ThemePickerActivity extends AppCompatActivity {
 
   private void goToMapActivity(int selectedTheme) {
     Intent mapIntent = new Intent(this, MapActivity.class);
-    mapIntent.putExtra(SELECTED_THEME, selectedTheme);
+    mapIntent.putExtra(SELECTED_THEME_INTENT_KEY, selectedTheme);
     startActivity(mapIntent);
   }
 

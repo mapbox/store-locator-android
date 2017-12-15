@@ -13,7 +13,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.Gray">
         <activity android:name="com.mapbox.storelocator.activity.MapActivity"/>
-        <activity android:name="com.mapbox.storelocator.activity.NavigationRoutingActivity"/>
         <activity android:name="com.mapbox.storelocator.activity.ThemePickerActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>

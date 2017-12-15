@@ -30,6 +30,7 @@ android {
 
 repositories {
     mavenCentral()
+    maven { url "http://oss.sonatype.org/content/repositories/snapshots/" }
 }
 
 dependencies {
@@ -53,7 +54,7 @@ dependencies {
     }
 
     // Mapbox drop-in navigation UI library
-    implementation ('com.mapbox.mapboxsdk:mapbox-android-navigation-ui:0.7.1') {
+    implementation ('com.mapbox.mapboxsdk:mapbox-android-navigation-ui:0.8.0-beta.1') {
         transitive = true
     }
 

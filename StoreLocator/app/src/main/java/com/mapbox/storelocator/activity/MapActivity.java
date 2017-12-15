@@ -1,7 +1,6 @@
 package com.mapbox.storelocator.activity;
 
 import android.content.Context;
-import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
@@ -21,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.mapbox.androidsdk.plugins.building.BuildingPlugin;
+import com.mapbox.geojson.Point;
 import com.mapbox.mapboxsdk.Mapbox;
 import com.mapbox.mapboxsdk.annotations.Icon;
 import com.mapbox.mapboxsdk.annotations.IconFactory;
@@ -35,6 +35,8 @@ import com.mapbox.mapboxsdk.geometry.LatLngBounds;
 import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
+import com.mapbox.services.android.navigation.ui.v5.NavigationLauncher;
+import com.mapbox.services.android.navigation.ui.v5.NavigationViewOptions;
 import com.mapbox.services.api.directions.v5.DirectionsCriteria;
 import com.mapbox.services.api.directions.v5.MapboxDirections;
 import com.mapbox.services.api.directions.v5.models.DirectionsResponse;
@@ -60,12 +62,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static com.mapbox.services.Constants.PRECISION_6;
-import static com.mapbox.services.android.navigation.v5.navigation.NavigationConstants.NAVIGATION_VIEW_SIMULATE_ROUTE;
-import static com.mapbox.storelocator.util.StringConstants.DESTINATION_LOCATION_LAT_KEY;
-import static com.mapbox.storelocator.util.StringConstants.DESTINATION_LOCATION_LONG_KEY;
-import static com.mapbox.storelocator.util.StringConstants.MOCK_DEVICE_LOCATION_LAT_KEY;
-import static com.mapbox.storelocator.util.StringConstants.MOCK_DEVICE_LOCATION_LONG_KEY;
-import static com.mapbox.storelocator.util.StringConstants.SELECTED_THEME;
+import static com.mapbox.storelocator.util.StringConstants.SELECTED_THEME_INTENT_KEY;
 import static com.mapbox.storelocator.util.StringConstants.SIMULATE_NAV_ROUTE_KEY;
 
 /**
@@ -124,7 +121,8 @@ public class MapActivity extends AppCompatActivity implements LocationRecyclerVi
     listOfIndividualLocations = new ArrayList<>();
 
     // Initialize the theme that was selected in the previous activity. The blue theme is set as the backup default.
-    chosenTheme = getIntent().getIntExtra(SELECTED_THEME, R.style.AppTheme_Blue);
+    chosenTheme = getIntent().getIntExtra(SELECTED_THEME_INTENT_KEY, R.style.AppTheme_Blue);
+    Log.d(TAG, "onCreate: chosenTheme = " + chosenTheme);
 
     // TODO: Add comment about what the line below is about
     currentDesiredRouteProfile = DirectionsCriteria.PROFILE_DRIVING;
@@ -245,7 +243,8 @@ public class MapActivity extends AppCompatActivity implements LocationRecyclerVi
   @Override
   public void onStartNavigationGoButtonClick(int position) {
     // TODO: Pass through
-    goToNavActivity(getCoordinatesOfSelectedLocation(position));
+
+    startNavigation(getCoordinatesOfSelectedLocation(position));
   }
 
   @Override
@@ -427,16 +426,49 @@ public class MapActivity extends AppCompatActivity implements LocationRecyclerVi
     });
   }
 
-  private void goToNavActivity(LatLng selectedDestination) {
-    Log.d(TAG, "goToNavActivity: selectedDestination.getLatitude()" + selectedDestination.getLatitude());
-    Log.d(TAG, "goToNavActivity: selectedDestination.getLongitude()" + selectedDestination.getLongitude());
-
-    Intent goToNavActivityIntent = new Intent(MapActivity.this, NavigationRoutingActivity.class);
+  private void startNavigation(LatLng selectedDestination) {
+   /* Intent goToNavActivityIntent = new Intent(MapActivity.this, NavigationRoutingActivity.class);
     goToNavActivityIntent.putExtra(MOCK_DEVICE_LOCATION_LAT_KEY, MOCK_DEVICE_LOCATION_LAT_LNG.getLatitude());
     goToNavActivityIntent.putExtra(MOCK_DEVICE_LOCATION_LONG_KEY, MOCK_DEVICE_LOCATION_LAT_LNG.getLongitude());
     goToNavActivityIntent.putExtra(DESTINATION_LOCATION_LAT_KEY, selectedDestination.getLatitude());
     goToNavActivityIntent.putExtra(DESTINATION_LOCATION_LONG_KEY, selectedDestination.getLongitude());
+    goToNavActivityIntent.putExtra(SELECTED_THEME_NAV_UI_INTENT_KEY, mapboxMap.getStyleUrl());
     //    goToNavActivityIntent.putExtra(SIMULATE_NAV_ROUTE_KEY, true);
+*/
+
+    /*Log.d(TAG, "startNavigation: selectedTheme = " + chosenTheme);
+
+    Integer navUiStyleToUse = -1;
+
+    Log.d(TAG, "startNavigation: BEFORE SWITCH navUiStyleToUse = " + navUiStyleToUse);
+
+    switch (chosenTheme) {
+      case R.style.AppTheme_Purple:
+        navUiStyleToUse = R.style.CustomPurpleNavigationViewLight;
+        Log.d(TAG, "startNavigation: navUiStyleToUse = " + navUiStyleToUse);
+        break;
+      case R.style.AppTheme_Blue:
+        navUiStyleToUse = R.style.CustomBlueNavigationViewLight;
+        Log.d(TAG, "startNavigation: navUiStyleToUse = " + navUiStyleToUse);
+        break;
+      case R.style.AppTheme_Green:
+        navUiStyleToUse = R.style.CustomGreenNavigationViewLight;
+        Log.d(TAG, "startNavigation: navUiStyleToUse = " + navUiStyleToUse);
+        break;
+      case R.style.AppTheme_Neutral:
+        navUiStyleToUse = R.style.CustomNeutralNavigationViewLight;
+        Log.d(TAG, "startNavigation: navUiStyleToUse = " + navUiStyleToUse);
+        break;
+      case R.style.AppTheme_Gray:
+        navUiStyleToUse = R.style.CustomGrayNavigationViewLight;
+        Log.d(TAG, "startNavigation: navUiStyleToUse = " + navUiStyleToUse);
+        break;
+      default:
+        navUiStyleToUse = R.style.CustomGrayNavigationViewLight;
+        Log.d(TAG, "startNavigation: navUiStyleToUse = " + navUiStyleToUse);
+        break;
+    }
+
 
     // TODO - remove and add back intent extra once fixed in the nav SDK
     SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
@@ -444,7 +476,31 @@ public class MapActivity extends AppCompatActivity implements LocationRecyclerVi
     editor.putBoolean(SIMULATE_NAV_ROUTE_KEY, true);
     editor.apply();
 
-    startActivity(goToNavActivityIntent);
+    // TODO Figure out why nav UI styling doesn't match map style, even with .lightThemeResId() use
+    NavigationViewOptions options = NavigationViewOptions.builder()
+      .origin(Point.fromLngLat(MOCK_DEVICE_LOCATION_LAT_LNG.getLongitude(), MOCK_DEVICE_LOCATION_LAT_LNG.getLatitude()))
+      .lightThemeResId(navUiStyleToUse)
+      .shouldSimulateRoute(true)
+      .destination(Point.fromLngLat(selectedDestination.getLongitude(), selectedDestination.getLatitude()))
+      .build();*/
+
+    Log.d(TAG, "startNavigation: MOCK_DEVICE_LOCATION_LAT_LNG.getLongitude() = " + MOCK_DEVICE_LOCATION_LAT_LNG.getLongitude());
+    Log.d(TAG, "startNavigation: MOCK_DEVICE_LOCATION_LAT_LNG.getLatitude() = " + MOCK_DEVICE_LOCATION_LAT_LNG.getLatitude());
+    Log.d(TAG, "startNavigation: selectedDestination.getLongitude() = " + selectedDestination.getLongitude());
+    Log.d(TAG, "startNavigation: selectedDestination.getLatitude() = " + selectedDestination.getLatitude());
+
+    NavigationViewOptions options = NavigationViewOptions.builder()
+      .origin(Point.fromLngLat(MOCK_DEVICE_LOCATION_LAT_LNG.getLongitude(), MOCK_DEVICE_LOCATION_LAT_LNG.getLatitude()))
+      .destination(Point.fromLngLat(selectedDestination.getLongitude(), selectedDestination.getLatitude()))
+      .awsPoolId(null)
+      .lightThemeResId(R.style.CustomNeutralNavigationViewLight)
+      .shouldSimulateRoute(true)
+      .build();
+
+
+    NavigationLauncher.startNavigation(this, options);
+
+//    startActivity(goToNavActivityIntent);
   }
 
   private void adjustMarkerSelectStateIcons(Marker marker) {
@@ -620,6 +676,10 @@ public class MapActivity extends AppCompatActivity implements LocationRecyclerVi
 
     int getNavigationLineColor() {
       return navigationLineColor;
+    }
+
+    public int getSelectedTheme() {
+      return selectedTheme;
     }
   }
 }
