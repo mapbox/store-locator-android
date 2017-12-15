@@ -66,6 +66,7 @@ import static com.mapbox.storelocator.util.StringConstants.DESTINATION_LOCATION_
 import static com.mapbox.storelocator.util.StringConstants.MOCK_DEVICE_LOCATION_LAT_KEY;
 import static com.mapbox.storelocator.util.StringConstants.MOCK_DEVICE_LOCATION_LONG_KEY;
 import static com.mapbox.storelocator.util.StringConstants.SELECTED_THEME;
+import static com.mapbox.storelocator.util.StringConstants.SIMULATE_NAV_ROUTE_KEY;
 
 /**
  * Activity with a Mapbox map and recyclerview to view various locations
@@ -244,7 +245,7 @@ public class MapActivity extends AppCompatActivity implements LocationRecyclerVi
   @Override
   public void onStartNavigationGoButtonClick(int position) {
     // TODO: Pass through
-    goToNavActivity();
+    goToNavActivity(getCoordinatesOfSelectedLocation(position));
   }
 
   @Override
@@ -426,8 +427,8 @@ public class MapActivity extends AppCompatActivity implements LocationRecyclerVi
     });
   }
 
-  private void goToNavActivity(/*LatLng selectedDestination*/) {
-    /*Log.d(TAG, "goToNavActivity: selectedDestination.getLatitude()" + selectedDestination.getLatitude());
+  private void goToNavActivity(LatLng selectedDestination) {
+    Log.d(TAG, "goToNavActivity: selectedDestination.getLatitude()" + selectedDestination.getLatitude());
     Log.d(TAG, "goToNavActivity: selectedDestination.getLongitude()" + selectedDestination.getLongitude());
 
     Intent goToNavActivityIntent = new Intent(MapActivity.this, NavigationRoutingActivity.class);
@@ -440,10 +441,10 @@ public class MapActivity extends AppCompatActivity implements LocationRecyclerVi
     // TODO - remove and add back intent extra once fixed in the nav SDK
     SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
     SharedPreferences.Editor editor = preferences.edit();
-    editor.putBoolean(NAVIGATION_VIEW_SIMULATE_ROUTE, true);
+    editor.putBoolean(SIMULATE_NAV_ROUTE_KEY, true);
     editor.apply();
 
-    startActivity(goToNavActivityIntent);*/
+    startActivity(goToNavActivityIntent);
   }
 
   private void adjustMarkerSelectStateIcons(Marker marker) {

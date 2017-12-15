@@ -1,10 +1,10 @@
 package com.mapbox.storelocator.activity;
 
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
@@ -24,6 +24,7 @@ import static com.mapbox.storelocator.util.StringConstants.DESTINATION_LOCATION_
 import static com.mapbox.storelocator.util.StringConstants.DESTINATION_LOCATION_LONG_KEY;
 import static com.mapbox.storelocator.util.StringConstants.MOCK_DEVICE_LOCATION_LAT_KEY;
 import static com.mapbox.storelocator.util.StringConstants.MOCK_DEVICE_LOCATION_LONG_KEY;
+import static com.mapbox.storelocator.util.StringConstants.SIMULATE_NAV_ROUTE_KEY;
 
 public class NavigationRoutingActivity extends AppCompatActivity implements NavigationViewListener,
   PermissionsListener {
@@ -50,10 +51,8 @@ public class NavigationRoutingActivity extends AppCompatActivity implements Navi
       // TODO - add back once fixed in the nav SDK
       //      simulateRoute = getIntent().getExtras().getBoolean(SIMULATE_NAV_ROUTE_KEY);
 
-      Log.d(TAG, "onCreate: navOriginLat = " + navOriginLat);
-      Log.d(TAG, "onCreate: navOriginLong = " + navOriginLong);
-      Log.d(TAG, "onCreate: navDestinationLat = " + navDestinationLat);
-      Log.d(TAG, "onCreate: navDestinationLong = " + navDestinationLong);
+      simulateRoute = PreferenceManager.
+        getDefaultSharedPreferences(this).getBoolean(SIMULATE_NAV_ROUTE_KEY, true);
     }
     // Hide the status bar for the map to fill the entire screen
     requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -75,14 +74,12 @@ public class NavigationRoutingActivity extends AppCompatActivity implements Navi
 
   @Override
   public void onNavigationReady() {
-    Log.d(TAG, "onNavigationReady:");
     NavigationViewOptions options = NavigationViewOptions.builder()
       .origin(Point.fromLngLat(navOriginLong, navOriginLat))
       .destination(Point.fromLngLat(navDestinationLong, navDestinationLat))
       .unitType(NavigationUnitType.TYPE_IMPERIAL)
       .build();
     navigationView.startNavigation(options);
-    Log.d(TAG, "onNavigationReady: starting navigation");
   }
 
   @Override

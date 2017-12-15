@@ -5,9 +5,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/map_view_location_card"
     android:layout_width="match_parent"
-    android:layout_height="140dp"
-    android:layout_marginLeft="40dp"
-    android:layout_marginRight="16dp"
+    android:layout_height="170dp"
+    android:layout_marginLeft="8dp"
+    android:layout_marginRight="8dp"
     android:layout_marginTop="8dp"
     android:background="?attr/colorPrimary"
     app:cardCornerRadius="3dp"
@@ -139,7 +139,8 @@
             android:src="@drawable/ic_navigation_black_24dp"
             app:layout_constraintBottom_toBottomOf="@+id/white_view"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/location_hours_tv" />
 
         <ImageButton
             android:id="@+id/show_walking_route_image_button"
