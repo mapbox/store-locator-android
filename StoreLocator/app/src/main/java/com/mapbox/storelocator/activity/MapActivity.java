@@ -427,48 +427,41 @@ public class MapActivity extends AppCompatActivity implements LocationRecyclerVi
   }
 
   private void startNavigation(LatLng selectedDestination) {
-   /* Intent goToNavActivityIntent = new Intent(MapActivity.this, NavigationRoutingActivity.class);
-    goToNavActivityIntent.putExtra(MOCK_DEVICE_LOCATION_LAT_KEY, MOCK_DEVICE_LOCATION_LAT_LNG.getLatitude());
-    goToNavActivityIntent.putExtra(MOCK_DEVICE_LOCATION_LONG_KEY, MOCK_DEVICE_LOCATION_LAT_LNG.getLongitude());
-    goToNavActivityIntent.putExtra(DESTINATION_LOCATION_LAT_KEY, selectedDestination.getLatitude());
-    goToNavActivityIntent.putExtra(DESTINATION_LOCATION_LONG_KEY, selectedDestination.getLongitude());
-    goToNavActivityIntent.putExtra(SELECTED_THEME_NAV_UI_INTENT_KEY, mapboxMap.getStyleUrl());
-    //    goToNavActivityIntent.putExtra(SIMULATE_NAV_ROUTE_KEY, true);
-*/
-
-    /*Log.d(TAG, "startNavigation: selectedTheme = " + chosenTheme);
-
-    Integer navUiStyleToUse = -1;
-
-    Log.d(TAG, "startNavigation: BEFORE SWITCH navUiStyleToUse = " + navUiStyleToUse);
+    int lightNavUiStyleToUse;
+    int darkNavUiStyleToUse = R.style.NavigationViewDark;
 
     switch (chosenTheme) {
       case R.style.AppTheme_Purple:
-        navUiStyleToUse = R.style.CustomPurpleNavigationViewLight;
-        Log.d(TAG, "startNavigation: navUiStyleToUse = " + navUiStyleToUse);
+        lightNavUiStyleToUse = R.style.CustomPurpleNavigationViewLight;
+        // Uncomment line below and adjust custom dark style
+        // darkNavUiStyleToUse = R.style.CustomPurpleNavigationViewDark;
         break;
       case R.style.AppTheme_Blue:
-        navUiStyleToUse = R.style.CustomBlueNavigationViewLight;
-        Log.d(TAG, "startNavigation: navUiStyleToUse = " + navUiStyleToUse);
+        lightNavUiStyleToUse = R.style.CustomBlueNavigationViewLight;
+        // Uncomment line below and adjust custom dark style
+        // darkNavUiStyleToUse = R.style.CustomBlueNavigationViewDark;
         break;
       case R.style.AppTheme_Green:
-        navUiStyleToUse = R.style.CustomGreenNavigationViewLight;
-        Log.d(TAG, "startNavigation: navUiStyleToUse = " + navUiStyleToUse);
+        lightNavUiStyleToUse = R.style.CustomGreenNavigationViewLight;
+        // Uncomment line below and adjust custom dark style
+        // darkNavUiStyleToUse = R.style.CustomGreenNavigationViewDark;
         break;
       case R.style.AppTheme_Neutral:
-        navUiStyleToUse = R.style.CustomNeutralNavigationViewLight;
-        Log.d(TAG, "startNavigation: navUiStyleToUse = " + navUiStyleToUse);
+        lightNavUiStyleToUse = R.style.CustomNeutralNavigationViewLight;
+        // Uncomment line below and adjust custom dark style
+        // darkNavUiStyleToUse = R.style.CustomNeutralNavigationViewDark;
         break;
       case R.style.AppTheme_Gray:
-        navUiStyleToUse = R.style.CustomGrayNavigationViewLight;
-        Log.d(TAG, "startNavigation: navUiStyleToUse = " + navUiStyleToUse);
+        lightNavUiStyleToUse = R.style.CustomGrayNavigationViewLight;
+        // Uncomment line below and adjust custom dark style
+        // darkNavUiStyleToUse = R.style.CustomGrayNavigationViewDark;
         break;
       default:
-        navUiStyleToUse = R.style.CustomGrayNavigationViewLight;
-        Log.d(TAG, "startNavigation: navUiStyleToUse = " + navUiStyleToUse);
+        lightNavUiStyleToUse = R.style.CustomGrayNavigationViewLight;
+        // Uncomment line below and adjust custom dark style
+        // darkNavUiStyleToUse = R.style.CustomGrayNavigationViewDark;
         break;
     }
-
 
     // TODO - remove and add back intent extra once fixed in the nav SDK
     SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
@@ -476,31 +469,16 @@ public class MapActivity extends AppCompatActivity implements LocationRecyclerVi
     editor.putBoolean(SIMULATE_NAV_ROUTE_KEY, true);
     editor.apply();
 
-    // TODO Figure out why nav UI styling doesn't match map style, even with .lightThemeResId() use
-    NavigationViewOptions options = NavigationViewOptions.builder()
-      .origin(Point.fromLngLat(MOCK_DEVICE_LOCATION_LAT_LNG.getLongitude(), MOCK_DEVICE_LOCATION_LAT_LNG.getLatitude()))
-      .lightThemeResId(navUiStyleToUse)
-      .shouldSimulateRoute(true)
-      .destination(Point.fromLngLat(selectedDestination.getLongitude(), selectedDestination.getLatitude()))
-      .build();*/
-
-    Log.d(TAG, "startNavigation: MOCK_DEVICE_LOCATION_LAT_LNG.getLongitude() = " + MOCK_DEVICE_LOCATION_LAT_LNG.getLongitude());
-    Log.d(TAG, "startNavigation: MOCK_DEVICE_LOCATION_LAT_LNG.getLatitude() = " + MOCK_DEVICE_LOCATION_LAT_LNG.getLatitude());
-    Log.d(TAG, "startNavigation: selectedDestination.getLongitude() = " + selectedDestination.getLongitude());
-    Log.d(TAG, "startNavigation: selectedDestination.getLatitude() = " + selectedDestination.getLatitude());
-
     NavigationViewOptions options = NavigationViewOptions.builder()
       .origin(Point.fromLngLat(MOCK_DEVICE_LOCATION_LAT_LNG.getLongitude(), MOCK_DEVICE_LOCATION_LAT_LNG.getLatitude()))
       .destination(Point.fromLngLat(selectedDestination.getLongitude(), selectedDestination.getLatitude()))
       .awsPoolId(null)
-      .lightThemeResId(R.style.CustomNeutralNavigationViewLight)
+      .lightThemeResId(lightNavUiStyleToUse)
+      .darkThemeResId(darkNavUiStyleToUse)
       .shouldSimulateRoute(true)
       .build();
 
-
     NavigationLauncher.startNavigation(this, options);
-
-//    startActivity(goToNavActivityIntent);
   }
 
   private void adjustMarkerSelectStateIcons(Marker marker) {

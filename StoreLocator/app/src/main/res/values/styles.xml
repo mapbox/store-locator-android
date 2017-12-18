@@ -13,7 +13,46 @@
         <item name="navigationViewBannerBackground">@color/colorPrimary_purple</item>
         <!-- Color for the primary label that displays the turn name -->
         <item name="navigationViewBannerPrimaryText">@color/white</item>
-        <!-- Color for the seconary label that occasionally appears underneath the primary label -->
+        <!-- Color for the secondary label that occasionally appears underneath the primary label -->
+        <item name="navigationViewBannerSecondaryText">@color/white</item>
+        <!-- Primary color for the turn arrow icons-->
+        <item name="navigationViewBannerManeuverPrimary">@color/white</item>
+        <!-- Secondary color for the turn arrow icons (e.g. the line segment that forks off) -->
+        <item name="navigationViewBannerManeuverSecondary">@color/white</item>
+
+        <!-- Alternate background color for the dropdown list of upcoming steps -->
+        <item name="navigationViewListBackground">@color/colorPrimary_purple</item>
+
+
+        <!-- The summary view along the bottom of the screen -->
+        <!-- Background color of the summary view -->
+        <item name="navigationViewPrimary">@color/colorPrimary_purple</item>
+        <!-- Tint color for icons in the summary view -->
+        <item name="navigationViewSecondary">@color/white</item>
+        <!-- Accent color for elements such as the recenter button -->
+        <item name="navigationViewAccent">@color/white</item>
+        <!-- Color for the main duration label in the summary view -->
+        <item name="navigationViewPrimaryText">@color/white</item>
+        <!-- Color for the secondary distance and ETA label in the summary view -->
+        <item name="navigationViewSecondaryText">@color/white</item>
+
+        <!-- Custom colors for progress bars displayed during navigation -->
+        <item name="navigationViewProgress">@color/white</item>
+        <item name="navigationViewProgressBackground">@color/colorPrimaryDark_purple</item>
+
+        <!-- Custom colors for the route line and traffic -->
+
+        <!-- Map style -->
+        <item name="navigationViewMapStyle">@string/purple_map_style</item>
+    </style>
+
+    <style name="CustomPurpleNavigationViewDark">
+        <!-- The main turn banner view at the top of the screen -->
+        <!-- Background color of the banner -->
+        <item name="navigationViewBannerBackground">@color/colorPrimary_purple</item>
+        <!-- Color for the primary label that displays the turn name -->
+        <item name="navigationViewBannerPrimaryText">@color/white</item>
+        <!-- Color for the secondary label that occasionally appears underneath the primary label -->
         <item name="navigationViewBannerSecondaryText">@color/white</item>
         <!-- Primary color for the turn arrow icons-->
         <item name="navigationViewBannerManeuverPrimary">@color/white</item>
@@ -59,7 +98,46 @@
         <item name="navigationViewBannerBackground">@color/colorPrimary_blue</item>
         <!-- Color for the primary label that displays the turn name -->
         <item name="navigationViewBannerPrimaryText">@color/white</item>
-        <!-- Color for the seconary label that occasionally appears underneath the primary label -->
+        <!-- Color for the secondary label that occasionally appears underneath the primary label -->
+        <item name="navigationViewBannerSecondaryText">@color/white</item>
+        <!-- Primary color for the turn arrow icons-->
+        <item name="navigationViewBannerManeuverPrimary">@color/white</item>
+        <!-- Secondary color for the turn arrow icons (e.g. the line segment that forks off) -->
+        <item name="navigationViewBannerManeuverSecondary">@color/white</item>
+
+        <!-- Alternate background color for the dropdown list of upcoming steps -->
+        <item name="navigationViewListBackground">@color/colorPrimary_blue</item>
+
+
+        <!-- The summary view along the bottom of the screen -->
+        <!-- Background color of the summary view -->
+        <item name="navigationViewPrimary">@color/colorPrimary_blue</item>
+        <!-- Tint color for icons in the summary view -->
+        <item name="navigationViewSecondary">@color/white</item>
+        <!-- Accent color for elements such as the recenter button -->
+        <item name="navigationViewAccent">@color/white</item>
+        <!-- Color for the main duration label in the summary view -->
+        <item name="navigationViewPrimaryText">@color/white</item>
+        <!-- Color for the secondary distance and ETA label in the summary view -->
+        <item name="navigationViewSecondaryText">@color/white</item>
+
+        <!-- Custom colors for progress bars displayed during navigation -->
+        <item name="navigationViewProgress">@color/white</item>
+        <item name="navigationViewProgressBackground">@color/colorPrimaryDark_blue</item>
+
+        <!-- Custom colors for the route line and traffic -->
+
+        <!-- Map style -->
+        <item name="navigationViewMapStyle">@string/blue_map_style</item>
+    </style>
+
+    <style name="CustomBlueNavigationViewDark">
+        <!-- The main turn banner view at the top of the screen -->
+        <!-- Background color of the banner -->
+        <item name="navigationViewBannerBackground">@color/colorPrimary_blue</item>
+        <!-- Color for the primary label that displays the turn name -->
+        <item name="navigationViewBannerPrimaryText">@color/white</item>
+        <!-- Color for the secondary label that occasionally appears underneath the primary label -->
         <item name="navigationViewBannerSecondaryText">@color/white</item>
         <!-- Primary color for the turn arrow icons-->
         <item name="navigationViewBannerManeuverPrimary">@color/white</item>
@@ -92,8 +170,6 @@
         <item name="navigationViewMapStyle">@string/blue_map_style</item>
     </style>
 
-
-
     <!-- GREEN THEME -->
     <style name="AppTheme.Green" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary_green</item>
@@ -107,7 +183,46 @@
         <item name="navigationViewBannerBackground">@color/colorPrimaryDark_green</item>
         <!-- Color for the primary label that displays the turn name -->
         <item name="navigationViewBannerPrimaryText">@color/white</item>
-        <!-- Color for the seconary label that occasionally appears underneath the primary label -->
+        <!-- Color for the secondary label that occasionally appears underneath the primary label -->
+        <item name="navigationViewBannerSecondaryText">@color/white</item>
+        <!-- Primary color for the turn arrow icons-->
+        <item name="navigationViewBannerManeuverPrimary">@color/white</item>
+        <!-- Secondary color for the turn arrow icons (e.g. the line segment that forks off) -->
+        <item name="navigationViewBannerManeuverSecondary">@color/white</item>
+
+        <!-- Alternate background color for the dropdown list of upcoming steps -->
+        <item name="navigationViewListBackground">@color/colorPrimaryDark_green</item>
+
+
+        <!-- The summary view along the bottom of the screen -->
+        <!-- Background color of the summary view -->
+        <item name="navigationViewPrimary">@color/colorPrimaryDark_green</item>
+        <!-- Tint color for icons in the summary view -->
+        <item name="navigationViewSecondary">@color/white</item>
+        <!-- Accent color for elements such as the recenter button -->
+        <item name="navigationViewAccent">@color/white</item>
+        <!-- Color for the main duration label in the summary view -->
+        <item name="navigationViewPrimaryText">@color/white</item>
+        <!-- Color for the secondary distance and ETA label in the summary view -->
+        <item name="navigationViewSecondaryText">@color/white</item>
+
+        <!-- Custom colors for progress bars displayed during navigation -->
+        <item name="navigationViewProgress">@color/white</item>
+        <item name="navigationViewProgressBackground">@color/colorPrimaryDark_green</item>
+
+        <!-- Custom colors for the route line and traffic -->
+
+        <!-- Map style -->
+        <item name="navigationViewMapStyle">@string/terminal_map_style</item>
+    </style>
+
+    <style name="CustomGreenNavigationViewDark">
+        <!-- The main turn banner view at the top of the screen -->
+        <!-- Background color of the banner -->
+        <item name="navigationViewBannerBackground">@color/colorPrimaryDark_green</item>
+        <!-- Color for the primary label that displays the turn name -->
+        <item name="navigationViewBannerPrimaryText">@color/white</item>
+        <!-- Color for the secondary label that occasionally appears underneath the primary label -->
         <item name="navigationViewBannerSecondaryText">@color/white</item>
         <!-- Primary color for the turn arrow icons-->
         <item name="navigationViewBannerManeuverPrimary">@color/white</item>
@@ -187,34 +302,27 @@
         <item name="navigationViewMapStyle">@string/mapbox_style_mapbox_streets</item>
     </style>
 
-    <!-- GRAY THEME -->
-    <style name="AppTheme.Gray" parent="Theme.AppCompat.Light.NoActionBar">
-        <item name="colorPrimary">@color/colorPrimary_gray</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark_gray</item>
-        <item name="colorAccent">@color/colorAccent_gray</item>
-    </style>
-
-
-    <style name="CustomGrayNavigationViewLight">
+    <style name="CustomNeutralNavigationViewDark">
         <!-- The main turn banner view at the top of the screen -->
+
         <!-- Background color of the banner -->
-        <item name="navigationViewBannerBackground">@color/colorPrimaryDark_gray</item>
+        <item name="navigationViewBannerBackground">@color/colorPrimary_neutral</item>
         <!-- Color for the primary label that displays the turn name -->
-        <item name="navigationViewBannerPrimaryText">@color/white</item>
-        <!-- Color for the seconary label that occasionally appears underneath the primary label -->
-        <item name="navigationViewBannerSecondaryText">@color/white</item>
+        <item name="navigationViewBannerPrimaryText">@color/black</item>
+        <!-- Color for the secondary label that occasionally appears underneath the primary label -->
+        <item name="navigationViewBannerSecondaryText">@color/black</item>
         <!-- Primary color for the turn arrow icons-->
-        <item name="navigationViewBannerManeuverPrimary">@color/white</item>
+        <item name="navigationViewBannerManeuverPrimary">@color/black</item>
         <!-- Secondary color for the turn arrow icons (e.g. the line segment that forks off) -->
-        <item name="navigationViewBannerManeuverSecondary">@color/white</item>
+        <item name="navigationViewBannerManeuverSecondary">@color/black</item>
 
         <!-- Alternate background color for the dropdown list of upcoming steps -->
-        <item name="navigationViewListBackground">@color/white</item>
+        <item name="navigationViewListBackground">@color/colorPrimary_neutral</item>
 
 
         <!-- The summary view along the bottom of the screen -->
         <!-- Background color of the summary view -->
-        <item name="navigationViewPrimary">@color/colorPrimaryDark_gray</item>
+        <item name="navigationViewPrimary">@color/colorPrimary_neutral</item>
         <!-- Tint color for icons in the summary view -->
         <item name="navigationViewSecondary">@color/black</item>
         <!-- Accent color for elements such as the recenter button -->
@@ -223,6 +331,91 @@
         <item name="navigationViewPrimaryText">@color/black</item>
         <!-- Color for the secondary distance and ETA label in the summary view -->
         <item name="navigationViewSecondaryText">@color/black</item>
+
+        <!-- Custom colors for progress bars displayed during navigation -->
+        <item name="navigationViewProgress">@color/black</item>
+        <item name="navigationViewProgressBackground">@color/colorPrimary_neutral</item>
+
+        <!-- Custom colors for the route line and traffic -->
+
+        <!-- Map style -->
+        <item name="navigationViewMapStyle">@string/mapbox_style_mapbox_streets</item>
+    </style>
+
+    <!-- GRAY THEME -->
+    <style name="AppTheme.Gray" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary_gray</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark_gray</item>
+        <item name="colorAccent">@color/colorAccent_gray</item>
+    </style>
+
+    <style name="CustomGrayNavigationViewLight">
+        <!-- The main turn banner view at the top of the screen -->
+        <!-- Background color of the banner -->
+        <item name="navigationViewBannerBackground">@color/colorPrimaryDark_gray</item>
+        <!-- Color for the primary label that displays the turn name -->
+        <item name="navigationViewBannerPrimaryText">@color/white</item>
+        <!-- Color for the secondary label that occasionally appears underneath the primary label -->
+        <item name="navigationViewBannerSecondaryText">@color/white</item>
+        <!-- Primary color for the turn arrow icons-->
+        <item name="navigationViewBannerManeuverPrimary">@color/white</item>
+        <!-- Secondary color for the turn arrow icons (e.g. the line segment that forks off) -->
+        <item name="navigationViewBannerManeuverSecondary">@color/white</item>
+
+        <!-- Alternate background color for the dropdown list of upcoming steps -->
+        <item name="navigationViewListBackground">@color/colorPrimaryDark_gray</item>
+
+
+        <!-- The summary view along the bottom of the screen -->
+        <!-- Background color of the summary view -->
+        <item name="navigationViewPrimary">@color/colorPrimaryDark_gray</item>
+        <!-- Tint color for icons in the summary view -->
+        <item name="navigationViewSecondary">@color/white</item>
+        <!-- Accent color for elements such as the white button -->
+        <item name="navigationViewAccent">@color/white</item>
+        <!-- Color for the main duration label in the summary view -->
+        <item name="navigationViewPrimaryText">@color/white</item>
+        <!-- Color for the secondary distance and ETA label in the summary view -->
+        <item name="navigationViewSecondaryText">@color/white</item>
+
+        <!-- Custom colors for progress bars displayed during navigation -->
+        <item name="navigationViewProgress">@color/white</item>
+        <item name="navigationViewProgressBackground">@color/colorPrimary_gray</item>
+
+        <!-- Custom colors for the route line and traffic -->
+
+        <!-- Map style -->
+        <item name="navigationViewMapStyle">@string/mapbox_style_light</item>
+    </style>
+
+    <style name="CustomGrayNavigationViewDark">
+        <!-- The main turn banner view at the top of the screen -->
+        <!-- Background color of the banner -->
+        <item name="navigationViewBannerBackground">@color/colorPrimaryDark_gray</item>
+        <!-- Color for the primary label that displays the turn name -->
+        <item name="navigationViewBannerPrimaryText">@color/white</item>
+        <!-- Color for the secondary label that occasionally appears underneath the primary label -->
+        <item name="navigationViewBannerSecondaryText">@color/white</item>
+        <!-- Primary color for the turn arrow icons-->
+        <item name="navigationViewBannerManeuverPrimary">@color/white</item>
+        <!-- Secondary color for the turn arrow icons (e.g. the line segment that forks off) -->
+        <item name="navigationViewBannerManeuverSecondary">@color/white</item>
+
+        <!-- Alternate background color for the dropdown list of upcoming steps -->
+        <item name="navigationViewListBackground">@color/colorPrimaryDark_gray</item>
+
+
+        <!-- The summary view along the bottom of the screen -->
+        <!-- Background color of the summary view -->
+        <item name="navigationViewPrimary">@color/colorPrimaryDark_gray</item>
+        <!-- Tint color for icons in the summary view -->
+        <item name="navigationViewSecondary">@color/white</item>
+        <!-- Accent color for elements such as the white button -->
+        <item name="navigationViewAccent">@color/white</item>
+        <!-- Color for the main duration label in the summary view -->
+        <item name="navigationViewPrimaryText">@color/white</item>
+        <!-- Color for the secondary distance and ETA label in the summary view -->
+        <item name="navigationViewSecondaryText">@color/white</item>
 
         <!-- Custom colors for progress bars displayed during navigation -->
         <item name="navigationViewProgress">@color/white</item>
