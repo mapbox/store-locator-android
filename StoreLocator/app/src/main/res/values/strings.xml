@@ -3,7 +3,7 @@
     <!-- Add your Mapbox access token where it says REPLACE_WITH_MAPBOX_ACCESS_TOKEN below.
     Your token can be retrieved at https://www.mapbox.com/studio/account/tokens/
     -->
-    <string name="access_token" translatable="false">pk.eyJ1IjoibGFuZ3NtaXRoIiwiYSI6ImNpenVqZW01NzAxZDYycW84dzNkZ2w5NzAifQ.TS0kOlz-2ROHT7taUn2Y-w</string>
+    <string name="access_token" translatable="false">REPLACE_WITH_MAPBOX_ACCESS_TOKEN</string>
     <string name="purple_map_style" translatable="false">mapbox://styles/mapbox/cj7bww7is2f4i2rnwyxkzpwu7</string>
     <string name="blue_map_style" translatable="false">mapbox://styles/mapbox/cj7bwwv3caf7l2spgukxm8bwv</string>
     <string name="terminal_map_style" translatable="false">mapbox://styles/mapbox/cj62n87yx3mvi2rp93sfp2w9z</string>
