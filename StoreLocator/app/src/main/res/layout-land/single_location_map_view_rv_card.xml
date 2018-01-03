@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/map_view_location_card"
     android:layout_width="match_parent"
-    android:layout_height="150dp"
+    android:layout_height="190dp"
     android:layout_marginLeft="16dp"
-    android:layout_marginRight="16dp"
+    android:layout_marginRight="8dp"
     android:layout_marginTop="8dp"
     android:background="?attr/colorPrimary"
     app:cardCornerRadius="3dp"
@@ -32,7 +32,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0"/>
+            app:layout_constraintVertical_bias="0.0" />
 
         <View
             android:id="@+id/white_view"
@@ -48,7 +48,7 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="@+id/guideline12"
-            app:layout_constraintVertical_bias="0.0"/>
+            app:layout_constraintVertical_bias="0.0" />
 
         <FrameLayout
             android:id="@+id/icon_frame_layout"
@@ -57,7 +57,7 @@
             android:layout_marginLeft="0dp"
             android:layout_marginStart="0dp"
             app:layout_constraintLeft_toLeftOf="@+id/guideline10"
-            app:layout_constraintStart_toStartOf="@+id/guideline14"
+            app:layout_constraintStart_toStartOf="@+id/guideline5"
             app:layout_constraintTop_toTopOf="@+id/guideline11">
 
             <ImageView
@@ -65,7 +65,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:src="@drawable/purple_circle"/>
+                android:src="@drawable/purple_circle" />
 
             <ImageView
                 android:id="@+id/emoji"
@@ -73,9 +73,10 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="0dp"
-                android:src="@drawable/ice_cream_icon"/>
+                android:src="@drawable/ice_cream_icon" />
 
         </FrameLayout>
+
 
         <TextView
             android:id="@+id/location_name_tv"
@@ -88,12 +89,12 @@
             android:textSize="@dimen/body_text_size"
             app:layout_constraintLeft_toRightOf="@+id/icon_frame_layout"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="Le Bilboquet"/>
+            tools:text="Location title" />
 
         <TextView
             android:id="@+id/location_description_tv"
             android:layout_width="0dp"
-            android:layout_height="14dp"
+            android:layout_height="17dp"
             android:layout_marginEnd="16dp"
             android:layout_marginTop="8dp"
             android:ellipsize="end"
@@ -104,7 +105,7 @@
             app:layout_constraintEnd_toStartOf="@+id/distance_num_tv"
             app:layout_constraintLeft_toLeftOf="@+id/location_name_tv"
             app:layout_constraintTop_toBottomOf="@+id/location_name_tv"
-            tools:text="1311 Bernard Ave, Outremont"/>
+            tools:text="Location description" />
 
         <TextView
             android:id="@+id/distance_num_tv"
@@ -112,9 +113,9 @@
             android:layout_height="wrap_content"
             android:fontFamily="@font/bariol_bold"
             android:textSize="@dimen/body_text_size"
-            app:layout_constraintEnd_toStartOf="@+id/guideline15"
+            app:layout_constraintEnd_toStartOf="@+id/guideline13"
             app:layout_constraintTop_toTopOf="@+id/location_name_tv"
-            tools:text="1.3"/>
+            tools:text="1.3" />
 
         <TextView
             android:id="@+id/miles_mi_tv"
@@ -125,50 +126,77 @@
             android:textSize="@dimen/secondary_text_size"
             app:layout_constraintBottom_toBottomOf="@+id/location_description_tv"
             app:layout_constraintEnd_toEndOf="@+id/distance_num_tv"
-            app:layout_constraintTop_toTopOf="@+id/location_description_tv"/>
+            app:layout_constraintTop_toTopOf="@+id/location_description_tv" />
+
+        <ImageButton
+            android:id="@+id/start_navigation_image_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="@null"
+            android:src="@drawable/ic_navigation_black_24dp"
+            app:layout_constraintBottom_toBottomOf="@+id/show_biking_route_image_button"
+            app:layout_constraintEnd_toStartOf="@+id/guideline13"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/show_biking_route_image_button"
+            app:layout_constraintTop_toTopOf="@+id/show_biking_route_image_button" />
+
+        <ImageButton
+            android:id="@+id/show_walking_route_image_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:background="@null"
+            android:src="@drawable/walking_navigation_card_button_icon"
+            app:layout_constraintEnd_toStartOf="@+id/show_driving_route_image_button"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/guideline5"
+            app:layout_constraintStart_toStartOf="@+id/guideline5"
+            app:layout_constraintTop_toBottomOf="@+id/location_description_tv" />
+
+        <ImageButton
+            android:id="@+id/show_biking_route_image_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:src="@drawable/bike_navigation_card_button_icon"
+            app:layout_constraintBottom_toBottomOf="@+id/show_driving_route_image_button"
+            app:layout_constraintEnd_toStartOf="@+id/start_navigation_image_button"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/show_driving_route_image_button"
+            app:layout_constraintTop_toTopOf="@+id/show_driving_route_image_button" />
+
 
         <android.support.constraint.Guideline
             android:id="@+id/guideline10"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_begin="7dp"/>
+            app:layout_constraintGuide_begin="7dp" />
 
         <android.support.constraint.Guideline
             android:id="@+id/guideline11"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_begin="16dp"/>
+            app:layout_constraintGuide_begin="16dp" />
 
         <android.support.constraint.Guideline
             android:id="@+id/guideline12"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_begin="74dp"/>
+            app:layout_constraintGuide_percent=".70" />
 
         <android.support.constraint.Guideline
             android:id="@+id/guideline13"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_end="17dp"/>
-
-        <android.support.constraint.Guideline
-            android:id="@+id/guideline14"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent=".15"/>
-
-        <android.support.constraint.Guideline
-            android:id="@+id/guideline15"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            app:layout_constraintGuide_percent=".85"/>
-
+            app:layout_constraintGuide_end="17dp" />
 
         <TextView
             android:id="@+id/hours_header_tv"
@@ -176,40 +204,34 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:fontFamily="@font/bariol_bold"
-
             android:text="@string/hours"
             android:textSize="@dimen/secondary_text_size"
-            app:layout_constraintEnd_toEndOf="@+id/location_hours_tv"
-            app:layout_constraintStart_toStartOf="@+id/guideline14"
-            app:layout_constraintTop_toTopOf="@+id/guideline12"/>
+            app:layout_constraintLeft_toLeftOf="@+id/guideline5"
+            app:layout_constraintTop_toTopOf="@+id/guideline12" />
 
         <TextView
             android:id="@+id/location_hours_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
             android:fontFamily="@font/bariol_bold"
             android:textColor="@color/black"
             android:textSize="@dimen/secondary_text_size"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/guideline14"
+            app:layout_constraintLeft_toLeftOf="@+id/hours_header_tv"
             app:layout_constraintTop_toBottomOf="@+id/hours_header_tv"
-            app:layout_constraintVertical_bias="1.0"
-            tools:text="11 AM - 9 PM"/>
+            tools:text="11 AM - 9 PM" />
 
         <TextView
             android:id="@+id/phone_header_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="8dp"
+            android:layout_marginEnd="0dp"
             android:layout_marginRight="8dp"
             android:fontFamily="@font/bariol_bold"
             android:text="@string/phone"
             android:textSize="@dimen/secondary_text_size"
             app:layout_constraintEnd_toEndOf="@+id/location_phone_num_tv"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/location_phone_num_tv"
-            app:layout_constraintTop_toTopOf="@+id/hours_header_tv"/>
+            app:layout_constraintTop_toTopOf="@+id/hours_header_tv" />
 
         <TextView
             android:id="@+id/location_phone_num_tv"
@@ -218,18 +240,28 @@
             android:fontFamily="@font/bariol_bold"
             android:textColor="@color/black"
             android:textSize="@dimen/secondary_text_size"
-            app:layout_constraintBottom_toBottomOf="@+id/location_hours_tv"
-            app:layout_constraintEnd_toStartOf="@+id/guideline15"
+            app:layout_constraintEnd_toStartOf="@+id/guideline13"
             app:layout_constraintTop_toBottomOf="@+id/phone_header_tv"
-            app:layout_constraintVertical_bias="0.0"
-            tools:text="843-231-8582"/>
+            tools:text="843-231-8582" />
 
         <android.support.constraint.Guideline
             android:id="@+id/guideline5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            app:layout_constraintGuide_begin="20dp"/>
+            app:layout_constraintGuide_begin="20dp" />
+
+        <ImageButton
+            android:id="@+id/show_driving_route_image_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@null"
+            android:src="@drawable/car_navigation_card_button_icon"
+            app:layout_constraintBottom_toBottomOf="@+id/show_walking_route_image_button"
+            app:layout_constraintEnd_toStartOf="@+id/show_biking_route_image_button"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/show_walking_route_image_button"
+            app:layout_constraintTop_toTopOf="@+id/show_walking_route_image_button" />
 
     </android.support.constraint.ConstraintLayout>
 </android.support.v7.widget.CardView>
