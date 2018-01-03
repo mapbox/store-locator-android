@@ -1,15 +1,16 @@
 package com.mapbox.storelocator.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -33,6 +34,7 @@ public class LocationRecyclerViewAdapter extends
   private static WalkingRouteButtonClickListener walkingRouteButtonClickListener;
   private static BikingRouteButtonClickListener bikingRouteButtonClickListener;
   private static DrivingRouteButtonClickListener drivingRouteButtonClickListener;
+  private Button startNavGoButton = null;
   private Drawable emojiForCircle = null;
   private Drawable backgroundCircle = null;
   private int upperCardSectionColor = 0;
@@ -83,14 +85,13 @@ public class LocationRecyclerViewAdapter extends
     void OnWalkingRouteButtonClick(int position);
   }
 
-  public interface BikingRouteButtonClickListener  {
+  public interface BikingRouteButtonClickListener {
     void onBikingRouteButtonClick(int position);
   }
 
-  public interface DrivingRouteButtonClickListener  {
+  public interface DrivingRouteButtonClickListener {
     void onDrivingRouteButtonClick(int position);
   }
-
 
 
   @Override
@@ -214,7 +215,7 @@ public class LocationRecyclerViewAdapter extends
     CardView cardView;
     ImageView backgroundCircleImageView;
     ImageView emojiImageView;
-    ImageButton startNavButton;
+    Button startNavGoButton;
     ImageButton walkingRouteButton;
     ImageButton bikingRouteButton;
     ImageButton drivingRouteButton;
@@ -233,7 +234,7 @@ public class LocationRecyclerViewAdapter extends
       hoursHeaderTextView = itemView.findViewById(R.id.hours_header_tv);
       milesAbbreviationTextView = itemView.findViewById(R.id.miles_mi_tv);
       cardView = itemView.findViewById(R.id.map_view_location_card);
-      startNavButton = itemView.findViewById(R.id.start_navigation_image_button);
+      startNavGoButton = itemView.findViewById(R.id.start_navigation_image_button);
       walkingRouteButton = itemView.findViewById(R.id.show_walking_route_image_button);
       bikingRouteButton = itemView.findViewById(R.id.show_biking_route_image_button);
       drivingRouteButton = itemView.findViewById(R.id.show_driving_route_image_button);
@@ -243,7 +244,7 @@ public class LocationRecyclerViewAdapter extends
           clickListener.onCardClick(getLayoutPosition());
         }
       });
-      startNavButton.setOnClickListener(new View.OnClickListener() {
+      startNavGoButton.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View view) {
           startNavClickListener.onStartNavigationGoButtonClick(getLayoutPosition());
