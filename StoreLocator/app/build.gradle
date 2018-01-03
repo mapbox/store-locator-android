@@ -49,9 +49,7 @@ dependencies {
     testCompile 'junit:junit:4.12'
 
     // Mapbox Maps SDK dependency
-    compile('com.mapbox.mapboxsdk:mapbox-android-sdk:5.2.0@aar') {
-        transitive = true
-    }
+    implementation 'com.mapbox.mapboxsdk:mapbox-android-sdk:5.2.1@aar'
 
     // Mapbox drop-in navigation UI library
     implementation ('com.mapbox.mapboxsdk:mapbox-android-navigation-ui:0.8.0-beta.1') {
