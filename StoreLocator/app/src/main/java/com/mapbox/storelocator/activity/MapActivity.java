@@ -37,6 +37,8 @@ import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
 import com.mapbox.services.android.navigation.ui.v5.NavigationLauncher;
 import com.mapbox.services.android.navigation.ui.v5.NavigationViewOptions;
+import com.mapbox.services.android.telemetry.permissions.PermissionsListener;
+import com.mapbox.services.android.telemetry.permissions.PermissionsManager;
 import com.mapbox.services.api.directions.v5.DirectionsCriteria;
 import com.mapbox.services.api.directions.v5.MapboxDirections;
 import com.mapbox.services.api.directions.v5.models.DirectionsResponse;
@@ -70,7 +72,9 @@ import static com.mapbox.storelocator.util.StringConstants.SIMULATE_NAV_ROUTE_KE
  */
 public class MapActivity extends AppCompatActivity implements LocationRecyclerViewAdapter.CardClickListener,
   LocationRecyclerViewAdapter.StartNavClickListener, LocationRecyclerViewAdapter.WalkingRouteButtonClickListener,
-  LocationRecyclerViewAdapter.BikingRouteButtonClickListener, LocationRecyclerViewAdapter.DrivingRouteButtonClickListener {
+  LocationRecyclerViewAdapter.BikingRouteButtonClickListener, LocationRecyclerViewAdapter.DrivingRouteButtonClickListener,
+  PermissionsListener {
+
 
   private static final LatLngBounds LOCKED_MAP_CAMERA_BOUNDS = new LatLngBounds.Builder()
     .include(new LatLng(40.87096725853152, -74.08277394720501))
@@ -80,6 +84,7 @@ public class MapActivity extends AppCompatActivity implements LocationRecyclerVi
   private static final int MAPBOX_LOGO_OPACITY = 75;
   private static final int CAMERA_MOVEMENT_SPEED_IN_MILSECS = 1200;
   private static final float NAVIGATION_LINE_WIDTH = 9;
+  private PermissionsManager permissionsManager;
   private DirectionsRoute currentRoute;
   private FeatureCollection featureCollection;
   private MapboxMap mapboxMap;
@@ -92,7 +97,6 @@ public class MapActivity extends AppCompatActivity implements LocationRecyclerVi
   private int chosenTheme;
   private String currentDesiredRouteProfile;
   private String TAG = "MapActivity";
-
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -198,6 +202,27 @@ public class MapActivity extends AppCompatActivity implements LocationRecyclerVi
         setUpRecyclerViewOfLocationCards(chosenTheme);
       }
     });
+
+    // Check for location permission
+    permissionsManager = new PermissionsManager(this);
+    if (!PermissionsManager.areLocationPermissionsGranted(this)) {
+      permissionsManager.requestLocationPermissions(this);
+    } else {
+    }
+
+  }
+
+  @Override
+  public void onExplanationNeeded(List<String> permissionsToExplain) {
+    Toast.makeText(this, R.string.permission_explanation, Toast.LENGTH_LONG).show();
+  }
+
+  @Override
+  public void onPermissionResult(boolean granted) {
+    if (granted) {
+    } else {
+      Toast.makeText(this, R.string.did_not_grant_permissions, Toast.LENGTH_LONG).show();
+    }
   }
 
   @Override
@@ -252,8 +277,8 @@ public class MapActivity extends AppCompatActivity implements LocationRecyclerVi
 
     currentDesiredRouteProfile = DirectionsCriteria.PROFILE_WALKING;
 
-
     getInformationFromDirectionsApi(getCoordinatesOfSelectedLocation(position), true, position);
+
 
     // TODO: Add loading spinner UI on top of menu?
   }
@@ -279,7 +304,6 @@ public class MapActivity extends AppCompatActivity implements LocationRecyclerVi
 
     // TODO: Add loading spinner UI on top of menu?
   }
-
 
   private void getInformationFromDirectionsApi(LatLng selectedLocationCoordinates, final boolean fromMarkerClick,
                                                @Nullable final Integer listIndex) {
@@ -427,6 +451,7 @@ public class MapActivity extends AppCompatActivity implements LocationRecyclerVi
   }
 
   private void startNavigation(LatLng selectedDestination) {
+
     int lightNavUiStyleToUse;
     int darkNavUiStyleToUse = R.style.NavigationViewDark;
 

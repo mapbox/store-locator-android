@@ -1,12 +1,12 @@
 package com.mapbox.storelocator.adapter;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -38,7 +38,6 @@ public class LocationRecyclerViewAdapter extends
   private Drawable emojiForCircle = null;
   private Drawable backgroundCircle = null;
   private int upperCardSectionColor = 0;
-
   private int locationNameColor = 0;
   private int locationAddressColor = 0;
   private int locationPhoneNumColor = 0;
@@ -201,8 +200,7 @@ public class LocationRecyclerViewAdapter extends
     card.milesAbbreviationTextView.setAlpha(milesAbbreviationAlpha);
   }
 
-
-  static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+  static class ViewHolder extends RecyclerView.ViewHolder {
     TextView nameTextView;
     TextView addressTextView;
     TextView phoneNumTextView;
@@ -254,24 +252,47 @@ public class LocationRecyclerViewAdapter extends
         @Override
         public void onClick(View view) {
           walkingRouteButtonClickListener.OnWalkingRouteButtonClick(getLayoutPosition());
+          moveBackgroundCircleToSelectedRouteMode( "walking");
         }
       });
       bikingRouteButton.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View view) {
           bikingRouteButtonClickListener.onBikingRouteButtonClick(getLayoutPosition());
+          moveBackgroundCircleToSelectedRouteMode( "biking");
         }
       });
       drivingRouteButton.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View view) {
           drivingRouteButtonClickListener.onDrivingRouteButtonClick(getLayoutPosition());
+          moveBackgroundCircleToSelectedRouteMode( "driving");
+
         }
       });
     }
 
-    @Override
-    public void onClick(View view) {
+    private void moveBackgroundCircleToSelectedRouteMode(String buttonType) {
+      switch (buttonType) {
+        case "walking":
+          walkingRouteButton.setColorFilter();
+          walkingRouteButton.setBackgroundResource(R.drawable.white_circle);
+          drivingRouteButton.setBackgroundResource(0);
+          bikingRouteButton.setBackgroundResource(0);
+          break;
+        case "biking":
+          walkingRouteButton.setBackgroundResource(0);
+          drivingRouteButton.setBackgroundResource(0);
+          bikingRouteButton.setColorFilter(R.drawable.white_circle);
+          bikingRouteButton.setBackgroundResource(R.drawable.white_circle);
+          break;
+        case "driving":
+          walkingRouteButton.setBackgroundResource(0);
+          drivingRouteButton.setColorFilter(R.drawable.white_circle);
+          drivingRouteButton.setBackgroundResource(R.drawable.white_circle);
+          bikingRouteButton.setBackgroundResource(0);
+          break;
+      }
     }
   }
 }
