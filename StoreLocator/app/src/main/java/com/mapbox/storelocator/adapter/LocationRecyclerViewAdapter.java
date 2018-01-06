@@ -68,7 +68,7 @@ public class LocationRecyclerViewAdapter extends
   public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
     int singleRvCardToUse = R.layout.single_location_map_view_rv_card;
     View itemView = LayoutInflater.from(parent.getContext()).inflate(singleRvCardToUse, parent, false);
-    return new ViewHolder(itemView, context);
+    return new ViewHolder(itemView, context, selectedTheme);
   }
 
   public interface CardClickListener {
@@ -217,7 +217,7 @@ public class LocationRecyclerViewAdapter extends
     ImageButton bikingRouteButton;
     ImageButton drivingRouteButton;
 
-    ViewHolder(View itemView, final Context context) {
+    ViewHolder(View itemView, final Context context, final int selectedTheme) {
       super(itemView);
       nameTextView = itemView.findViewById(R.id.location_name_tv);
       addressTextView = itemView.findViewById(R.id.location_description_tv);
@@ -232,9 +232,9 @@ public class LocationRecyclerViewAdapter extends
       milesAbbreviationTextView = itemView.findViewById(R.id.miles_mi_tv);
       cardView = itemView.findViewById(R.id.map_view_location_card);
       startNavGoButton = itemView.findViewById(R.id.start_navigation_image_button);
-      walkingRouteButton = itemView.findViewById(R.id.driving_route_image_button);
+      walkingRouteButton = itemView.findViewById(R.id.walking_route_image_button);
       bikingRouteButton = itemView.findViewById(R.id.show_biking_route_image_button);
-      drivingRouteButton = itemView.findViewById(R.id.walking_route_image_button);
+      drivingRouteButton = itemView.findViewById(R.id.driving_route_image_button);
       cardView.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View view) {
@@ -251,64 +251,98 @@ public class LocationRecyclerViewAdapter extends
         @Override
         public void onClick(View view) {
           walkingRouteButtonClickListener.OnWalkingRouteButtonClick(getLayoutPosition());
-          moveBackgroundCircleToSelectedRouteMode("walking", context);
+          moveBackgroundCircleToSelectedRouteMode("walking", context, selectedTheme);
         }
       });
       bikingRouteButton.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View view) {
           bikingRouteButtonClickListener.onBikingRouteButtonClick(getLayoutPosition());
-          moveBackgroundCircleToSelectedRouteMode("biking", context);
+          moveBackgroundCircleToSelectedRouteMode("biking", context, selectedTheme);
         }
       });
       drivingRouteButton.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View view) {
           drivingRouteButtonClickListener.onDrivingRouteButtonClick(getLayoutPosition());
-          moveBackgroundCircleToSelectedRouteMode("driving", context);
+          moveBackgroundCircleToSelectedRouteMode("driving", context, selectedTheme);
         }
       });
     }
 
-    private void moveBackgroundCircleToSelectedRouteMode(String buttonType, Context context) {
+    private void moveBackgroundCircleToSelectedRouteMode(String buttonType, Context context, int selectedTheme) {
       switch (buttonType) {
         case "walking":
-
-          walkingRouteButton.setColorFilter(context.getResources().getColor(R.color.colorPrimary_blue));
+          drivingRouteButton.setColorFilter(context.getResources().getColor(R.color.white));
+          drivingRouteButton.setBackgroundResource(0);
+          bikingRouteButton.setColorFilter(context.getResources().getColor(R.color.white));
+          bikingRouteButton.setBackgroundResource(0);
           walkingRouteButton.setBackgroundResource(R.drawable.white_circle);
-
-          drivingRouteButton.setColorFilter(context.getResources().getColor(R.color.white));
-          drivingRouteButton.setBackgroundResource(0);
-
-          bikingRouteButton.setColorFilter(context.getResources().getColor(R.color.white));
-          bikingRouteButton.setBackgroundResource(0);
-
+          switch (selectedTheme) {
+            case R.style.AppTheme_Blue:
+              walkingRouteButton.setColorFilter(context.getResources().getColor(R.color.colorPrimaryDark_blue));
+              break;
+            case R.style.AppTheme_Purple:
+              walkingRouteButton.setColorFilter(context.getResources().getColor(R.color.colorPrimaryDark_purple));
+              break;
+            case R.style.AppTheme_Green:
+              walkingRouteButton.setColorFilter(context.getResources().getColor(R.color.colorPrimaryDark_green));
+              break;
+            case R.style.AppTheme_Neutral:
+              walkingRouteButton.setColorFilter(context.getResources().getColor(R.color.colorPrimaryDark_neutral));
+              break;
+            case R.style.AppTheme_Gray:
+              walkingRouteButton.setColorFilter(context.getResources().getColor(R.color.colorPrimaryDark_gray));
+              break;
+          }
           break;
-
         case "biking":
-
           walkingRouteButton.setBackgroundResource(0);
           walkingRouteButton.setColorFilter(context.getResources().getColor(R.color.white));
-
           drivingRouteButton.setBackgroundResource(0);
           drivingRouteButton.setColorFilter(context.getResources().getColor(R.color.white));
-
-          bikingRouteButton.setColorFilter(context.getResources().getColor(R.color.colorPrimary_blue));
           bikingRouteButton.setBackgroundResource(R.drawable.white_circle);
-
+          switch (selectedTheme) {
+            case R.style.AppTheme_Blue:
+              bikingRouteButton.setColorFilter(context.getResources().getColor(R.color.colorPrimaryDark_blue));
+              break;
+            case R.style.AppTheme_Purple:
+              bikingRouteButton.setColorFilter(context.getResources().getColor(R.color.colorPrimaryDark_purple));
+              break;
+            case R.style.AppTheme_Green:
+              bikingRouteButton.setColorFilter(context.getResources().getColor(R.color.colorPrimaryDark_green));
+              break;
+            case R.style.AppTheme_Neutral:
+              bikingRouteButton.setColorFilter(context.getResources().getColor(R.color.colorPrimaryDark_neutral));
+              break;
+            case R.style.AppTheme_Gray:
+              bikingRouteButton.setColorFilter(context.getResources().getColor(R.color.colorPrimaryDark_gray));
+              break;
+          }
           break;
-
         case "driving":
-
           walkingRouteButton.setBackgroundResource(0);
           walkingRouteButton.setColorFilter(context.getResources().getColor(R.color.white));
-
-          drivingRouteButton.setColorFilter(context.getResources().getColor(R.color.colorPrimary_blue));
-          drivingRouteButton.setBackgroundResource(R.drawable.white_circle);
-
           bikingRouteButton.setColorFilter(context.getResources().getColor(R.color.white));
           bikingRouteButton.setBackgroundResource(0);
-
+          drivingRouteButton.setBackgroundResource(R.drawable.white_circle);
+          switch (selectedTheme) {
+            case R.style.AppTheme_Blue:
+              drivingRouteButton.setColorFilter(context.getResources().getColor(R.color.colorPrimaryDark_blue));
+              break;
+            case R.style.AppTheme_Purple:
+              drivingRouteButton.setColorFilter(context.getResources().getColor(R.color.colorPrimaryDark_purple));
+              break;
+            case R.style.AppTheme_Green:
+              drivingRouteButton.setColorFilter(context.getResources().getColor(R.color.colorPrimaryDark_green));
+              break;
+            case R.style.AppTheme_Neutral:
+              drivingRouteButton.setColorFilter(context.getResources().getColor(R.color.colorPrimaryDark_neutral));
+              break;
+            case R.style.AppTheme_Gray:
+              drivingRouteButton.setColorFilter(context.getResources().getColor(R.color.colorPrimaryDark_gray));
+              break;
+          }
           break;
       }
     }

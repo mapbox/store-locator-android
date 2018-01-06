@@ -94,7 +94,7 @@ public class MapActivity extends AppCompatActivity implements LocationRecyclerVi
   private ArrayList<IndividualLocation> listOfIndividualLocations;
   private CustomThemeManager customThemeManager;
   private LocationRecyclerViewAdapter styleRvAdapter;
-  private int chosenTheme;
+  private int selectedTheme;
   private String currentDesiredRouteProfile;
   private String TAG = "MapActivity";
 
@@ -125,8 +125,8 @@ public class MapActivity extends AppCompatActivity implements LocationRecyclerVi
     listOfIndividualLocations = new ArrayList<>();
 
     // Initialize the theme that was selected in the previous activity. The blue theme is set as the backup default.
-    chosenTheme = getIntent().getIntExtra(SELECTED_THEME_INTENT_KEY, R.style.AppTheme_Blue);
-    Log.d(TAG, "onCreate: chosenTheme = " + chosenTheme);
+    selectedTheme = getIntent().getIntExtra(SELECTED_THEME_INTENT_KEY, R.style.AppTheme_Blue);
+    Log.d(TAG, "onCreate: selectedTheme = " + selectedTheme);
 
     // TODO: Add comment about what the line below is about
     currentDesiredRouteProfile = DirectionsCriteria.PROFILE_DRIVING;
@@ -142,7 +142,7 @@ public class MapActivity extends AppCompatActivity implements LocationRecyclerVi
         MapActivity.this.mapboxMap = mapboxMap;
 
         // Initialize the custom class that handles marker icon creation and map styling based on the selected theme
-        customThemeManager = new CustomThemeManager(chosenTheme, MapActivity.this, mapView, mapboxMap);
+        customThemeManager = new CustomThemeManager(selectedTheme, MapActivity.this, mapView, mapboxMap);
         customThemeManager.initializeTheme();
 
         // Adjust the opacity of the Mapbox logo in the lower left hand corner of the map
@@ -199,7 +199,7 @@ public class MapActivity extends AppCompatActivity implements LocationRecyclerVi
 
         initMarkerClickListener();
 
-        setUpRecyclerViewOfLocationCards(chosenTheme);
+        setUpRecyclerViewOfLocationCards(selectedTheme);
       }
     });
 
@@ -398,14 +398,14 @@ public class MapActivity extends AppCompatActivity implements LocationRecyclerVi
     }
   }
 
-  private void setUpRecyclerViewOfLocationCards(int chosenTheme) {
+  private void setUpRecyclerViewOfLocationCards(int selectedTheme) {
     // Initialize the recyclerview of location cards and a custom class for automatic card scrolling
     locationsRecyclerView = findViewById(R.id.map_layout_rv);
     locationsRecyclerView.setHasFixedSize(true);
     locationsRecyclerView.setLayoutManager(new LinearLayoutManagerWithSmoothScroller(this));
     styleRvAdapter = new LocationRecyclerViewAdapter(listOfIndividualLocations,
       getApplicationContext(), this, this
-      , this, this, this, chosenTheme);
+      , this, this, this, selectedTheme);
     locationsRecyclerView.setAdapter(styleRvAdapter);
     SnapHelper snapHelper = new LinearSnapHelper();
     snapHelper.attachToRecyclerView(locationsRecyclerView);
@@ -455,7 +455,7 @@ public class MapActivity extends AppCompatActivity implements LocationRecyclerVi
     int lightNavUiStyleToUse;
     int darkNavUiStyleToUse = R.style.NavigationViewDark;
 
-    switch (chosenTheme) {
+    switch (selectedTheme) {
       case R.style.AppTheme_Purple:
         lightNavUiStyleToUse = R.style.CustomPurpleNavigationViewLight;
         // Uncomment line below and adjust custom dark style
