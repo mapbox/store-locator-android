@@ -6,7 +6,6 @@ import android.support.constraint.ConstraintLayout;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -69,7 +68,7 @@ public class LocationRecyclerViewAdapter extends
   public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
     int singleRvCardToUse = R.layout.single_location_map_view_rv_card;
     View itemView = LayoutInflater.from(parent.getContext()).inflate(singleRvCardToUse, parent, false);
-    return new ViewHolder(itemView);
+    return new ViewHolder(itemView, context);
   }
 
   public interface CardClickListener {
@@ -218,7 +217,7 @@ public class LocationRecyclerViewAdapter extends
     ImageButton bikingRouteButton;
     ImageButton drivingRouteButton;
 
-    ViewHolder(View itemView) {
+    ViewHolder(View itemView, final Context context) {
       super(itemView);
       nameTextView = itemView.findViewById(R.id.location_name_tv);
       addressTextView = itemView.findViewById(R.id.location_description_tv);
@@ -233,9 +232,9 @@ public class LocationRecyclerViewAdapter extends
       milesAbbreviationTextView = itemView.findViewById(R.id.miles_mi_tv);
       cardView = itemView.findViewById(R.id.map_view_location_card);
       startNavGoButton = itemView.findViewById(R.id.start_navigation_image_button);
-      walkingRouteButton = itemView.findViewById(R.id.show_walking_route_image_button);
+      walkingRouteButton = itemView.findViewById(R.id.driving_route_image_button);
       bikingRouteButton = itemView.findViewById(R.id.show_biking_route_image_button);
-      drivingRouteButton = itemView.findViewById(R.id.show_driving_route_image_button);
+      drivingRouteButton = itemView.findViewById(R.id.walking_route_image_button);
       cardView.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View view) {
@@ -252,45 +251,64 @@ public class LocationRecyclerViewAdapter extends
         @Override
         public void onClick(View view) {
           walkingRouteButtonClickListener.OnWalkingRouteButtonClick(getLayoutPosition());
-          moveBackgroundCircleToSelectedRouteMode( "walking");
+          moveBackgroundCircleToSelectedRouteMode("walking", context);
         }
       });
       bikingRouteButton.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View view) {
           bikingRouteButtonClickListener.onBikingRouteButtonClick(getLayoutPosition());
-          moveBackgroundCircleToSelectedRouteMode( "biking");
+          moveBackgroundCircleToSelectedRouteMode("biking", context);
         }
       });
       drivingRouteButton.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View view) {
           drivingRouteButtonClickListener.onDrivingRouteButtonClick(getLayoutPosition());
-          moveBackgroundCircleToSelectedRouteMode( "driving");
-
+          moveBackgroundCircleToSelectedRouteMode("driving", context);
         }
       });
     }
 
-    private void moveBackgroundCircleToSelectedRouteMode(String buttonType) {
+    private void moveBackgroundCircleToSelectedRouteMode(String buttonType, Context context) {
       switch (buttonType) {
         case "walking":
-          walkingRouteButton.setColorFilter();
+
+          walkingRouteButton.setColorFilter(context.getResources().getColor(R.color.colorPrimary_blue));
           walkingRouteButton.setBackgroundResource(R.drawable.white_circle);
+
+          drivingRouteButton.setColorFilter(context.getResources().getColor(R.color.white));
           drivingRouteButton.setBackgroundResource(0);
+
+          bikingRouteButton.setColorFilter(context.getResources().getColor(R.color.white));
           bikingRouteButton.setBackgroundResource(0);
+
           break;
+
         case "biking":
+
           walkingRouteButton.setBackgroundResource(0);
+          walkingRouteButton.setColorFilter(context.getResources().getColor(R.color.white));
+
           drivingRouteButton.setBackgroundResource(0);
-          bikingRouteButton.setColorFilter(R.drawable.white_circle);
+          drivingRouteButton.setColorFilter(context.getResources().getColor(R.color.white));
+
+          bikingRouteButton.setColorFilter(context.getResources().getColor(R.color.colorPrimary_blue));
           bikingRouteButton.setBackgroundResource(R.drawable.white_circle);
+
           break;
+
         case "driving":
+
           walkingRouteButton.setBackgroundResource(0);
-          drivingRouteButton.setColorFilter(R.drawable.white_circle);
+          walkingRouteButton.setColorFilter(context.getResources().getColor(R.color.white));
+
+          drivingRouteButton.setColorFilter(context.getResources().getColor(R.color.colorPrimary_blue));
           drivingRouteButton.setBackgroundResource(R.drawable.white_circle);
+
+          bikingRouteButton.setColorFilter(context.getResources().getColor(R.color.white));
           bikingRouteButton.setBackgroundResource(0);
+
           break;
       }
     }

@@ -144,19 +144,16 @@
             app:layout_constraintTop_toTopOf="@+id/show_biking_route_image_button" />
 
         <ImageButton
-            android:id="@+id/show_walking_route_image_button"
+            android:id="@+id/driving_route_image_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
             android:background="@null"
-            android:src="@drawable/walking_navigation_card_button_icon"
-            app:layout_constraintEnd_toStartOf="@+id/show_driving_route_image_button"
+            android:src="@drawable/drive_navigation_card_button_icon"
+            app:layout_constraintBottom_toTopOf="@+id/guideline12"
+            app:layout_constraintEnd_toStartOf="@+id/walking_route_image_button"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/guideline5"
-            app:layout_constraintStart_toStartOf="@+id/guideline5"
-            app:layout_constraintTop_toBottomOf="@+id/location_description_tv" />
+            app:layout_constraintStart_toStartOf="@+id/guideline5" />
 
         <ImageButton
             android:id="@+id/show_biking_route_image_button"
@@ -164,11 +161,11 @@
             android:layout_height="wrap_content"
             android:background="@null"
             android:src="@drawable/bike_navigation_card_button_icon"
-            app:layout_constraintBottom_toBottomOf="@+id/show_driving_route_image_button"
+            app:layout_constraintBottom_toBottomOf="@+id/walking_route_image_button"
             app:layout_constraintEnd_toStartOf="@+id/start_navigation_image_button"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/show_driving_route_image_button"
-            app:layout_constraintTop_toTopOf="@+id/show_driving_route_image_button" />
+            app:layout_constraintStart_toEndOf="@+id/walking_route_image_button"
+            app:layout_constraintTop_toTopOf="@+id/walking_route_image_button" />
 
         <android.support.constraint.Guideline
             android:id="@+id/guideline10"
@@ -252,16 +249,16 @@
             app:layout_constraintGuide_begin="20dp" />
 
         <ImageButton
-            android:id="@+id/show_driving_route_image_button"
+            android:id="@+id/walking_route_image_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@null"
-            android:src="@drawable/car_navigation_card_button_icon"
-            app:layout_constraintBottom_toBottomOf="@+id/show_walking_route_image_button"
+            android:src="@drawable/walking_navigation_card_button_icon"
+            app:layout_constraintBottom_toBottomOf="@+id/driving_route_image_button"
             app:layout_constraintEnd_toStartOf="@+id/show_biking_route_image_button"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/show_walking_route_image_button"
-            app:layout_constraintTop_toTopOf="@+id/show_walking_route_image_button" />
+            app:layout_constraintStart_toEndOf="@+id/driving_route_image_button"
+            app:layout_constraintTop_toTopOf="@+id/driving_route_image_button" />
 
     </android.support.constraint.ConstraintLayout>
 </android.support.v7.widget.CardView>
