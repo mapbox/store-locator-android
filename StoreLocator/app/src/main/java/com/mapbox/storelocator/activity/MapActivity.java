@@ -206,8 +206,10 @@ public class MapActivity extends AppCompatActivity implements LocationRecyclerVi
     // Check for location permission
     permissionsManager = new PermissionsManager(this);
     if (!PermissionsManager.areLocationPermissionsGranted(this)) {
+      Log.d(TAG, "onCreate: permissionsManager.requestLocationPermissions(this);");
       permissionsManager.requestLocationPermissions(this);
     } else {
+      Log.d(TAG, "onCreate: Location permissions not needed");
     }
 
   }
@@ -488,7 +490,6 @@ public class MapActivity extends AppCompatActivity implements LocationRecyclerVi
         break;
     }
 
-    // TODO - remove and add back intent extra once fixed in the nav SDK
     SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
     SharedPreferences.Editor editor = preferences.edit();
     editor.putBoolean(SIMULATE_NAV_ROUTE_KEY, true);
