@@ -6,8 +6,10 @@
     android:id="@+id/map_view_location_card"
     android:layout_width="match_parent"
     android:layout_height="190dp"
+    android:layout_marginEnd="8dp"
     android:layout_marginLeft="16dp"
     android:layout_marginRight="8dp"
+    android:layout_marginStart="16dp"
     android:layout_marginTop="8dp"
     android:background="?attr/colorPrimary"
     app:cardCornerRadius="3dp"
@@ -81,12 +83,11 @@
         <TextView
             android:id="@+id/location_name_tv"
             android:layout_width="wrap_content"
-            android:layout_height="28sp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginStart="8dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
             android:layout_marginTop="11dp"
             android:fontFamily="@font/bariol_bold"
-            android:textSize="@dimen/body_text_size"
+            android:textSize="24sp"
             app:layout_constraintLeft_toRightOf="@+id/icon_frame_layout"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="Location title" />
@@ -94,13 +95,11 @@
         <TextView
             android:id="@+id/location_description_tv"
             android:layout_width="0dp"
-            android:layout_height="17dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginTop="8dp"
+            android:layout_height="wrap_content"
             android:ellipsize="end"
             android:fontFamily="@font/bariol_bold"
             android:maxLines="1"
-            android:textSize="@dimen/secondary_text_size"
+            android:textSize="18sp"
             app:layout_constraintBottom_toBottomOf="@+id/icon_frame_layout"
             app:layout_constraintEnd_toStartOf="@+id/distance_num_tv"
             app:layout_constraintLeft_toLeftOf="@+id/location_name_tv"
@@ -127,30 +126,29 @@
             app:layout_constraintEnd_toEndOf="@+id/distance_num_tv"
             app:layout_constraintTop_toBottomOf="@+id/distance_num_tv" />
 
-        <Button
+        <ImageButton
             android:id="@+id/start_navigation_image_button"
-            android:layout_width="60dp"
-            android:layout_height="40dp"
-            android:layout_marginBottom="16dp"
+            android:layout_width="90dp"
+            android:layout_height="0dp"
             android:background="@drawable/ic_curved_rectangle_background"
             android:text="@string/go"
             android:textAllCaps="false"
-            app:layout_constraintBottom_toTopOf="@+id/guideline12"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            app:layout_constraintBottom_toBottomOf="@+id/show_biking_route_image_button"
             app:layout_constraintEnd_toStartOf="@+id/guideline13"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/show_biking_route_image_button" />
+            app:layout_constraintTop_toTopOf="@+id/show_biking_route_image_button" />
 
         <ImageButton
             android:id="@+id/driving_route_image_button"
             android:layout_width="45dp"
             android:layout_height="45dp"
+            android:layout_marginBottom="8dp"
             android:background="@null"
             android:src="@drawable/drive_navigation_card_button_icon"
-            app:layout_constraintBottom_toBottomOf="@+id/walking_route_image_button"
-            app:layout_constraintEnd_toStartOf="@+id/walking_route_image_button"
-            app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/guideline10"
-            app:layout_constraintStart_toStartOf="@+id/guideline5" />
+            app:layout_constraintBottom_toTopOf="@+id/guideline12"
+            app:layout_constraintStart_toStartOf="@+id/location_description_tv"
+            app:layout_constraintTop_toBottomOf="@+id/location_description_tv" />
 
         <ImageButton
             android:id="@+id/show_biking_route_image_button"
@@ -158,7 +156,7 @@
             android:layout_height="45dp"
             android:background="@null"
             android:src="@drawable/bike_navigation_card_button_icon"
-            app:layout_constraintBottom_toBottomOf="@+id/start_navigation_image_button"
+            app:layout_constraintBottom_toBottomOf="@+id/walking_route_image_button"
             app:layout_constraintEnd_toStartOf="@+id/start_navigation_image_button"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toEndOf="@+id/walking_route_image_button" />
@@ -250,10 +248,10 @@
             android:layout_height="45dp"
             android:background="@null"
             android:src="@drawable/walking_navigation_card_button_icon"
-            app:layout_constraintBottom_toBottomOf="@+id/show_biking_route_image_button"
             app:layout_constraintEnd_toStartOf="@+id/show_biking_route_image_button"
             app:layout_constraintHorizontal_bias="0.5"
-            app:layout_constraintStart_toEndOf="@+id/driving_route_image_button" />
+            app:layout_constraintStart_toEndOf="@+id/driving_route_image_button"
+            app:layout_constraintTop_toTopOf="@id/driving_route_image_button" />
 
     </android.support.constraint.ConstraintLayout>
 </android.support.v7.widget.CardView>

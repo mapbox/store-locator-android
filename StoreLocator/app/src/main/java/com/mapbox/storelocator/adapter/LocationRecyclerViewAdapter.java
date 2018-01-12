@@ -1,6 +1,7 @@
 package com.mapbox.storelocator.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.content.res.ResourcesCompat;
@@ -9,7 +10,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -33,7 +33,7 @@ public class LocationRecyclerViewAdapter extends
   private static WalkingRouteButtonClickListener walkingRouteButtonClickListener;
   private static BikingRouteButtonClickListener bikingRouteButtonClickListener;
   private static DrivingRouteButtonClickListener drivingRouteButtonClickListener;
-  private Button startNavGoButton = null;
+  private ImageButton startNavGoButton = null;
   private Drawable emojiForCircle = null;
   private Drawable backgroundCircle = null;
   private int upperCardSectionColor = 0;
@@ -45,6 +45,7 @@ public class LocationRecyclerViewAdapter extends
   private int locationHoursHeaderColor = 0;
   private int locationDistanceNumColor = 0;
   private int milesAbbreviationColor = 0;
+  private int startNavGoButtonColor = 0;
 
   public LocationRecyclerViewAdapter(List<IndividualLocation> styles,
                                      Context context, CardClickListener cardClickListener,
@@ -112,9 +113,9 @@ public class LocationRecyclerViewAdapter extends
       case R.style.AppTheme_Blue:
         emojiForCircle = ResourcesCompat.getDrawable(context.getResources(), R.drawable.ice_cream_icon, null);
         backgroundCircle = ResourcesCompat.getDrawable(context.getResources(), R.drawable.blue_circle, null);
-        setColors(R.color.colorPrimary_blue, R.color.white, R.color.white, R.color.cardHourAndPhoneTextColor_blue,
+        setColors(R.color.colorPrimaryDark_blue, R.color.white, R.color.white, R.color.cardHourAndPhoneTextColor_blue,
           R.color.cardHourAndPhoneHeaderTextColor_blue, R.color.cardHourAndPhoneTextColor_blue,
-          R.color.cardHourAndPhoneHeaderTextColor_blue, R.color.white, R.color.white);
+          R.color.cardHourAndPhoneHeaderTextColor_blue, R.color.white, R.color.white, R.color.startNavGoButton_purple_theme);
         setAlphas(card, .41f, .48f, 100f, .48f,
           100f,
           .41f);
@@ -124,7 +125,7 @@ public class LocationRecyclerViewAdapter extends
         backgroundCircle = ResourcesCompat.getDrawable(context.getResources(), R.drawable.purple_circle, null);
         setColors(R.color.colorPrimaryDark_purple, R.color.white, R.color.white, R.color.cardHourAndPhoneTextColor_purple,
           R.color.cardHourAndPhoneTextColor_purple, R.color.cardHourAndPhoneTextColor_purple,
-          R.color.cardHourAndPhoneTextColor_purple, R.color.white, R.color.white);
+          R.color.cardHourAndPhoneTextColor_purple, R.color.white, R.color.white, R.color.startNavGoButton_blue_theme);
         setAlphas(card, .41f, .36f, .94f, .36f,
           .94f,
           .41f);
@@ -135,7 +136,7 @@ public class LocationRecyclerViewAdapter extends
         backgroundCircle = ResourcesCompat.getDrawable(context.getResources(), R.drawable.green_circle, null);
         setColors(R.color.colorPrimaryDark_green, R.color.white, R.color.white, R.color.cardHourAndPhoneTextColor_green,
           R.color.black, R.color.cardHourAndPhoneTextColor_green,
-          R.color.black, R.color.white, R.color.white);
+          R.color.black, R.color.white, R.color.white, R.color.startNavGoButton_green_theme);
         setAlphas(card, 100f, .48f, 100f, .48f,
           100f,
           100f);
@@ -143,9 +144,9 @@ public class LocationRecyclerViewAdapter extends
       case R.style.AppTheme_Neutral:
         emojiForCircle = ResourcesCompat.getDrawable(context.getResources(), R.drawable.house_icon, null);
         backgroundCircle = ResourcesCompat.getDrawable(context.getResources(), R.drawable.white_circle, null);
-        setColors(R.color.colorPrimaryDark_neutral, R.color.black, R.color.black, R.color.black,
+        setColors(R.color.white, R.color.black, R.color.black, R.color.black,
           R.color.black, R.color.black,
-          R.color.black, R.color.black, R.color.black);
+          R.color.black, R.color.black, R.color.black, R.color.startNavGoButton_neutral_theme);
         setAlphas(card, .37f, .37f, 100f, .37f,
           100f,
           .37f);
@@ -155,7 +156,7 @@ public class LocationRecyclerViewAdapter extends
         backgroundCircle = ResourcesCompat.getDrawable(context.getResources(), R.drawable.gray_circle, null);
         setColors(R.color.colorPrimaryDark_gray, R.color.white, R.color.white, R.color.cardHourAndPhoneTextColor_gray,
           R.color.cardHourAndPhoneTextColor_gray, R.color.cardHourAndPhoneTextColor_gray,
-          R.color.cardHourAndPhoneTextColor_gray, R.color.white, R.color.white);
+          R.color.cardHourAndPhoneTextColor_gray, R.color.white, R.color.white, R.color.startNavGoButton_gray_theme);
         setAlphas(card, .41f, .48f, 100f, .41f,
           100f,
           .41f);
@@ -173,11 +174,15 @@ public class LocationRecyclerViewAdapter extends
     card.milesAbbreviationTextView.setTextColor(milesAbbreviationColor);
     card.addressTextView.setTextColor(locationAddressColor);
     card.phoneHeaderTextView.setTextColor(locationPhoneHeaderColor);
+
+    // TODO: Adjust below
+    card.startNavGoButton.setColorFilter(startNavGoButtonColor);
   }
 
   private void setColors(int colorForUpperCard, int colorForName, int colorForAddress,
                          int colorForHours, int colorForHoursHeader, int colorForPhoneNum,
-                         int colorForPhoneHeader, int colorForDistanceNum, int colorForMilesAbbreviation) {
+                         int colorForPhoneHeader, int colorForDistanceNum, int colorForMilesAbbreviation,
+                         int colorForStartNavGoButton) {
     upperCardSectionColor = ResourcesCompat.getColor(context.getResources(), colorForUpperCard, null);
     locationNameColor = ResourcesCompat.getColor(context.getResources(), colorForName, null);
     locationAddressColor = ResourcesCompat.getColor(context.getResources(), colorForAddress, null);
@@ -187,6 +192,7 @@ public class LocationRecyclerViewAdapter extends
     locationPhoneHeaderColor = ResourcesCompat.getColor(context.getResources(), colorForPhoneHeader, null);
     locationDistanceNumColor = ResourcesCompat.getColor(context.getResources(), colorForDistanceNum, null);
     milesAbbreviationColor = ResourcesCompat.getColor(context.getResources(), colorForMilesAbbreviation, null);
+    startNavGoButtonColor = ResourcesCompat.getColor(context.getResources(), colorForStartNavGoButton, null);
   }
 
   private void setAlphas(ViewHolder card, float addressAlpha, float hoursHeaderAlpha, float hoursNumAlpha,
@@ -212,7 +218,7 @@ public class LocationRecyclerViewAdapter extends
     CardView cardView;
     ImageView backgroundCircleImageView;
     ImageView emojiImageView;
-    Button startNavGoButton;
+    ImageButton startNavGoButton;
     ImageButton walkingRouteButton;
     ImageButton bikingRouteButton;
     ImageButton drivingRouteButton;
@@ -289,7 +295,7 @@ public class LocationRecyclerViewAdapter extends
               walkingRouteButton.setColorFilter(context.getResources().getColor(R.color.colorPrimaryDark_green));
               break;
             case R.style.AppTheme_Neutral:
-              walkingRouteButton.setColorFilter(context.getResources().getColor(R.color.colorPrimaryDark_neutral));
+              walkingRouteButton.setColorFilter(Color.parseColor("#ED2724"));
               break;
             case R.style.AppTheme_Gray:
               walkingRouteButton.setColorFilter(context.getResources().getColor(R.color.colorPrimaryDark_gray));
@@ -313,7 +319,7 @@ public class LocationRecyclerViewAdapter extends
               bikingRouteButton.setColorFilter(context.getResources().getColor(R.color.colorPrimaryDark_green));
               break;
             case R.style.AppTheme_Neutral:
-              bikingRouteButton.setColorFilter(context.getResources().getColor(R.color.colorPrimaryDark_neutral));
+              bikingRouteButton.setColorFilter(Color.parseColor("#ED2724"));
               break;
             case R.style.AppTheme_Gray:
               bikingRouteButton.setColorFilter(context.getResources().getColor(R.color.colorPrimaryDark_gray));
@@ -337,7 +343,7 @@ public class LocationRecyclerViewAdapter extends
               drivingRouteButton.setColorFilter(context.getResources().getColor(R.color.colorPrimaryDark_green));
               break;
             case R.style.AppTheme_Neutral:
-              drivingRouteButton.setColorFilter(context.getResources().getColor(R.color.colorPrimaryDark_neutral));
+              drivingRouteButton.setColorFilter(Color.parseColor("#ED2724"));
               break;
             case R.style.AppTheme_Gray:
               drivingRouteButton.setColorFilter(context.getResources().getColor(R.color.colorPrimaryDark_gray));
