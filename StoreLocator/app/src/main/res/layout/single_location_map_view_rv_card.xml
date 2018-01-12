@@ -124,9 +124,8 @@
             android:fontFamily="@font/bariol_bold"
             android:text="@string/distance"
             android:textSize="@dimen/secondary_text_size"
-            app:layout_constraintBottom_toBottomOf="@+id/location_description_tv"
             app:layout_constraintEnd_toEndOf="@+id/distance_num_tv"
-            app:layout_constraintTop_toTopOf="@+id/location_description_tv" />
+            app:layout_constraintTop_toBottomOf="@+id/distance_num_tv" />
 
         <Button
             android:id="@+id/start_navigation_image_button"
