@@ -215,6 +215,39 @@ public class MapActivity extends AppCompatActivity implements LocationRecyclerVi
   }
 
   @Override
+  public void onCardClick(int positionOfCardInRecyclerView) {
+    repositionMapCamera(getCoordinatesOfSelectedLocation(positionOfCardInRecyclerView));
+  }
+
+  @Override
+  public void onStartNavigationGoButtonClick(int position) {
+    startNavigation(getCoordinatesOfSelectedLocation(position));
+  }
+
+  @Override
+  public void OnWalkingRouteButtonClick(int position) {
+    // TODO: Add loading spinner UI on top of menu?
+    currentDesiredRouteProfile = DirectionsCriteria.PROFILE_WALKING;
+    getInformationFromDirectionsApi(getCoordinatesOfSelectedLocation(position), true, position);
+  }
+
+  @Override
+  public void onBikingRouteButtonClick(int position) {
+    // TODO: Add loading spinner UI on top of menu?
+    currentDesiredRouteProfile = DirectionsCriteria.PROFILE_CYCLING;
+    getInformationFromDirectionsApi(getCoordinatesOfSelectedLocation(position), true, position);
+  }
+
+  @Override
+  public void onDrivingRouteButtonClick(int position) {
+    // TODO: Add loading spinner UI on top of menu?
+    currentDesiredRouteProfile = DirectionsCriteria.PROFILE_DRIVING;
+    // Want the route to take real-time traffic into account? If so, set
+    // currentDesiredRouteProfile = DirectionsCriteria.PROFILE_DRIVING_TRAFFIC;
+    getInformationFromDirectionsApi(getCoordinatesOfSelectedLocation(position), true, position);
+  }
+
+  @Override
   public void onExplanationNeeded(List<String> permissionsToExplain) {
     Toast.makeText(this, R.string.permission_explanation, Toast.LENGTH_LONG).show();
   }
@@ -225,34 +258,6 @@ public class MapActivity extends AppCompatActivity implements LocationRecyclerVi
     } else {
       Toast.makeText(this, R.string.did_not_grant_permissions, Toast.LENGTH_LONG).show();
     }
-  }
-
-  @Override
-  public void onCardClick(int positionOfCardInRecyclerView) {
-
-   /* // Get the selected individual location via its card's position in the recyclerview of cards
-    IndividualLocation selectedLocation = listOfIndividualLocations.get(positionOfCardInRecyclerView);
-
-    // Retrieve and change the selected card's marker to the selected marker icon
-    Marker markerTiedToSelectedCard = mapboxMap.getMarkers().get(positionOfCardInRecyclerView);
-    adjustMarkerSelectStateIcons(markerTiedToSelectedCard);
-
-    // Reposition the map camera target to the selected marker
-    LatLng selectedLocationLatLng = selectedLocation.getLocation();*/
-
-
-    repositionMapCamera(getCoordinatesOfSelectedLocation(positionOfCardInRecyclerView));
-
-
-
-    /*// Check for an internet connection before making the call to Mapbox Directions API
-    if (deviceHasInternetConnection()) {
-      // Start call to the Mapbox Directions API
-      getInformationFromDirectionsApi(selectedLocationLatLng.getLatitude(),
-        selectedLocationLatLng.getLongitude(), true, null);
-    } else {
-      Toast.makeText(this, R.string.no_internet_message, Toast.LENGTH_LONG).show();
-    }*/
   }
 
   private LatLng getCoordinatesOfSelectedLocation(int selectedLocationPosition) {
@@ -267,45 +272,6 @@ public class MapActivity extends AppCompatActivity implements LocationRecyclerVi
     return selectedLocation.getLocation();
   }
 
-  @Override
-  public void onStartNavigationGoButtonClick(int position) {
-    // TODO: Pass through
-
-    startNavigation(getCoordinatesOfSelectedLocation(position));
-  }
-
-  @Override
-  public void OnWalkingRouteButtonClick(int position) {
-
-    currentDesiredRouteProfile = DirectionsCriteria.PROFILE_WALKING;
-
-    getInformationFromDirectionsApi(getCoordinatesOfSelectedLocation(position), true, position);
-
-
-    // TODO: Add loading spinner UI on top of menu?
-  }
-
-  @Override
-  public void onBikingRouteButtonClick(int position) {
-
-    currentDesiredRouteProfile = DirectionsCriteria.PROFILE_CYCLING;
-
-    getInformationFromDirectionsApi(getCoordinatesOfSelectedLocation(position), true, position);
-    // TODO: Add loading spinner UI on top of menu?
-
-  }
-
-  @Override
-  public void onDrivingRouteButtonClick(int position) {
-
-    currentDesiredRouteProfile = DirectionsCriteria.PROFILE_DRIVING;
-    // Want the route to take real-time traffic into account? If so, set
-    // currentDesiredRouteProfile = DirectionsCriteria.PROFILE_DRIVING_TRAFFIC;
-
-    getInformationFromDirectionsApi(getCoordinatesOfSelectedLocation(position), true, position);
-
-    // TODO: Add loading spinner UI on top of menu?
-  }
 
   private void getInformationFromDirectionsApi(LatLng selectedLocationCoordinates, final boolean fromMarkerClick,
                                                @Nullable final Integer listIndex) {
@@ -490,11 +456,6 @@ public class MapActivity extends AppCompatActivity implements LocationRecyclerVi
         break;
     }
 
-    SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this);
-    SharedPreferences.Editor editor = preferences.edit();
-    editor.putBoolean(SIMULATE_NAV_ROUTE_KEY, true);
-    editor.apply();
-
     NavigationViewOptions options = NavigationViewOptions.builder()
       .origin(Point.fromLngLat(MOCK_DEVICE_LOCATION_LAT_LNG.getLongitude(), MOCK_DEVICE_LOCATION_LAT_LNG.getLatitude()))
       .destination(Point.fromLngLat(selectedDestination.getLongitude(), selectedDestination.getLatitude()))
@@ -544,7 +505,14 @@ public class MapActivity extends AppCompatActivity implements LocationRecyclerVi
       .width(NAVIGATION_LINE_WIDTH));
   }
 
-  // Add the mapView's lifecycle to the activity's lifecycle methods
+  private boolean deviceHasInternetConnection() {
+    ConnectivityManager connectivityManager = (ConnectivityManager)
+      getApplicationContext().getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+    NetworkInfo activeNetwork = connectivityManager.getActiveNetworkInfo();
+    return activeNetwork != null && activeNetwork.isConnected();
+  }
+
+  //region Add the mapView's lifecycle to the activity's lifecycle methods
   @Override
   public void onResume() {
     super.onResume();
@@ -586,13 +554,7 @@ public class MapActivity extends AppCompatActivity implements LocationRecyclerVi
     super.onSaveInstanceState(outState);
     mapView.onSaveInstanceState(outState);
   }
-
-  private boolean deviceHasInternetConnection() {
-    ConnectivityManager connectivityManager = (ConnectivityManager)
-      getApplicationContext().getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
-    NetworkInfo activeNetwork = connectivityManager.getActiveNetworkInfo();
-    return activeNetwork != null && activeNetwork.isConnected();
-  }
+  //endregion
 
   /**
    * Custom class which creates marker icons and colors based on the selected theme
