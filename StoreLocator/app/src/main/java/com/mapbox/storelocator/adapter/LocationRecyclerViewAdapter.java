@@ -142,8 +142,10 @@ public class LocationRecyclerViewAdapter extends
           100f);
         break;
       case R.style.AppTheme_Neutral:
+        card.lowerViewColorSection.setBackgroundColor(ResourcesCompat.getColor(context.getResources(),
+          R.color.lower_view_card_color, null));
         emojiForCircle = ResourcesCompat.getDrawable(context.getResources(), R.drawable.house_icon, null);
-        backgroundCircle = ResourcesCompat.getDrawable(context.getResources(), R.drawable.white_circle, null);
+        backgroundCircle = ResourcesCompat.getDrawable(context.getResources(), R.drawable.cream_circle, null);
         setColors(R.color.white, R.color.black, R.color.black, R.color.black,
           R.color.black, R.color.black,
           R.color.black, R.color.black, R.color.black, R.color.startNavGoButton_neutral_theme);
@@ -215,6 +217,7 @@ public class LocationRecyclerViewAdapter extends
     TextView milesAbbreviationTextView;
     TextView phoneHeaderTextView;
     ConstraintLayout constraintUpperColorSection;
+    View lowerViewColorSection;
     CardView cardView;
     ImageView backgroundCircleImageView;
     ImageView emojiImageView;
@@ -233,6 +236,7 @@ public class LocationRecyclerViewAdapter extends
       backgroundCircleImageView = itemView.findViewById(R.id.background_circle);
       emojiImageView = itemView.findViewById(R.id.emoji);
       constraintUpperColorSection = itemView.findViewById(R.id.constraint_upper_color);
+      lowerViewColorSection = itemView.findViewById(R.id.lower_section_view);
       distanceNumberTextView = itemView.findViewById(R.id.distance_num_tv);
       hoursHeaderTextView = itemView.findViewById(R.id.hours_header_tv);
       milesAbbreviationTextView = itemView.findViewById(R.id.miles_mi_tv);

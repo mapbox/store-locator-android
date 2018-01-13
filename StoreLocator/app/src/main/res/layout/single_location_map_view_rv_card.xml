@@ -34,10 +34,11 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintVertical_bias="0.0"
+            tools:background="@color/colorPrimaryDark_purple" />
 
         <View
-            android:id="@+id/white_view"
+            android:id="@+id/lower_section_view"
             android:layout_width="0dp"
             android:layout_height="0dp"
             android:layout_marginBottom="0dp"
@@ -90,7 +91,8 @@
             android:textSize="24sp"
             app:layout_constraintLeft_toRightOf="@+id/icon_frame_layout"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="Location title" />
+            tools:text="Location title"
+            tools:textColor="@color/white" />
 
         <TextView
             android:id="@+id/location_description_tv"
@@ -100,11 +102,11 @@
             android:fontFamily="@font/bariol_bold"
             android:maxLines="1"
             android:textSize="18sp"
-            app:layout_constraintBottom_toBottomOf="@+id/icon_frame_layout"
             app:layout_constraintEnd_toStartOf="@+id/distance_num_tv"
             app:layout_constraintLeft_toLeftOf="@+id/location_name_tv"
             app:layout_constraintTop_toBottomOf="@+id/location_name_tv"
-            tools:text="Location description" />
+            tools:text="Location description"
+            tools:textColor="@color/white" />
 
         <TextView
             android:id="@+id/distance_num_tv"
@@ -114,7 +116,8 @@
             android:textSize="@dimen/body_text_size"
             app:layout_constraintEnd_toStartOf="@+id/guideline13"
             app:layout_constraintTop_toTopOf="@+id/location_name_tv"
-            tools:text="1.3" />
+            tools:text="1.3"
+            tools:textColor="@color/white" />
 
         <TextView
             android:id="@+id/miles_mi_tv"
@@ -124,7 +127,8 @@
             android:text="@string/distance"
             android:textSize="@dimen/secondary_text_size"
             app:layout_constraintEnd_toEndOf="@+id/distance_num_tv"
-            app:layout_constraintTop_toBottomOf="@+id/distance_num_tv" />
+            app:layout_constraintTop_toBottomOf="@+id/distance_num_tv"
+            tools:textColor="@color/white" />
 
         <ImageButton
             android:id="@+id/start_navigation_image_button"
