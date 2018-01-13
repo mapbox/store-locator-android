@@ -1,7 +1,6 @@
 package com.mapbox.storelocator.adapter;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.content.res.ResourcesCompat;
@@ -142,6 +141,14 @@ public class LocationRecyclerViewAdapter extends
           100f);
         break;
       case R.style.AppTheme_Neutral:
+        
+        card.drivingRouteButton.setBackgroundResource(0);
+        card.drivingRouteButton.setColorFilter(context.getResources().getColor(R.color.selectedIconColor_neutral));
+        card.walkingRouteButton.setBackgroundResource(0);
+        card.walkingRouteButton.setColorFilter(context.getResources().getColor(R.color.selectedIconColor_neutral));
+        card.bikingRouteButton.setBackgroundResource(0);
+        card.bikingRouteButton.setColorFilter(context.getResources().getColor(R.color.selectedIconColor_neutral));
+
         card.lowerViewColorSection.setBackgroundColor(ResourcesCompat.getColor(context.getResources(),
           R.color.lower_view_card_color, null));
         emojiForCircle = ResourcesCompat.getDrawable(context.getResources(), R.drawable.house_icon, null);
@@ -149,7 +156,7 @@ public class LocationRecyclerViewAdapter extends
         setColors(R.color.white, R.color.black, R.color.black, R.color.black,
           R.color.black, R.color.black,
           R.color.black, R.color.black, R.color.black, R.color.startNavGoButton_neutral_theme);
-        setAlphas(card, .37f, .37f, 100f, .37f,
+        setAlphas(card, .90f, .37f, 100f, .37f,
           100f,
           .37f);
         break;
@@ -294,17 +301,25 @@ public class LocationRecyclerViewAdapter extends
               walkingRouteButton.setColorFilter(context.getResources().getColor(R.color.colorPrimaryDark_green));
               break;
             case R.style.AppTheme_Neutral:
-              walkingRouteButton.setColorFilter(context.getResources().getColor(R.color.selected_icon_color));
+              walkingRouteButton.setColorFilter(context.getResources().getColor(R.color.selectedIconColor_neutral));
               break;
             case R.style.AppTheme_Gray:
               walkingRouteButton.setColorFilter(context.getResources().getColor(R.color.colorPrimaryDark_gray));
               break;
           }
-          drivingRouteButton.setColorFilter(context.getResources().getColor(R.color.white));
-          drivingRouteButton.setBackgroundResource(0);
-          bikingRouteButton.setColorFilter(context.getResources().getColor(R.color.white));
-          bikingRouteButton.setBackgroundResource(0);
-          walkingRouteButton.setBackgroundResource(R.drawable.white_circle);
+          if (selectedTheme == R.style.AppTheme_Neutral) {
+            walkingRouteButton.setBackgroundResource(0);
+            walkingRouteButton.setColorFilter(context.getResources().getColor(R.color.selectedIconColor_neutral));
+            drivingRouteButton.setBackgroundResource(0);
+            drivingRouteButton.setColorFilter(context.getResources().getColor(R.color.selectedIconColor_neutral));
+            bikingRouteButton.setBackgroundResource(R.drawable.white_circle);
+          } else {
+            drivingRouteButton.setColorFilter(context.getResources().getColor(R.color.white));
+            drivingRouteButton.setBackgroundResource(0);
+            bikingRouteButton.setColorFilter(context.getResources().getColor(R.color.white));
+            bikingRouteButton.setBackgroundResource(0);
+            walkingRouteButton.setBackgroundResource(R.drawable.white_circle);
+          }
           break;
         case "biking":
           switch (selectedTheme) {
@@ -318,17 +333,25 @@ public class LocationRecyclerViewAdapter extends
               bikingRouteButton.setColorFilter(context.getResources().getColor(R.color.colorPrimaryDark_green));
               break;
             case R.style.AppTheme_Neutral:
-              bikingRouteButton.setColorFilter(context.getResources().getColor(R.color.selected_icon_color));
+              bikingRouteButton.setColorFilter(context.getResources().getColor(R.color.selectedIconColor_neutral));
               break;
             case R.style.AppTheme_Gray:
               bikingRouteButton.setColorFilter(context.getResources().getColor(R.color.colorPrimaryDark_gray));
               break;
           }
-          walkingRouteButton.setBackgroundResource(0);
-          walkingRouteButton.setColorFilter(context.getResources().getColor(R.color.white));
-          drivingRouteButton.setBackgroundResource(0);
-          drivingRouteButton.setColorFilter(context.getResources().getColor(R.color.white));
-          bikingRouteButton.setBackgroundResource(R.drawable.white_circle);
+          if (selectedTheme == R.style.AppTheme_Neutral) {
+//            walkingRouteButton.setBackgroundResource(0);
+            walkingRouteButton.setColorFilter(context.getResources().getColor(R.color.selectedIconColor_neutral));
+//            drivingRouteButton.setBackgroundResource(0);
+            drivingRouteButton.setColorFilter(context.getResources().getColor(R.color.selectedIconColor_neutral));
+//            bikingRouteButton.setBackgroundResource(R.drawable.white_circle);
+          } else {
+            walkingRouteButton.setBackgroundResource(0);
+            walkingRouteButton.setColorFilter(context.getResources().getColor(R.color.white));
+            drivingRouteButton.setBackgroundResource(0);
+            drivingRouteButton.setColorFilter(context.getResources().getColor(R.color.white));
+            bikingRouteButton.setBackgroundResource(R.drawable.white_circle);
+          }
           break;
         case "driving":
           switch (selectedTheme) {
@@ -342,17 +365,25 @@ public class LocationRecyclerViewAdapter extends
               drivingRouteButton.setColorFilter(context.getResources().getColor(R.color.colorPrimaryDark_green));
               break;
             case R.style.AppTheme_Neutral:
-              drivingRouteButton.setColorFilter(context.getResources().getColor(R.color.selected_icon_color));
+              drivingRouteButton.setColorFilter(context.getResources().getColor(R.color.selectedIconColor_neutral));
               break;
             case R.style.AppTheme_Gray:
               drivingRouteButton.setColorFilter(context.getResources().getColor(R.color.colorPrimaryDark_gray));
               break;
           }
-          walkingRouteButton.setBackgroundResource(0);
-          walkingRouteButton.setColorFilter(context.getResources().getColor(R.color.white));
-          bikingRouteButton.setColorFilter(context.getResources().getColor(R.color.white));
-          bikingRouteButton.setBackgroundResource(0);
-          drivingRouteButton.setBackgroundResource(R.drawable.white_circle);
+          if (selectedTheme == R.style.AppTheme_Neutral) {
+            walkingRouteButton.setBackgroundResource(0);
+            walkingRouteButton.setColorFilter(context.getResources().getColor(R.color.selectedIconColor_neutral));
+            drivingRouteButton.setBackgroundResource(0);
+            drivingRouteButton.setColorFilter(context.getResources().getColor(R.color.selectedIconColor_neutral));
+            bikingRouteButton.setBackgroundResource(R.drawable.white_circle);
+          } else {
+            walkingRouteButton.setBackgroundResource(0);
+            walkingRouteButton.setColorFilter(context.getResources().getColor(R.color.white));
+            bikingRouteButton.setColorFilter(context.getResources().getColor(R.color.white));
+            bikingRouteButton.setBackgroundResource(0);
+            drivingRouteButton.setBackgroundResource(R.drawable.white_circle);
+          }
           break;
       }
     }

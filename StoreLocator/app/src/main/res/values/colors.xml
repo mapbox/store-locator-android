@@ -34,7 +34,7 @@
     <color name="cardHourAndPhoneTextColor_neutral">#000000</color>
     <color name="startNavGoButton_neutral_theme">#F4A567</color>
     <color name="lower_view_card_color">#EBF6E3</color>
-    <color name="selected_icon_color">#4A4A4A</color>
+    <color name="selectedIconColor_neutral">#4A4A4A</color>
 
     // Gray theme's colors
     <color name="colorPrimary_gray">#EEF0EF</color>
