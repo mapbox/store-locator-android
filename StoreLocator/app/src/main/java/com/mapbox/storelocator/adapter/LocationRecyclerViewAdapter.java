@@ -10,6 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -33,7 +34,7 @@ public class LocationRecyclerViewAdapter extends
   private static WalkingRouteButtonClickListener walkingRouteButtonClickListener;
   private static BikingRouteButtonClickListener bikingRouteButtonClickListener;
   private static DrivingRouteButtonClickListener drivingRouteButtonClickListener;
-  private ImageButton startNavGoButton = null;
+  private Button startNavGoButton = null;
   private Drawable emojiForCircle = null;
   private Drawable backgroundCircle = null;
   private int upperCardSectionColor = 0;
@@ -233,7 +234,7 @@ public class LocationRecyclerViewAdapter extends
     CardView cardView;
     ImageView backgroundCircleImageView;
     ImageView emojiImageView;
-    ImageButton startNavGoButton;
+    Button startNavGoButton;
     ImageButton walkingRouteButton;
     ImageButton bikingRouteButton;
     ImageButton drivingRouteButton;
@@ -253,7 +254,7 @@ public class LocationRecyclerViewAdapter extends
       hoursHeaderTextView = itemView.findViewById(R.id.hours_header_tv);
       milesAbbreviationTextView = itemView.findViewById(R.id.miles_mi_tv);
       cardView = itemView.findViewById(R.id.map_view_location_card);
-      startNavGoButton = itemView.findViewById(R.id.start_navigation_image_button);
+      startNavGoButton = itemView.findViewById(R.id.start_navigation_button);
       walkingRouteButton = itemView.findViewById(R.id.walking_route_image_button);
       bikingRouteButton = itemView.findViewById(R.id.show_biking_route_image_button);
       drivingRouteButton = itemView.findViewById(R.id.driving_route_image_button);
