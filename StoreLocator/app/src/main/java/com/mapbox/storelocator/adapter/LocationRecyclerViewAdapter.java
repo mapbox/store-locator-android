@@ -1,6 +1,7 @@
 package com.mapbox.storelocator.adapter;
 
 import android.content.Context;
+import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.content.res.ResourcesCompat;
@@ -114,7 +115,7 @@ public class LocationRecyclerViewAdapter extends
         backgroundCircle = ResourcesCompat.getDrawable(context.getResources(), R.drawable.blue_circle, null);
         setColors(R.color.colorPrimaryDark_blue, R.color.white, R.color.white, R.color.cardHourAndPhoneTextColor_blue,
           R.color.cardHourAndPhoneHeaderTextColor_blue, R.color.cardHourAndPhoneTextColor_blue,
-          R.color.cardHourAndPhoneHeaderTextColor_blue, R.color.white, R.color.white, R.color.startNavGoButton_purple_theme);
+          R.color.cardHourAndPhoneHeaderTextColor_blue, R.color.white, R.color.white, R.color.startNavGoButton_blue_theme);
         setAlphas(card, .41f, .48f, 100f, .48f,
           100f,
           .41f);
@@ -124,7 +125,7 @@ public class LocationRecyclerViewAdapter extends
         backgroundCircle = ResourcesCompat.getDrawable(context.getResources(), R.drawable.purple_circle, null);
         setColors(R.color.colorPrimaryDark_purple, R.color.white, R.color.white, R.color.cardHourAndPhoneTextColor_purple,
           R.color.cardHourAndPhoneTextColor_purple, R.color.cardHourAndPhoneTextColor_purple,
-          R.color.cardHourAndPhoneTextColor_purple, R.color.white, R.color.white, R.color.startNavGoButton_blue_theme);
+          R.color.cardHourAndPhoneTextColor_purple, R.color.white, R.color.white, R.color.startNavGoButton_purple_theme);
         setAlphas(card, .41f, .36f, .94f, .36f,
           .94f,
           .41f);
@@ -185,7 +186,11 @@ public class LocationRecyclerViewAdapter extends
     card.phoneHeaderTextView.setTextColor(locationPhoneHeaderColor);
 
     // TODO: Adjust below
-    card.startNavGoButton.setColorFilter(startNavGoButtonColor);
+
+    Drawable drawable = context.getResources()
+      .getDrawable(R.drawable.ic_curved_rectangle_background);
+    drawable.setColorFilter(startNavGoButtonColor, PorterDuff.Mode.SRC_IN);
+    card.startNavGoButton.setBackground(drawable);
   }
 
   private void setColors(int colorForUpperCard, int colorForName, int colorForAddress,

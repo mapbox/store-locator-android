@@ -24,7 +24,7 @@
     <color name="colorAccent_green">#78F645</color>
     <color name="navigationRouteLine_green">#3BC802</color>
     <color name="cardHourAndPhoneTextColor_green">#000000</color>
-    <color name="startNavGoButton_green_theme">#D080FF</color>
+    <color name="startNavGoButton_green_theme">#2D7AEB</color>
 
     // Neutral streets theme's colors
     <color name="colorPrimary_neutral">#E8E5E0</color>
