@@ -14,6 +14,11 @@
     <string name="no_internet_message">Route drawing not possible because there\'s no internet connection!</string>
     <string name="failure_to_retrieve">Failure to retrieve the navigation route!</string>
 
+
+    <string name="go">Go</string>
+    <string name="permission_explanation">Permission needed</string>
+    <string name="did_not_grant_permissions">You didn\t grand permissions</string>
+
     <!-- Single card -->
     <string name="hours">Hours</string>
     <string name="phone">Phone</string>
