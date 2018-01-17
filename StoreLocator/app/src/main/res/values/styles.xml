@@ -7,7 +7,7 @@
         <item name="colorAccent">@color/colorAccent_purple</item>
     </style>
 
-    <style name="CustomPurpleNavigationViewLight">
+    <style name="CustomPurpleNavigationViewLight" parent="NavigationViewLight">
         <!-- The main turn banner view at the top of the screen -->
         <!-- Background color of the banner -->
         <item name="navigationViewBannerBackground">@color/colorPrimary_purple</item>
@@ -46,7 +46,7 @@
         <item name="navigationViewMapStyle">@string/purple_map_style</item>
     </style>
 
-    <style name="CustomPurpleNavigationViewDark">
+    <style name="CustomPurpleNavigationViewDark" parent="NavigationViewDark">
         <!-- The main turn banner view at the top of the screen -->
         <!-- Background color of the banner -->
         <item name="navigationViewBannerBackground">@color/colorPrimary_purple</item>
@@ -92,7 +92,7 @@
         <item name="colorAccent">@color/colorAccent_blue</item>
     </style>
 
-    <style name="CustomBlueNavigationViewLight">
+    <style name="CustomBlueNavigationViewLight" parent="NavigationViewLight">
         <!-- The main turn banner view at the top of the screen -->
         <!-- Background color of the banner -->
         <item name="navigationViewBannerBackground">@color/colorPrimary_blue</item>
@@ -131,7 +131,7 @@
         <item name="navigationViewMapStyle">@string/blue_map_style</item>
     </style>
 
-    <style name="CustomBlueNavigationViewDark">
+    <style name="CustomBlueNavigationViewDark" parent="NavigationViewDark">
         <!-- The main turn banner view at the top of the screen -->
         <!-- Background color of the banner -->
         <item name="navigationViewBannerBackground">@color/colorPrimary_blue</item>
@@ -177,7 +177,7 @@
         <item name="colorAccent">@color/colorAccent_green</item>
     </style>
 
-    <style name="CustomGreenNavigationViewLight">
+    <style name="CustomGreenNavigationViewLight" parent="NavigationViewLight">
         <!-- The main turn banner view at the top of the screen -->
         <!-- Background color of the banner -->
         <item name="navigationViewBannerBackground">@color/colorPrimaryDark_green</item>
@@ -216,7 +216,7 @@
         <item name="navigationViewMapStyle">@string/terminal_map_style</item>
     </style>
 
-    <style name="CustomGreenNavigationViewDark">
+    <style name="CustomGreenNavigationViewDark" parent="NavigationViewDark">
         <!-- The main turn banner view at the top of the screen -->
         <!-- Background color of the banner -->
         <item name="navigationViewBannerBackground">@color/colorPrimaryDark_green</item>
@@ -262,7 +262,7 @@
         <item name="colorAccent">@color/colorAccent_neutral</item>
     </style>
 
-    <style name="CustomNeutralNavigationViewLight">
+    <style name="CustomNeutralNavigationViewLight" parent="NavigationViewLight">
         <!-- The main turn banner view at the top of the screen -->
 
         <!-- Background color of the banner -->
@@ -302,7 +302,7 @@
         <item name="navigationViewMapStyle">@string/mapbox_style_mapbox_streets</item>
     </style>
 
-    <style name="CustomNeutralNavigationViewDark">
+    <style name="CustomNeutralNavigationViewDark" parent="NavigationViewDark">
         <!-- The main turn banner view at the top of the screen -->
 
         <!-- Background color of the banner -->
@@ -349,7 +349,7 @@
         <item name="colorAccent">@color/colorAccent_gray</item>
     </style>
 
-    <style name="CustomGrayNavigationViewLight">
+    <style name="CustomGrayNavigationViewLight" parent="NavigationViewLight">
         <!-- The main turn banner view at the top of the screen -->
         <!-- Background color of the banner -->
         <item name="navigationViewBannerBackground">@color/colorPrimaryDark_gray</item>
@@ -388,7 +388,7 @@
         <item name="navigationViewMapStyle">@string/mapbox_style_light</item>
     </style>
 
-    <style name="CustomGrayNavigationViewDark">
+    <style name="CustomGrayNavigationViewDark" parent="NavigationViewDark">
         <!-- The main turn banner view at the top of the screen -->
         <!-- Background color of the banner -->
         <item name="navigationViewBannerBackground">@color/colorPrimaryDark_gray</item>
