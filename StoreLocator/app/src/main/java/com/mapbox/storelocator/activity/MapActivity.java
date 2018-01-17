@@ -1,12 +1,10 @@
 package com.mapbox.storelocator.activity;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -65,7 +63,6 @@ import retrofit2.Response;
 
 import static com.mapbox.services.Constants.PRECISION_6;
 import static com.mapbox.storelocator.util.StringConstants.SELECTED_THEME_INTENT_KEY;
-import static com.mapbox.storelocator.util.StringConstants.SIMULATE_NAV_ROUTE_KEY;
 
 /**
  * Activity with a Mapbox map and recyclerview to view various locations
