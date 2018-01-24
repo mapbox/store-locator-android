@@ -17,7 +17,7 @@
 
     <string name="go">Go</string>
     <string name="permission_explanation">Permission needed</string>
-    <string name="did_not_grant_permissions">You didn\t grand permissions</string>
+    <string name="did_not_grant_permissions">You didn\t grant permissions</string>
 
     <!-- Single card -->
     <string name="hours">Hours</string>
