@@ -17,7 +17,15 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+
 import com.mapbox.androidsdk.plugins.building.BuildingPlugin;
+import com.mapbox.api.directions.v5.DirectionsCriteria;
+import com.mapbox.api.directions.v5.MapboxDirections;
+import com.mapbox.api.directions.v5.models.DirectionsResponse;
+import com.mapbox.api.directions.v5.models.DirectionsRoute;
+import com.mapbox.geojson.Feature;
+import com.mapbox.geojson.FeatureCollection;
+import com.mapbox.geojson.LineString;
 import com.mapbox.geojson.Point;
 import com.mapbox.mapboxsdk.Mapbox;
 import com.mapbox.mapboxsdk.annotations.Icon;
@@ -37,14 +45,7 @@ import com.mapbox.services.android.navigation.ui.v5.NavigationLauncher;
 import com.mapbox.services.android.navigation.ui.v5.NavigationViewOptions;
 import com.mapbox.services.android.telemetry.permissions.PermissionsListener;
 import com.mapbox.services.android.telemetry.permissions.PermissionsManager;
-import com.mapbox.services.api.directions.v5.DirectionsCriteria;
-import com.mapbox.services.api.directions.v5.MapboxDirections;
-import com.mapbox.services.api.directions.v5.models.DirectionsResponse;
-import com.mapbox.services.api.directions.v5.models.DirectionsRoute;
 import com.mapbox.services.api.utils.turf.TurfHelpers;
-import com.mapbox.services.commons.geojson.Feature;
-import com.mapbox.services.commons.geojson.FeatureCollection;
-import com.mapbox.services.commons.geojson.LineString;
 import com.mapbox.services.commons.models.Position;
 import com.mapbox.storelocator.R;
 import com.mapbox.storelocator.adapter.LocationRecyclerViewAdapter;
@@ -150,7 +151,7 @@ public class MapActivity extends AppCompatActivity implements LocationRecyclerVi
         mapboxMap.setLatLngBoundsForCameraTarget(LOCKED_MAP_CAMERA_BOUNDS);
 
         // Create a list of features from the feature collection
-        List<Feature> featureList = featureCollection.getFeatures();
+        List<Feature> featureList = featureCollection.features();
 
         // Loop through the locations to add markers to the map
         for (int x = 0; x < featureList.size(); x++) {
@@ -164,11 +165,11 @@ public class MapActivity extends AppCompatActivity implements LocationRecyclerVi
           String singleLocationPhoneNum = singleLocation.getStringProperty("phone");
 
           // Get the single location's LatLng coordinates
-          Position singleLocationPosition = (Position) singleLocation.getGeometry().getCoordinates();
+          Double stringLong = ((Point) singleLocation.geometry()).coordinates().get(0);
+          Double stringLat = ((Point) singleLocation.geometry()).coordinates().get(1);
 
           // Create a new LatLng object with the Position object created above
-          LatLng singleLocationLatLng = new LatLng(singleLocationPosition.getLatitude(),
-            singleLocationPosition.getLongitude());
+          LatLng singleLocationLatLng = new LatLng(stringLat, stringLong);
 
           // Add the location to the Arraylist of locations for later use in the recyclerview
           listOfIndividualLocations.add(new IndividualLocation(
@@ -273,18 +274,19 @@ public class MapActivity extends AppCompatActivity implements LocationRecyclerVi
   private void getInformationFromDirectionsApi(LatLng selectedLocationCoordinates, final boolean fromMarkerClick,
                                                @Nullable final Integer listIndex) {
     // Set up origin and destination coordinates for the call to the Mapbox Directions API
-    Position mockCurrentLocation = Position.fromLngLat(MOCK_DEVICE_LOCATION_LAT_LNG.getLongitude(),
+    Point mockCurrentLocation = Point.fromLngLat(MOCK_DEVICE_LOCATION_LAT_LNG.getLongitude(),
       MOCK_DEVICE_LOCATION_LAT_LNG.getLatitude());
-    Position destinationMarker = Position.fromLngLat(selectedLocationCoordinates.getLongitude(),
+
+    Point destinationMarker = Point.fromLngLat(selectedLocationCoordinates.getLongitude(),
       selectedLocationCoordinates.getLatitude());
 
     // Initialize the directionsApiClient object for eventually drawing a navigation route on the map
-    directionsApiClient = new MapboxDirections.Builder()
-      .setOrigin(mockCurrentLocation)
-      .setDestination(destinationMarker)
-      .setOverview(DirectionsCriteria.OVERVIEW_FULL)
-      .setProfile(currentDesiredRouteProfile)
-      .setAccessToken(getString(R.string.access_token))
+    directionsApiClient = MapboxDirections.builder()
+      .origin(mockCurrentLocation)
+      .destination(destinationMarker)
+      .overview(DirectionsCriteria.OVERVIEW_FULL)
+      .profile(currentDesiredRouteProfile)
+      .accessToken(getString(R.string.access_token))
       .build();
 
     directionsApiClient.enqueueCall(new Callback<DirectionsResponse>() {
@@ -293,18 +295,18 @@ public class MapActivity extends AppCompatActivity implements LocationRecyclerVi
         // Check that the response isn't null and that the response has a route
         if (response.body() == null) {
           Log.e("MapActivity", "No routes found, make sure you set the right user and access token.");
-        } else if (response.body().getRoutes().size() < 1) {
+        } else if (response.body().routes().size() < 1) {
           Log.e("MapActivity", "No routes found");
         } else {
           if (fromMarkerClick) {
             // Retrieve and draw the navigation route on the map
-            currentRoute = response.body().getRoutes().get(0);
+            currentRoute = response.body().routes().get(0);
             drawNavigationPolylineRoute(currentRoute);
           } else {
             // Use Mapbox Turf helper method to convert meters to miles and then format the mileage number
             DecimalFormat df = new DecimalFormat("#.#");
             String finalConvertedFormattedDistance = String.valueOf(df.format(TurfHelpers.convertDistance(
-              response.body().getRoutes().get(0).getDistance(), "meters", "miles")));
+              response.body().routes().get(0).distance(), "meters", "miles")));
 
             // Set the distance for each location object in the list of locations
             if (listIndex != null) {
@@ -486,13 +488,13 @@ public class MapActivity extends AppCompatActivity implements LocationRecyclerVi
     }
 
     // Convert LineString coordinates into a LatLng[]
-    LineString lineString = LineString.fromPolyline(route.getGeometry(), PRECISION_6);
-    List<Position> coordinates = lineString.getCoordinates();
+    LineString lineString = LineString.fromPolyline(route.geometry(), PRECISION_6);
+    List<Point> coordinates = lineString.coordinates();
     LatLng[] polylineDirectionsPoints = new LatLng[coordinates.size()];
     for (int i = 0; i < coordinates.size(); i++) {
       polylineDirectionsPoints[i] = new LatLng(
-        coordinates.get(i).getLatitude(),
-        coordinates.get(i).getLongitude());
+        coordinates.get(i).latitude(),
+        coordinates.get(i).longitude());
     }
 
     // Draw the navigation route polyline on to the map
