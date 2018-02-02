@@ -19,7 +19,6 @@ public class ThemePickerActivity extends AppCompatActivity {
   @Override
   protected void onCreate(@Nullable Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-    // This contains the MapView in XML and needs to be called after the access token is configured.
     setContentView(R.layout.activity_theme_picker);
     setUpButtonClickListeners();
   }
