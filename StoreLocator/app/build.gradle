@@ -26,6 +26,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 repositories {
@@ -49,7 +53,7 @@ dependencies {
     testCompile 'junit:junit:4.12'
 
     // Mapbox Maps SDK dependency
-    compile 'com.mapbox.mapboxsdk:mapbox-android-sdk:5.4.0'
+    compile 'com.mapbox.mapboxsdk:mapbox-android-sdk:6.0.0-beta.1'
 
     // Mapbox drop-in navigation UI library
     compile 'com.mapbox.mapboxsdk:mapbox-android-navigation-ui:0.9.0'
