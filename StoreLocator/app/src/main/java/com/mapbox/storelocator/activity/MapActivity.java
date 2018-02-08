@@ -185,10 +185,6 @@ public class MapActivity extends AppCompatActivity implements LocationRecyclerVi
             .position(singleLocationLatLng)
             .title(singleLocationName)
             .icon(customThemeManager.getUnselectedMarkerIcon()));
-
-          // Call getInformationFromDirectionsApi() to eventually display the location's
-          // distance from mocked device location
-          getInformationFromDirectionsApi(singleLocationLatLng, false, x);
         }
 
         // Add the fake device location marker to the map. In a real use case scenario, the Mapbox location layer plugin
