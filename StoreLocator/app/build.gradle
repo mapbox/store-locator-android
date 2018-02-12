@@ -20,7 +20,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
@@ -38,7 +41,7 @@ dependencies {
     testCompile 'junit:junit:4.12'
 
     // Mapbox Maps SDK dependency
-    implementation 'com.mapbox.mapboxsdk:mapbox-android-sdk:5.4.0'
+    implementation 'com.mapbox.mapboxsdk:mapbox-android-sdk:6.0.0-beta.1'
 
     // Mapbox Services SDK dependency to retrieve direction routes
     compile 'com.mapbox.mapboxsdk:mapbox-sdk-services:3.0.0-beta.2'
