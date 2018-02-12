@@ -13,6 +13,7 @@
     <string name="select_a_theme">Tap on a theme</string>
     <string name="no_internet_message">Route drawing not possible because there\'s no internet connection!</string>
     <string name="failure_to_retrieve">Failure to retrieve the navigation route!</string>
+    <string name="select_destination_before_starting_nav">Select a destination first!</string>
 
 
     <string name="go">Go</string>
