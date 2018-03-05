@@ -17,7 +17,6 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-
 import com.mapbox.androidsdk.plugins.building.BuildingPlugin;
 import com.mapbox.api.directions.v5.DirectionsCriteria;
 import com.mapbox.api.directions.v5.MapboxDirections;
@@ -46,7 +45,6 @@ import com.mapbox.services.android.navigation.ui.v5.NavigationViewOptions;
 import com.mapbox.services.android.telemetry.permissions.PermissionsListener;
 import com.mapbox.services.android.telemetry.permissions.PermissionsManager;
 import com.mapbox.services.api.utils.turf.TurfHelpers;
-import com.mapbox.services.commons.models.Position;
 import com.mapbox.storelocator.R;
 import com.mapbox.storelocator.adapter.LocationRecyclerViewAdapter;
 import com.mapbox.storelocator.model.IndividualLocation;
@@ -68,7 +66,7 @@ import static com.mapbox.storelocator.util.StringConstants.SELECTED_THEME_INTENT
 /**
  * Activity with a Mapbox map and recyclerview to view various locations
  */
-public class MapActivity extends AppCompatActivity implements LocationRecyclerViewAdapter.CardClickListener,
+public class MapActivity extends AppCompatActivity implements OnMapReadyCallback, LocationRecyclerViewAdapter.CardClickListener,
   LocationRecyclerViewAdapter.StartNavClickListener, LocationRecyclerViewAdapter.WalkingRouteButtonClickListener,
   LocationRecyclerViewAdapter.BikingRouteButtonClickListener, LocationRecyclerViewAdapter.DrivingRouteButtonClickListener,
   PermissionsListener {
@@ -95,6 +93,7 @@ public class MapActivity extends AppCompatActivity implements LocationRecyclerVi
   private int selectedTheme;
   private String currentDesiredRouteProfile;
   private String TAG = "MapActivity";
+  private boolean destinationLocationHasBeenSelected;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -126,80 +125,77 @@ public class MapActivity extends AppCompatActivity implements LocationRecyclerVi
     selectedTheme = getIntent().getIntExtra(SELECTED_THEME_INTENT_KEY, R.style.AppTheme_Blue);
     Log.d(TAG, "onCreate: selectedTheme = " + selectedTheme);
 
-    // TODO: Add comment about what the line below is about
-    currentDesiredRouteProfile = DirectionsCriteria.PROFILE_DRIVING;
-
     // Set up the Mapbox map
     mapView = findViewById(R.id.mapView);
     mapView.onCreate(savedInstanceState);
-    mapView.getMapAsync(new OnMapReadyCallback() {
-      @Override
-      public void onMapReady(final MapboxMap mapboxMap) {
+    mapView.getMapAsync(this);
 
-        // Setting the returned mapboxMap object (directly above) equal to the "globally declared" one
-        MapActivity.this.mapboxMap = mapboxMap;
+    // Set to false so that drop in navigation UI doesn't begin without a destination
+    destinationLocationHasBeenSelected = false;
+  }
 
-        // Initialize the custom class that handles marker icon creation and map styling based on the selected theme
-        customThemeManager = new CustomThemeManager(selectedTheme, MapActivity.this, mapView, mapboxMap);
-        customThemeManager.initializeTheme();
+  @Override
+  public void onMapReady(MapboxMap mapboxMap) {
 
-        // Adjust the opacity of the Mapbox logo in the lower left hand corner of the map
-        ImageView logo = mapView.findViewById(R.id.logoView);
-        logo.setImageAlpha(MAPBOX_LOGO_OPACITY);
+    // Setting the returned mapboxMap object (directly above) equal to the "globally declared" one
+    MapActivity.this.mapboxMap = mapboxMap;
 
-        // Set bounds for the map camera so that the user can't pan the map outside of the NYC area
-        mapboxMap.setLatLngBoundsForCameraTarget(LOCKED_MAP_CAMERA_BOUNDS);
+    // Initialize the custom class that handles marker icon creation and map styling based on the selected theme
+    customThemeManager = new CustomThemeManager(selectedTheme, MapActivity.this, mapView, mapboxMap);
+    customThemeManager.initializeTheme();
 
-        // Create a list of features from the feature collection
-        List<Feature> featureList = featureCollection.features();
+    // Adjust the opacity of the Mapbox logo in the lower left hand corner of the map
+    ImageView logo = mapView.findViewById(R.id.logoView);
+    logo.setImageAlpha(MAPBOX_LOGO_OPACITY);
 
-        // Loop through the locations to add markers to the map
-        for (int x = 0; x < featureList.size(); x++) {
+    // Set bounds for the map camera so that the user can't pan the map outside of the NYC area
+    mapboxMap.setLatLngBoundsForCameraTarget(LOCKED_MAP_CAMERA_BOUNDS);
 
-          Feature singleLocation = featureList.get(x);
+    // Create a list of features from the feature collection
+    List<Feature> featureList = featureCollection.features();
 
-          // Get the single location's String properties to place in its map marker
-          String singleLocationName = singleLocation.getStringProperty("name");
-          String singleLocationHours = singleLocation.getStringProperty("hours");
-          String singleLocationDescription = singleLocation.getStringProperty("description");
-          String singleLocationPhoneNum = singleLocation.getStringProperty("phone");
+    // Loop through the locations to add markers to the map
+    for (int x = 0; x < featureList.size(); x++) {
 
-          // Get the single location's LatLng coordinates
-          Double stringLong = ((Point) singleLocation.geometry()).coordinates().get(0);
-          Double stringLat = ((Point) singleLocation.geometry()).coordinates().get(1);
+      Feature singleLocation = featureList.get(x);
 
-          // Create a new LatLng object with the Position object created above
-          LatLng singleLocationLatLng = new LatLng(stringLat, stringLong);
+      // Get the single location's String properties to place in its map marker
+      String singleLocationName = singleLocation.getStringProperty("name");
+      String singleLocationHours = singleLocation.getStringProperty("hours");
+      String singleLocationDescription = singleLocation.getStringProperty("description");
+      String singleLocationPhoneNum = singleLocation.getStringProperty("phone");
 
-          // Add the location to the Arraylist of locations for later use in the recyclerview
-          listOfIndividualLocations.add(new IndividualLocation(
-            singleLocationName,
-            singleLocationDescription,
-            singleLocationHours,
-            singleLocationPhoneNum,
-            singleLocationLatLng
-          ));
+      // Get the single location's LatLng coordinates
+      Double stringLong = ((Point) singleLocation.geometry()).coordinates().get(0);
+      Double stringLat = ((Point) singleLocation.geometry()).coordinates().get(1);
 
-          // Add the location's marker to the map
-          mapboxMap.addMarker(new MarkerOptions()
-            .position(singleLocationLatLng)
-            .title(singleLocationName)
-            .icon(customThemeManager.getUnselectedMarkerIcon()));
+      // Create a new LatLng object with the Position object created above
+      LatLng singleLocationLatLng = new LatLng(stringLat, stringLong);
 
-          // Call getInformationFromDirectionsApi() to eventually display the location's
-          // distance from mocked device location
-          getInformationFromDirectionsApi(singleLocationLatLng, false, x);
-        }
+      // Add the location to the Arraylist of locations for later use in the recyclerview
+      listOfIndividualLocations.add(new IndividualLocation(
+        singleLocationName,
+        singleLocationDescription,
+        singleLocationHours,
+        singleLocationPhoneNum,
+        singleLocationLatLng
+      ));
 
-        // Add the fake device location marker to the map. In a real use case scenario, the Mapbox location layer plugin
-        // can be used to easily display the device's location
-        addMockDeviceLocationMarkerToMap();
+      // Add the location's marker to the map
+      mapboxMap.addMarker(new MarkerOptions()
+        .position(singleLocationLatLng)
+        .title(singleLocationName)
+        .icon(customThemeManager.getUnselectedMarkerIcon()));
+    }
 
-        initMarkerClickListener();
+    // Add the fake device location marker to the map. In a real use case scenario, the Mapbox location layer plugin
+    // can be used to easily display the device's location
+    addMockDeviceLocationMarkerToMap();
 
-        setUpRecyclerViewOfLocationCards(selectedTheme);
-      }
-    });
+    initMarkerClickListener();
+
+    setUpRecyclerViewOfLocationCards(selectedTheme);
+
 
     // Check for location permission
     permissionsManager = new PermissionsManager(this);
@@ -219,26 +215,30 @@ public class MapActivity extends AppCompatActivity implements LocationRecyclerVi
 
   @Override
   public void onStartNavigationGoButtonClick(int position) {
-    startNavigation(getCoordinatesOfSelectedLocation(position));
+    if (destinationLocationHasBeenSelected) {
+      startNavigation(getCoordinatesOfSelectedLocation(position));
+    } else {
+      Toast.makeText(this, getString(R.string.select_destination_before_starting_nav), Toast.LENGTH_SHORT).show();
+    }
   }
 
   @Override
   public void OnWalkingRouteButtonClick(int position) {
-    // TODO: Add loading spinner UI on top of menu?
+    destinationLocationHasBeenSelected = true;
     currentDesiredRouteProfile = DirectionsCriteria.PROFILE_WALKING;
     getInformationFromDirectionsApi(getCoordinatesOfSelectedLocation(position), true, position);
   }
 
   @Override
   public void onBikingRouteButtonClick(int position) {
-    // TODO: Add loading spinner UI on top of menu?
+    destinationLocationHasBeenSelected = true;
     currentDesiredRouteProfile = DirectionsCriteria.PROFILE_CYCLING;
     getInformationFromDirectionsApi(getCoordinatesOfSelectedLocation(position), true, position);
   }
 
   @Override
   public void onDrivingRouteButtonClick(int position) {
-    // TODO: Add loading spinner UI on top of menu?
+    destinationLocationHasBeenSelected = true;
     currentDesiredRouteProfile = DirectionsCriteria.PROFILE_DRIVING;
     // Want the route to take real-time traffic into account? If so, set
     // currentDesiredRouteProfile = DirectionsCriteria.PROFILE_DRIVING_TRAFFIC;
@@ -273,7 +273,9 @@ public class MapActivity extends AppCompatActivity implements LocationRecyclerVi
 
   private void getInformationFromDirectionsApi(LatLng selectedLocationCoordinates, final boolean fromMarkerClick,
                                                @Nullable final Integer listIndex) {
+
     // Set up origin and destination coordinates for the call to the Mapbox Directions API
+    // Instead of mocking the device location, use the Mapbox Locat
     Point mockCurrentLocation = Point.fromLngLat(MOCK_DEVICE_LOCATION_LAT_LNG.getLongitude(),
       MOCK_DEVICE_LOCATION_LAT_LNG.getLatitude());
 

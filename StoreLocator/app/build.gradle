@@ -26,6 +26,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 repositories {
@@ -40,7 +44,7 @@ dependencies {
     compile "com.android.support:appcompat-v7:${supportLibVersion}"
     compile "com.android.support:cardview-v7:${supportLibVersion}"
     compile "com.android.support:design:${supportLibVersion}"
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile "com.android.support.constraint:constraint-layout:1.0.2"
 
     // Testing
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
@@ -49,10 +53,10 @@ dependencies {
     testCompile 'junit:junit:4.12'
 
     // Mapbox Maps SDK dependency
-    implementation 'com.mapbox.mapboxsdk:mapbox-android-sdk:5.5.0'
+    compile 'com.mapbox.mapboxsdk:mapbox-android-sdk:5.5.0'
 
     // Mapbox drop-in navigation UI library
-    compile 'com.mapbox.mapboxsdk:mapbox-android-navigation-ui:0.9.0'
+    compile 'com.mapbox.mapboxsdk:mapbox-android-navigation-ui:0.10.0'
 
     // Mapbox Services SDK dependency to retrieve direction routes
     compile 'com.mapbox.mapboxsdk:mapbox-sdk-services:3.0.0-beta.3'
