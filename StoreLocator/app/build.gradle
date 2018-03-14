@@ -59,7 +59,7 @@ dependencies {
     compile 'com.mapbox.mapboxsdk:mapbox-android-navigation-ui:0.10.0'
 
     // Mapbox Services SDK dependency to retrieve direction routes
-    compile 'com.mapbox.mapboxsdk:mapbox-sdk-services:3.0.0-beta.3'
+    compile 'com.mapbox.mapboxsdk:mapbox-sdk-services:3.0.0-beta.4'
 
     // Mapbox Turf library dependency to use distance calculation methods
     compile 'com.mapbox.mapboxsdk:mapbox-sdk-turf:3.0.0-beta.3'
