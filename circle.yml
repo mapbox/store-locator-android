@@ -29,9 +29,6 @@ jobs:
               gcloud auth activate-service-account --key-file secret.json --project store-locator-android
               rm secret.json
         - run:
-            name: Check code style
-            command: make checkstyle
-        - run:
             name: Assemble debug
             command: cd StoreLocator && ./gradlew assembleDebug
         - run:
