@@ -1,3 +1,5 @@
+[![CircleCI](https://circleci.com/gh/mapbox/store-locator-android.svg?style=svg)](https://circleci.com/gh/mapbox/store-locator-android)
+
 # Mapbox Android Store Locator Kit
 
 The Android Store Locator Kit is a downloadable project for you to add beautiful plug-and-play Store Locators to your Android applications. Use the Kit to allow your users to find and browse store locations, view additional info for each store, and preview the distance and route to the store. Not building for a store owner or a business? You can use this project to locate anything from bike share hubs to ATMs to your neighborhood parks.
