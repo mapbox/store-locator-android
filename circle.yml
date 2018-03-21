@@ -1,0 +1,49 @@
+version: 2
+
+jobs:
+  build:
+      docker:
+        - image: mbgl/7d2403f42e:android-ndk-r16b
+      working_directory: ~/code
+      environment:
+        JVM_OPTS: -Xmx3200m
+      steps:
+        - checkout
+        - restore_cache:
+            key: jars-{{ checksum "StoreLocator/build.gradle" }}-{{ checksum  "StoreLocator/app/build.gradle" }}
+        - run:
+            name: Approve license for build tools
+            command: (echo y; echo y; echo y; echo y; echo y; echo y) | $ANDROID_HOME/tools/bin/sdkmanager --licenses
+        - run:
+            name: Download Dependencies
+            command: cd StoreLocator && ./gradlew androidDependencies    
+        - save_cache:
+            paths:
+              - ~/.gradle
+            key: jars-{{ checksum "StoreLocator/build.gradle" }}-{{ checksum  "StoreLocator/app/build.gradle" }}
+        - run:
+            name: Log in to Google Cloud Platform
+            shell: /bin/bash -euo pipefail
+            command: |
+              echo "${GCLOUD_SERVICE_ACCOUNT_JSON}" > secret.json
+              gcloud auth activate-service-account --key-file secret.json --project store-locator-android
+              rm secret.json
+        - run:
+            name: Check code style
+            command: make checkstyle
+        - run:
+            name: Assemble debug
+            command: cd StoreLocator && ./gradlew assembleDebug
+        - run:
+            name: Run Firebase instrumentation tests
+            command: |
+              gcloud firebase test android run \
+                --type robo \
+                --app StoreLocator/app/build/outputs/apk/debug/app-debug.apk \
+                --device model=shamu,version=22,locale=en,orientation=portrait  \
+                --timeout 9m
+        - store_artifacts:
+            path: StoreLocator/app/build/reports
+            destination: reports
+        - store_test_results:
+            path: StoreLocator/app/build/tests-results
