@@ -32,7 +32,7 @@ jobs:
             name: Assemble debug
             command: cd StoreLocator && ./gradlew assembleDebug
         - run:
-            name: Run Firebase instrumentation tests
+            name: Run Firebase instrumentation test
             command: |
               gcloud firebase test android run \
                 --type robo \
