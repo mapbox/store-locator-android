@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Add your Mapbox access token where it says REPLACE_WITH_MAPBOX_ACCESS_TOKEN below.
+    Your token can be retrieved at https://www.mapbox.com/studio/account/tokens/
+    -->
+    <string name="mapbox_access_token">REPLACE_WITH_MAPBOX_ACCESS_TOKEN</string>
+</resources>
