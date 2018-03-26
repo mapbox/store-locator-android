@@ -7,4 +7,4 @@
 /build
 /captures
 .externalNativeBuild
-/app/src/main/res/values/dev-config.xml
+app/src/main/res/values/dev-config.xml
