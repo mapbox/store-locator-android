@@ -25,7 +25,10 @@ jobs:
             name: Export secrets for developer-config.xml
             command: |
               #!/bin/bash
-              echo "${MAPBOX_DEVELOPER_CONFIG}" > StoreLocator/app/src/main/res/values/developer-config.xml
+              echo "${MAPBOX_DEVELOPER_CONFIG}" > StoreLocator/app/src/main/res/values/dev-config.xml
+        - run:
+            name: Export config file
+            command: 
         - run:
             name: Log in to Google Cloud Platform
             shell: /bin/bash -euo pipefail
