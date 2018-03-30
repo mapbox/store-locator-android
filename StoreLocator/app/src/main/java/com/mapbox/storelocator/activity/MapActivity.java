@@ -243,7 +243,7 @@ public class MapActivity extends AppCompatActivity implements LocationRecyclerVi
           } else {
             // Use Mapbox Turf helper method to convert meters to miles and then format the mileage number
             DecimalFormat df = new DecimalFormat("#.#");
-            String finalConvertedFormattedDistance = String.valueOf(df.format(TurfConversion.convertDistance(
+            String finalConvertedFormattedDistance = String.valueOf(df.format(TurfConversion.convertLength(
               response.body().routes().get(0).distance(), "meters", "miles")));
 
             // Set the distance for each location object in the list of locations
