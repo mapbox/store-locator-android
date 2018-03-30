@@ -111,12 +111,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     setContentView(R.layout.activity_map);
 
     // Create a GeoJSON feature collection from the GeoJSON file in the assets folder.
-    try {
-      getFeatureCollectionFromJson();
-    } catch (Exception exception) {
-      Log.e("MapActivity", "onCreate: " + exception);
-      Toast.makeText(this, R.string.failure_to_load_file, Toast.LENGTH_LONG).show();
-    }
+    // Use fromJson() method to convert the GeoJSON file into a usable FeatureCollection object
+    featureCollection = FeatureCollection.fromJson(loadGeoJsonFromAsset("list_of_locations.geojson"));
 
     // Initialize a list of IndividualLocation objects for future use with recyclerview
     listOfIndividualLocations = new ArrayList<>();
@@ -342,13 +338,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
       .icon(customThemeManager.getMockLocationIcon()));
   }
 
-  private void getFeatureCollectionFromJson() throws IOException {
-    try {
-      // Use fromJson() method to convert the GeoJSON file into a usable FeatureCollection object
-      featureCollection = FeatureCollection.fromJson(loadGeoJsonFromAsset("list_of_locations.geojson"));
-    } catch (Exception exception) {
-      Log.e("MapActivity", "getFeatureCollectionFromJson: " + exception);
-    }
+  private void getFeatureCollectionFromJson() {
+
   }
 
   private String loadGeoJsonFromAsset(String filename) {
