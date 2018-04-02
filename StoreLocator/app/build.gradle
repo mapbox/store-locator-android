@@ -59,13 +59,13 @@ dependencies {
     compile 'com.mapbox.mapboxsdk:mapbox-android-navigation-ui:0.11.1'
 
     // Mapbox Services SDK dependency to retrieve direction routes
-    compile 'com.mapbox.mapboxsdk:mapbox-sdk-services:3.0.0'
+    compile 'com.mapbox.mapboxsdk:mapbox-sdk-services:3.0.1'
 
     // Mapbox Turf library dependency to use distance calculation methods
-    compile 'com.mapbox.mapboxsdk:mapbox-sdk-turf:3.0.0'
+    compile 'com.mapbox.mapboxsdk:mapbox-sdk-turf:3.0.1'
 
     // Mapbox GeoJSON library dependency for access to GeoJSON classes
-    compile 'com.mapbox.mapboxsdk:mapbox-sdk-geojson:3.0.0'
+    compile 'com.mapbox.mapboxsdk:mapbox-sdk-geojson:3.0.1'
 
 
     // Mapbox buildings plugin for showing and customizing 3D building extrusions
