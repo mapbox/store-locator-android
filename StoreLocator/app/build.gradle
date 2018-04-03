@@ -56,7 +56,7 @@ dependencies {
     compile 'com.mapbox.mapboxsdk:mapbox-android-sdk:5.5.1'
 
     // Mapbox drop-in navigation UI library
-    compile 'com.mapbox.mapboxsdk:mapbox-android-navigation-ui:0.11.1'
+    compile 'com.mapbox.mapboxsdk:mapbox-android-navigation-ui:0.12.0'
 
     // Mapbox Services SDK dependency to retrieve direction routes
     compile 'com.mapbox.mapboxsdk:mapbox-sdk-services:3.0.1'
