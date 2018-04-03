@@ -1,2 +1,10 @@
-
-StoreLocator/app/src/main/res/values/dev-config.xml
+*.iml
+.gradle
+/local.properties
+/.idea/workspace.xml
+/.idea/libraries
+.DS_Store
+/build
+/captures
+.externalNativeBuild
+app/src/main/res/values/dev-config.xml
