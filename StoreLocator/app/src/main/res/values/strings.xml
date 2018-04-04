@@ -1,8 +1,5 @@
 <resources>
     <string name="final_app_name">Store Locator</string>
-    <!-- Add your Mapbox access token where it says REPLACE_WITH_MAPBOX_ACCESS_TOKEN below.
-    Your token can be retrieved at https://www.mapbox.com/studio/account/tokens/
-    -->
     <string name="access_token" translatable="false">@string/mapbox_access_token</string>
     <string name="purple_map_style" translatable="false">mapbox://styles/mapbox/cj7bww7is2f4i2rnwyxkzpwu7</string>
     <string name="blue_map_style" translatable="false">mapbox://styles/mapbox/cj7bwwv3caf7l2spgukxm8bwv</string>
