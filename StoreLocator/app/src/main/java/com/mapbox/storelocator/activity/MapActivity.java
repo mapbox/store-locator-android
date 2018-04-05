@@ -41,7 +41,7 @@ import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
 import com.mapbox.services.android.navigation.ui.v5.NavigationLauncher;
-import com.mapbox.services.android.navigation.ui.v5.NavigationViewOptions;
+import com.mapbox.services.android.navigation.ui.v5.NavigationLauncherOptions;
 import com.mapbox.services.android.telemetry.permissions.PermissionsListener;
 import com.mapbox.services.android.telemetry.permissions.PermissionsManager;
 import com.mapbox.services.api.utils.turf.TurfHelpers;
@@ -50,7 +50,6 @@ import com.mapbox.storelocator.adapter.LocationRecyclerViewAdapter;
 import com.mapbox.storelocator.model.IndividualLocation;
 import com.mapbox.storelocator.util.LinearLayoutManagerWithSmoothScroller;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -437,7 +436,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         break;
     }
 
-    NavigationViewOptions options = NavigationViewOptions.builder()
+    NavigationLauncherOptions options = NavigationLauncherOptions.builder()
       .origin(Point.fromLngLat(MOCK_DEVICE_LOCATION_LAT_LNG.getLongitude(), MOCK_DEVICE_LOCATION_LAT_LNG.getLatitude()))
       .destination(Point.fromLngLat(selectedDestination.getLongitude(), selectedDestination.getLatitude()))
       .awsPoolId(null)
