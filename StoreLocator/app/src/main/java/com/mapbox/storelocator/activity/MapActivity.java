@@ -41,7 +41,7 @@ import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
 import com.mapbox.services.android.navigation.ui.v5.NavigationLauncher;
-import com.mapbox.services.android.navigation.ui.v5.NavigationViewOptions;
+import com.mapbox.services.android.navigation.ui.v5.NavigationLauncherOptions;
 import com.mapbox.services.android.telemetry.permissions.PermissionsListener;
 import com.mapbox.services.android.telemetry.permissions.PermissionsManager;
 import com.mapbox.services.api.utils.turf.TurfHelpers;
@@ -50,7 +50,6 @@ import com.mapbox.storelocator.adapter.LocationRecyclerViewAdapter;
 import com.mapbox.storelocator.model.IndividualLocation;
 import com.mapbox.storelocator.util.LinearLayoutManagerWithSmoothScroller;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -111,12 +110,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     setContentView(R.layout.activity_map);
 
     // Create a GeoJSON feature collection from the GeoJSON file in the assets folder.
-    try {
-      getFeatureCollectionFromJson();
-    } catch (Exception exception) {
-      Log.e("MapActivity", "onCreate: " + exception);
-      Toast.makeText(this, R.string.failure_to_load_file, Toast.LENGTH_LONG).show();
-    }
+    // Use fromJson() method to convert the GeoJSON file into a usable FeatureCollection object
+    featureCollection = FeatureCollection.fromJson(loadGeoJsonFromAsset("list_of_locations.geojson"));
 
     // Initialize a list of IndividualLocation objects for future use with recyclerview
     listOfIndividualLocations = new ArrayList<>();
@@ -342,13 +337,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
       .icon(customThemeManager.getMockLocationIcon()));
   }
 
-  private void getFeatureCollectionFromJson() throws IOException {
-    try {
-      // Use fromJson() method to convert the GeoJSON file into a usable FeatureCollection object
-      featureCollection = FeatureCollection.fromJson(loadGeoJsonFromAsset("list_of_locations.geojson"));
-    } catch (Exception exception) {
-      Log.e("MapActivity", "getFeatureCollectionFromJson: " + exception);
-    }
+  private void getFeatureCollectionFromJson() {
+
   }
 
   private String loadGeoJsonFromAsset(String filename) {
@@ -446,7 +436,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         break;
     }
 
-    NavigationViewOptions options = NavigationViewOptions.builder()
+    NavigationLauncherOptions options = NavigationLauncherOptions.builder()
       .origin(Point.fromLngLat(MOCK_DEVICE_LOCATION_LAT_LNG.getLongitude(), MOCK_DEVICE_LOCATION_LAT_LNG.getLatitude()))
       .destination(Point.fromLngLat(selectedDestination.getLongitude(), selectedDestination.getLatitude()))
       .awsPoolId(null)

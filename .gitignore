@@ -1,3 +1,5 @@
 
 *.properties
 Store Locator/gradle/wrapper/gradle-wrapper.properties
+StoreLocator/.idea/codeStyles/Project.xml
+*.ser
