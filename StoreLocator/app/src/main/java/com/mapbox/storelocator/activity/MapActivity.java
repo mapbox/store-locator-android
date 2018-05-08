@@ -17,7 +17,6 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.mapbox.androidsdk.plugins.building.BuildingPlugin;
 import com.mapbox.api.directions.v5.DirectionsCriteria;
 import com.mapbox.api.directions.v5.MapboxDirections;
 import com.mapbox.api.directions.v5.models.DirectionsResponse;
@@ -40,6 +39,7 @@ import com.mapbox.mapboxsdk.geometry.LatLngBounds;
 import com.mapbox.mapboxsdk.maps.MapView;
 import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
+import com.mapbox.mapboxsdk.plugins.building.BuildingPlugin;
 import com.mapbox.storelocator.R;
 import com.mapbox.storelocator.adapter.LocationRecyclerViewAdapter;
 import com.mapbox.storelocator.model.IndividualLocation;
@@ -57,6 +57,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static com.mapbox.core.constants.Constants.PRECISION_6;
+import static com.mapbox.mapboxsdk.annotations.IconFactory.getInstance;
 import static com.mapbox.storelocator.util.StringConstants.SELECTED_THEME;
 
 /**
@@ -469,38 +470,38 @@ public class MapActivity extends AppCompatActivity implements LocationRecyclerVi
         case R.style.AppTheme_Blue:
           mapboxMap.setStyle(getString(R.string.blue_map_style));
           navigationLineColor = getResources().getColor(R.color.navigationRouteLine_blue);
-          unselectedMarkerIcon = IconFactory.getInstance(context).fromResource(R.drawable.blue_unselected_ice_cream);
-          selectedMarkerIcon = IconFactory.getInstance(context).fromResource(R.drawable.blue_selected_ice_cream);
-          mockLocationIcon = IconFactory.getInstance(context).fromResource(R.drawable.blue_user_location);
+          unselectedMarkerIcon = getInstance(context).fromResource(R.drawable.blue_unselected_ice_cream);
+          selectedMarkerIcon = getInstance(context).fromResource(R.drawable.blue_selected_ice_cream);
+          mockLocationIcon = getInstance(context).fromResource(R.drawable.blue_user_location);
           showBuildingExtrusions();
           break;
         case R.style.AppTheme_Purple:
           mapboxMap.setStyle(getString(R.string.purple_map_style));
           navigationLineColor = getResources().getColor(R.color.navigationRouteLine_purple);
-          unselectedMarkerIcon = IconFactory.getInstance(context).fromResource(R.drawable.purple_unselected_burger);
-          selectedMarkerIcon = IconFactory.getInstance(context).fromResource(R.drawable.purple_selected_burger);
-          mockLocationIcon = IconFactory.getInstance(context).fromResource(R.drawable.purple_user_location);
+          unselectedMarkerIcon = getInstance(context).fromResource(R.drawable.purple_unselected_burger);
+          selectedMarkerIcon = getInstance(context).fromResource(R.drawable.purple_selected_burger);
+          mockLocationIcon = getInstance(context).fromResource(R.drawable.purple_user_location);
           break;
         case R.style.AppTheme_Green:
           mapboxMap.setStyle(getString(R.string.terminal_map_style));
           navigationLineColor = getResources().getColor(R.color.navigationRouteLine_green);
-          unselectedMarkerIcon = IconFactory.getInstance(context).fromResource(R.drawable.green_unselected_money);
-          selectedMarkerIcon = IconFactory.getInstance(context).fromResource(R.drawable.green_selected_money);
-          mockLocationIcon = IconFactory.getInstance(context).fromResource(R.drawable.green_user_location);
+          unselectedMarkerIcon = getInstance(context).fromResource(R.drawable.green_unselected_money);
+          selectedMarkerIcon = getInstance(context).fromResource(R.drawable.green_selected_money);
+          mockLocationIcon = getInstance(context).fromResource(R.drawable.green_user_location);
           break;
         case R.style.AppTheme_Neutral:
           mapboxMap.setStyle(Style.MAPBOX_STREETS);
           navigationLineColor = getResources().getColor(R.color.navigationRouteLine_neutral);
-          unselectedMarkerIcon = IconFactory.getInstance(context).fromResource(R.drawable.white_unselected_house);
-          selectedMarkerIcon = IconFactory.getInstance(context).fromResource(R.drawable.gray_selected_house);
-          mockLocationIcon = IconFactory.getInstance(context).fromResource(R.drawable.neutral_orange_user_location);
+          unselectedMarkerIcon = getInstance(context).fromResource(R.drawable.white_unselected_house);
+          selectedMarkerIcon = getInstance(context).fromResource(R.drawable.gray_selected_house);
+          mockLocationIcon = getInstance(context).fromResource(R.drawable.neutral_orange_user_location);
           break;
         case R.style.AppTheme_Gray:
           mapboxMap.setStyle(Style.LIGHT);
           navigationLineColor = getResources().getColor(R.color.navigationRouteLine_gray);
-          unselectedMarkerIcon = IconFactory.getInstance(context).fromResource(R.drawable.white_unselected_bike);
-          selectedMarkerIcon = IconFactory.getInstance(context).fromResource(R.drawable.gray_selected_bike);
-          mockLocationIcon = IconFactory.getInstance(context).fromResource(R.drawable.gray_user_location);
+          unselectedMarkerIcon = getInstance(context).fromResource(R.drawable.white_unselected_bike);
+          selectedMarkerIcon = getInstance(context).fromResource(R.drawable.gray_selected_bike);
+          mockLocationIcon = getInstance(context).fromResource(R.drawable.gray_user_location);
           break;
       }
     }
