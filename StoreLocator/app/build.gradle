@@ -1,6 +1,6 @@
 apply plugin: 'com.android.application'
 ext {
-    supportLibVersion = '27.0.2'
+    supportLibVersion = '27.1.1'
 }
 
 android {
@@ -40,34 +40,33 @@ repositories {
 dependencies {
 
     // Official Google
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile "com.android.support:appcompat-v7:${supportLibVersion}"
-    compile "com.android.support:cardview-v7:${supportLibVersion}"
-    compile "com.android.support:design:${supportLibVersion}"
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "com.android.support:appcompat-v7:${supportLibVersion}"
+    implementation "com.android.support:cardview-v7:${supportLibVersion}"
+    implementation "com.android.support:design:${supportLibVersion}"
+    implementation 'com.android.support.constraint:constraint-layout:1.1.0'
 
     // Testing
-    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
-    testCompile 'junit:junit:4.12'
+    testImplementation 'junit:junit:4.12'
 
     // Mapbox Maps SDK dependency
-    compile 'com.mapbox.mapboxsdk:mapbox-android-sdk:6.0.1'
+    implementation 'com.mapbox.mapboxsdk:mapbox-android-sdk:6.1.1'
 
     // Mapbox drop-in navigation UI library
-    compile 'com.mapbox.mapboxsdk:mapbox-android-navigation-ui:0.12.0'
+    implementation 'com.mapbox.mapboxsdk:mapbox-android-navigation-ui:0.13.0'
 
     // Mapbox Services SDK dependency to retrieve direction routes
-    compile 'com.mapbox.mapboxsdk:mapbox-sdk-services:3.0.1'
+    implementation 'com.mapbox.mapboxsdk:mapbox-sdk-services:3.1.0'
 
     // Mapbox Turf library dependency to use distance calculation methods
-    compile 'com.mapbox.mapboxsdk:mapbox-sdk-turf:3.0.1'
+    implementation 'com.mapbox.mapboxsdk:mapbox-sdk-turf:3.1.0'
 
     // Mapbox GeoJSON library dependency for access to GeoJSON classes
-    compile 'com.mapbox.mapboxsdk:mapbox-sdk-geojson:3.0.1'
-
+    implementation 'com.mapbox.mapboxsdk:mapbox-sdk-geojson:3.1.0'
 
     // Mapbox buildings plugin for showing and customizing 3D building extrusions
-    compile 'com.mapbox.mapboxsdk:mapbox-android-plugin-building:0.2.0'
+    implementation 'com.mapbox.mapboxsdk:mapbox-android-plugin-building:0.2.0'
 }

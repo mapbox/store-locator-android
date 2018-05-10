@@ -7,6 +7,7 @@ import android.support.constraint.ConstraintLayout;
 import android.support.v4.content.res.ResourcesCompat;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -108,6 +109,7 @@ public class LocationRecyclerViewAdapter extends
     card.addressTextView.setText(locationCard.getAddress());
     card.phoneNumTextView.setText(locationCard.getPhoneNum());
     card.hoursTextView.setText(locationCard.getHours());
+    Log.d("Adapter", "onBindViewHolder: locationCard.getDistance() = " + locationCard.getDistance());
     card.distanceNumberTextView.setText(locationCard.getDistance());
 
     switch (selectedTheme) {

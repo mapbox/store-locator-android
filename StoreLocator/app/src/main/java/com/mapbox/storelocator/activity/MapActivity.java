@@ -44,11 +44,11 @@ import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
 import com.mapbox.mapboxsdk.plugins.building.BuildingPlugin;
 import com.mapbox.services.android.navigation.ui.v5.NavigationLauncher;
 import com.mapbox.services.android.navigation.ui.v5.NavigationLauncherOptions;
-import com.mapbox.services.api.utils.turf.TurfHelpers;
 import com.mapbox.storelocator.R;
 import com.mapbox.storelocator.adapter.LocationRecyclerViewAdapter;
 import com.mapbox.storelocator.model.IndividualLocation;
 import com.mapbox.storelocator.util.LinearLayoutManagerWithSmoothScroller;
+import com.mapbox.turf.TurfConversion;
 
 import java.io.InputStream;
 import java.text.DecimalFormat;
@@ -59,7 +59,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.mapbox.services.Constants.PRECISION_6;
+import static com.mapbox.core.constants.Constants.PRECISION_6;
 import static com.mapbox.storelocator.util.StringConstants.SELECTED_THEME_INTENT_KEY;
 
 /**
@@ -151,6 +151,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     // Loop through the locations to add markers to the map
     for (int x = 0; x < featureList.size(); x++) {
+      Log.d(TAG, "onMapReady: x = " + x);
 
       Feature singleLocation = featureList.get(x);
 
@@ -163,6 +164,8 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
       // Get the single location's LatLng coordinates
       Double stringLong = ((Point) singleLocation.geometry()).coordinates().get(0);
       Double stringLat = ((Point) singleLocation.geometry()).coordinates().get(1);
+
+      Log.d(TAG, "onMapReady: stringLat = stringLat = " + stringLat);
 
       // Create a new LatLng object with the Position object created above
       LatLng singleLocationLatLng = new LatLng(stringLat, stringLong);
@@ -191,7 +194,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     setUpRecyclerViewOfLocationCards(selectedTheme);
 
-
     // Check for location permission
     permissionsManager = new PermissionsManager(this);
     if (!PermissionsManager.areLocationPermissionsGranted(this)) {
@@ -200,7 +202,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     } else {
       Log.d(TAG, "onCreate: Location permissions not needed");
     }
-
   }
 
   @Override
@@ -291,22 +292,28 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
       public void onResponse(Call<DirectionsResponse> call, Response<DirectionsResponse> response) {
         // Check that the response isn't null and that the response has a route
         if (response.body() == null) {
-          Log.e("MapActivity", "No routes found, make sure you set the right user and access token.");
+          Log.d("MapActivity", "No routes found, make sure you set the right user and access token.");
         } else if (response.body().routes().size() < 1) {
-          Log.e("MapActivity", "No routes found");
+          Log.d("MapActivity", "No routes found");
         } else {
           if (fromMarkerClick) {
             // Retrieve and draw the navigation route on the map
             currentRoute = response.body().routes().get(0);
             drawNavigationPolylineRoute(currentRoute);
           } else {
+            Log.d(TAG, "onResponse: not from marker click");
+
+            Log.d(TAG, "onResponse: response.body().routes().get(0).distance() = " + response.body().routes().get(0).distance());
             // Use Mapbox Turf helper method to convert meters to miles and then format the mileage number
             DecimalFormat df = new DecimalFormat("#.#");
-            String finalConvertedFormattedDistance = String.valueOf(df.format(TurfHelpers.convertDistance(
+            String finalConvertedFormattedDistance = String.valueOf(df.format(TurfConversion.convertLength(
               response.body().routes().get(0).distance(), "meters", "miles")));
+
+            Log.d(TAG, "onResponse: finalConvertedFormattedDistance = " + finalConvertedFormattedDistance);
 
             // Set the distance for each location object in the list of locations
             if (listIndex != null) {
+              Log.d(TAG, "onResponse: listIndex != null");
               listOfIndividualLocations.get(listIndex).setDistance(finalConvertedFormattedDistance);
               // Refresh the displayed recyclerview when the location's distance is set
               styleRvAdapter.notifyDataSetChanged();
@@ -439,7 +446,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     NavigationLauncherOptions options = NavigationLauncherOptions.builder()
       .origin(Point.fromLngLat(MOCK_DEVICE_LOCATION_LAT_LNG.getLongitude(), MOCK_DEVICE_LOCATION_LAT_LNG.getLatitude()))
       .destination(Point.fromLngLat(selectedDestination.getLongitude(), selectedDestination.getLatitude()))
-      .awsPoolId(null)
       .lightThemeResId(lightNavUiStyleToUse)
       .darkThemeResId(darkNavUiStyleToUse)
       .shouldSimulateRoute(true)
