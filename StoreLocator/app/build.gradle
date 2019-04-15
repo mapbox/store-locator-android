@@ -37,11 +37,11 @@ dependencies {
     testImplementation 'junit:junit:4.12'
 
     // Mapbox Maps SDK dependency
-    implementation 'com.mapbox.mapboxsdk:mapbox-android-sdk:7.0.1'
+    implementation 'com.mapbox.mapboxsdk:mapbox-android-sdk:7.3.0'
 
     // Mapbox Services SDK dependency to retrieve direction routes
-    implementation 'com.mapbox.mapboxsdk:mapbox-sdk-services:4.3.0'
-    implementation 'com.mapbox.mapboxsdk:mapbox-sdk-turf:4.3.0'
+    implementation 'com.mapbox.mapboxsdk:mapbox-sdk-services:4.5.0'
+    implementation 'com.mapbox.mapboxsdk:mapbox-sdk-turf:4.6.0'
 
     // Mapbox Buildings Plugin for showing and customizing 3D building extrusions
     implementation 'com.mapbox.mapboxsdk:mapbox-android-plugin-building-v7:0.5.0'
