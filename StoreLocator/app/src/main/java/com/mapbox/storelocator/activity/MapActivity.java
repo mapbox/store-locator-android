@@ -243,10 +243,10 @@ public class MapActivity extends AppCompatActivity implements
     musicCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
       @Override
       public void onCheckedChanged(CompoundButton compoundButton, boolean checkboxIsChecked) {
-        Log.d(TAG, "onCheckedChanged: musicCheckBox compoundButton.getText(); = " + compoundButton.getText());
         Layer singleLayer = mapboxMap.getStyle().getLayer("layer-id-" + compoundButton.getText().toString());
-        Log.d(TAG, "musicCheckBox onCheckedChanged: \"layer-id-\" + compoundButton.getText().toString() = " +
-          "layer-id-" + compoundButton.getText().toString());
+        Log.d(TAG, "musicCheckBox onCheckedChanged: \"layer-id-\" + compoundButton.getText().toString() = " + "layer-id-" + compoundButton.getText().toString());
+        Log.d(TAG, "musicCheckBox onCheckedChanged: checkboxIsChecked =  " + checkboxIsChecked);
+
         singleLayer.setProperties(visibility(checkboxIsChecked ? Property.VISIBLE : Property.NONE));
       }
     });
@@ -256,10 +256,11 @@ public class MapActivity extends AppCompatActivity implements
     shoppingCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
       @Override
       public void onCheckedChanged(CompoundButton compoundButton, boolean checkboxIsChecked) {
-        Log.d(TAG, "onCheckedChanged: shoppingCheckbox compoundButton.getText(); = " + compoundButton.getText());
         Layer singleLayer = mapboxMap.getStyle().getLayer("layer-id-" + compoundButton.getText().toString());
-        Log.d(TAG, "shoppingCheckbox onCheckedChanged: \"layer-id-\" + compoundButton.getText().toString() = " +
-          "layer-id-" + compoundButton.getText().toString());
+        Log.d(TAG, "shoppingCheckbox onCheckedChanged: \"layer-id-\" + compoundButton.getText().toString() = " + "layer-id-" + compoundButton.getText().toString());
+
+        Log.d(TAG, "shoppingCheckbox onCheckedChanged: checkboxIsChecked =  " + checkboxIsChecked);
+
         singleLayer.setProperties(visibility(checkboxIsChecked ? Property.VISIBLE : Property.NONE));
       }
     });
@@ -385,6 +386,8 @@ public class MapActivity extends AppCompatActivity implements
               iconAllowOverlap(true),
               iconIgnorePlacement(true)
             );
+            storeLocationSymbolLayer.setFilter(eq(get("category"), literal("Shopping")));
+
             style.addLayer(storeLocationSymbolLayer);
 
 
@@ -404,7 +407,7 @@ public class MapActivity extends AppCompatActivity implements
     if (style != null) {
 
       // Add the icon image to the map
-      style.addImage("selected-store-location-icon-id", customThemeManager.getSelectedMarkerIcon());
+//      style.addImage("selected-store-location-icon-id", customThemeManager.getSelectedMarkerIcon());
 
       // Create and add the store location icon SymbolLayer to the map
       SymbolLayer selectedStoreLocationSymbolLayer = new SymbolLayer("selected-store-location-layer-id",
