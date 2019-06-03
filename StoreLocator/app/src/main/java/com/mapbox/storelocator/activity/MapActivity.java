@@ -17,6 +17,8 @@ import android.support.v7.widget.SnapHelper;
 import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -38,7 +40,9 @@ import com.mapbox.mapboxsdk.maps.MapboxMap;
 import com.mapbox.mapboxsdk.maps.OnMapReadyCallback;
 import com.mapbox.mapboxsdk.maps.Style;
 import com.mapbox.mapboxsdk.plugins.building.BuildingPlugin;
+import com.mapbox.mapboxsdk.style.layers.Layer;
 import com.mapbox.mapboxsdk.style.layers.LineLayer;
+import com.mapbox.mapboxsdk.style.layers.Property;
 import com.mapbox.mapboxsdk.style.layers.SymbolLayer;
 import com.mapbox.mapboxsdk.style.sources.GeoJsonSource;
 import com.mapbox.storelocator.R;
@@ -67,6 +71,9 @@ import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.iconIgnorePlacem
 import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.iconImage;
 import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.lineColor;
 import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.lineWidth;
+import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.textAllowOverlap;
+import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.textIgnorePlacement;
+import static com.mapbox.mapboxsdk.style.layers.PropertyFactory.visibility;
 import static com.mapbox.storelocator.util.StringConstants.SELECTED_THEME;
 
 /**
@@ -220,11 +227,40 @@ public class MapActivity extends AppCompatActivity implements
               if (customThemeManager.getNavigationLineColor() == R.color.navigationRouteLine_blue) {
                 showBuildingExtrusions();
               }
+
+              initOpenCloseButtons();
             }
           }
 
         });
 
+      }
+    });
+  }
+
+  private void initOpenCloseButtons() {
+    CheckBox musicCheckBox = findViewById(R.id.music_checkbox);
+    musicCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+      @Override
+      public void onCheckedChanged(CompoundButton compoundButton, boolean checkboxIsChecked) {
+        Log.d(TAG, "onCheckedChanged: musicCheckBox compoundButton.getText(); = " + compoundButton.getText());
+        Layer singleLayer = mapboxMap.getStyle().getLayer("layer-id-" + compoundButton.getText().toString());
+        Log.d(TAG, "musicCheckBox onCheckedChanged: \"layer-id-\" + compoundButton.getText().toString() = " +
+          "layer-id-" + compoundButton.getText().toString());
+        singleLayer.setProperties(visibility(checkboxIsChecked ? Property.VISIBLE : Property.NONE));
+      }
+    });
+
+
+    CheckBox shoppingCheckbox = findViewById(R.id.shopping_checkbox);
+    shoppingCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+      @Override
+      public void onCheckedChanged(CompoundButton compoundButton, boolean checkboxIsChecked) {
+        Log.d(TAG, "onCheckedChanged: shoppingCheckbox compoundButton.getText(); = " + compoundButton.getText());
+        Layer singleLayer = mapboxMap.getStyle().getLayer("layer-id-" + compoundButton.getText().toString());
+        Log.d(TAG, "shoppingCheckbox onCheckedChanged: \"layer-id-\" + compoundButton.getText().toString() = " +
+          "layer-id-" + compoundButton.getText().toString());
+        singleLayer.setProperties(visibility(checkboxIsChecked ? Property.VISIBLE : Property.NONE));
       }
     });
   }
@@ -244,7 +280,8 @@ public class MapActivity extends AppCompatActivity implements
   }
 
   private boolean handleClickIcon(PointF screenPoint) {
-    List<Feature> features = mapboxMap.queryRenderedFeatures(screenPoint, "store-location-layer-id");
+    List<Feature> features = mapboxMap.queryRenderedFeatures(screenPoint, "layer-id-Shopping",
+      "layer-id-Music");
     if (!features.isEmpty()) {
       String name = features.get(0).getStringProperty("name");
       List<Feature> featureList = featureCollection.features();
@@ -324,30 +361,39 @@ public class MapActivity extends AppCompatActivity implements
    * Adds a SymbolLayer which will show all of the location's icons
    */
   private void initStoreLocationIconSymbolLayer() {
-    Style style = mapboxMap.getStyle();
-    if (style != null) {
-      // Add the icon image to the map
-      style.addImage("store-location-icon-id", customThemeManager.getUnselectedMarkerIcon());
+    mapboxMap.getStyle(new Style.OnStyleLoaded() {
+      @Override
+      public void onStyleLoaded(@NonNull Style style) {
+        // Add the icon image to the map
+        style.addImage("store-location-icon-id", customThemeManager.getUnselectedMarkerIcon());
 
-      // Create and add the GeoJsonSource to the map
-      GeoJsonSource storeLocationGeoJsonSource = new GeoJsonSource("store-location-source-id");
-      style.addSource(storeLocationGeoJsonSource);
+        // Create and add the GeoJsonSource to the map
+        GeoJsonSource storeLocationGeoJsonSource = new GeoJsonSource("store-location-source-id");
+        style.addSource(storeLocationGeoJsonSource);
 
-      // Create and add the store location icon SymbolLayer to the map
-      SymbolLayer storeLocationSymbolLayer = new SymbolLayer("store-location-layer-id",
-        "store-location-source-id");
-      storeLocationSymbolLayer.withProperties(
-        iconImage("store-location-icon-id"),
-        iconAllowOverlap(true),
-        iconIgnorePlacement(true)
-      );
-      style.addLayer(storeLocationSymbolLayer);
+        for (Feature singleFeature : featureCollection.features()) {
+          String category = singleFeature.getStringProperty("category");
+          String layerID = "layer-id-" + category;
+          if (mapboxMap.getStyle().getLayer(layerID) == null) {
+            Log.d(TAG, "initStoreLocationIconSymbolLayer: layerID = " + layerID);
 
-    } else {
-      Log.d("StoreFinderActivity", "initStoreLocationIconSymbolLayer: Style isn't ready yet.");
+// Create and add the store location icon SymbolLayer to the map
+            SymbolLayer storeLocationSymbolLayer = new SymbolLayer(layerID,
+              "store-location-source-id");
+            storeLocationSymbolLayer.withProperties(
+              iconImage("store-location-icon-id"),
+              iconAllowOverlap(true),
+              iconIgnorePlacement(true)
+            );
+            style.addLayer(storeLocationSymbolLayer);
 
-      throw new IllegalStateException("Style isn't ready yet.");
-    }
+
+          }
+
+        }
+
+      }
+    });
   }
 
   /**
@@ -368,7 +414,7 @@ public class MapActivity extends AppCompatActivity implements
         iconAllowOverlap(true)
       );
       selectedStoreLocationSymbolLayer.withFilter(eq((get(PROPERTY_SELECTED)), literal(true)));
-      style.addLayer(selectedStoreLocationSymbolLayer);
+//      style.addLayer(selectedStoreLocationSymbolLayer);
     } else {
       Log.d("StoreFinderActivity", "initSelectedStoreSymbolLayer: Style isn't ready yet.");
       throw new IllegalStateException("Style isn't ready yet.");

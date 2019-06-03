@@ -24,6 +24,20 @@
         mapbox:mapbox_cameraZoomMin="10"
         mapbox:mapbox_uiAttribution="false"/>
 
+    <CheckBox
+        android:id="@+id/music_checkbox"
+        android:layout_width="wrap_content"
+        android:text="Music"
+        android:layout_height="wrap_content" />
+
+
+    <CheckBox
+        android:id="@+id/shopping_checkbox"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="48dp"
+        android:text="Shopping"
+        android:layout_height="wrap_content" />
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/map_layout_rv"
         android:layout_width="match_parent"

@@ -5,6 +5,7 @@
       "type": "Feature",
       "properties": {
         "name": "Location 1",
+        "category": "Shopping",
         "hours": "6am - 5pm",
         "phone": "(555) 555-4355",
         "description": "Location #1 description"
@@ -21,6 +22,7 @@
       "type": "Feature",
       "properties": {
         "name": "Location 2",
+        "category": "Music",
         "hours": "9am - 4pm",
         "phone": "(555) 555-9430",
         "description": "Location #2 description"
@@ -37,6 +39,7 @@
       "type": "Feature",
       "properties": {
         "name": "Location 3",
+        "category": "Music",
         "hours": "10am - 8pm",
         "phone": "(555) 555-4839",
         "description": "Location #3 description"
@@ -53,6 +56,7 @@
       "type": "Feature",
       "properties": {
         "name": "Location 4",
+        "category": "Shopping",
         "hours": "8am - 5:30pm",
         "phone": "(555) 555-1989",
         "description": "Location #4 description"
@@ -69,6 +73,7 @@
       "type": "Feature",
       "properties": {
         "name": "Location 5",
+        "category": "Music",
         "hours": "9:30am - 6pm",
         "phone": "(555) 555-4345",
         "description": "Location #5 description"
