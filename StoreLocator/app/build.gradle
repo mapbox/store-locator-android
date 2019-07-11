@@ -37,7 +37,7 @@ dependencies {
     testImplementation 'junit:junit:4.12'
 
     // Mapbox Maps SDK dependency
-    implementation 'com.mapbox.mapboxsdk:mapbox-android-sdk:7.3.0'
+    implementation 'com.mapbox.mapboxsdk:mapbox-android-sdk:8.1.0'
 
     // Mapbox Services SDK dependency to retrieve direction routes
     implementation 'com.mapbox.mapboxsdk:mapbox-sdk-services:4.5.0'
