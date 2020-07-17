@@ -1,4 +1,4 @@
-# GETTING STARTED
+# Tutorial
 
 This guide will walk you through how to use our **Android Store Locator starter kit** to create a custom store locator map that can be integrated into any Android application. You'll be able to browse several store locations, select a specific store to view more information, and retrieve an estimated travel distance and route from a user's location to any of the store locations. You can start with one of five different themes and customize everything from store location data to marker icons and individual store cards.
 
