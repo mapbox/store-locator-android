@@ -33,7 +33,7 @@ Before running the application, you will need to add your Mapbox [access token](
 <!-- Add your Mapbox access token between >< in the line below. Your token can
 be retrieved at https://www.mapbox.com/account/
 -->
-<string name="access_token" translatable="false">{{ <UserAccessToken /> }}</string>
+<string name="access_token" translatable="false">YOUR_ACCESS_TOKEN</string>
 ```
 
 ### `MapActivity`
@@ -297,9 +297,7 @@ The `MapActivity.java` file specifies that the map be centered on New York when 
 
 First, change the target latitude and longitude when the app is initialized to center on Columbus in the `app` > `res` > `layout` > `activity_map.xml` file.
 
-{{
-  <div className="txt-s txt-fancy mb6" style={{ color: "#273d56" }}>activity_map.xml</div>
-}}
+**activity_map.xml**
 
 ```xml
 mapbox:mapbox_cameraTargetLat="39.95"
@@ -308,9 +306,7 @@ mapbox:mapbox_cameraTargetLng="-83"
 
 Then, change the bounding box so the map opens displaying the Columbus area in the `MapActivity.java` file.
 
-{{
-  <div className="txt-s txt-fancy mb6" style={{ color: "#273d56" }}>MapActivity.java</div>
-}}
+**MapActivity.java**
 
 ```java
 private static final LatLngBounds LOCKED_MAP_CAMERA_BOUNDS = new LatLngBounds.Builder()
@@ -321,9 +317,7 @@ private static final LatLngBounds LOCKED_MAP_CAMERA_BOUNDS = new LatLngBounds.Bu
 
 Finally, change the simulated user location to be near Columbus in the `MapActivity.java` file.
 
-{{
-  <div className="txt-s txt-fancy mb6" style={{ color: "#273d56" }}>MapActivity.java</div>
-}}
+**MapActivity.java**
 
 ```java
 private static final LatLng MOCK_DEVICE_LOCATION_LAT_LNG = new LatLng(40, -83);
