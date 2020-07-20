@@ -1,3 +1,5 @@
+![storelocatorkit](https://user-images.githubusercontent.com/5862541/30187389-41e3bdb2-93de-11e7-9d78-009b0ac7e016.png)
+
 [![CircleCI](https://circleci.com/gh/mapbox/store-locator-android.svg?style=svg)](https://circleci.com/gh/mapbox/store-locator-android)
 
 # Mapbox Android Store Locator Kit
@@ -11,9 +13,7 @@ The Android Store Locator Kit is a downloadable project for you to add beautiful
 + Code for retrieving directions to store locations with the [Mapbox Directions API](https://www.mapbox.com/help/define-directions-api/)
 
 
-### Get started by [downloading](https://github.com/mapbox/store-locator-android/archive/master.zip) the project and walking through the [step-by-step tutorial](https://www.mapbox.com/help/android-store-locator/). Don't forget your [access token](https://www.mapbox.com/help/how-access-tokens-work/). 
-
-![storelocatorkit](https://user-images.githubusercontent.com/5862541/30187389-41e3bdb2-93de-11e7-9d78-009b0ac7e016.png)
+### Get started by downloading the project and walking through the [step-by-step tutorial](TUTORIAL.md). Don't forget your [access token](https://docs.mapbox.com/help/glossary/access-token/).
 
 
 # What can I customize?
